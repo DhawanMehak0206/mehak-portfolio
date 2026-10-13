@@ -14,3 +14,4 @@
 - Keep portfolio facts and project descriptions in the shared browser-safe data module; project cards use dialogs for expanded details.
 - Import uploaded photography and the source portfolio through Lovable asset pointers to keep binaries out of the repository.
 - Define portfolio styling and semantic surface colors in the global design system rather than inline component styles.
+- Prebundle the portfolio's shared UI dependencies in Vite on startup to avoid replacing React's optimized module graph while the preview is mounted; preserve the framework's router exclusions and React deduplication.
