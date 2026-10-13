@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpRight, MapPin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { PortfolioDownload } from '@/components/portfolio-shell';
+import { pageHead } from '@/lib/portfolio-data';
+export const Route = createFileRoute('/contact')({head:()=>pageHead('Let’s connect','Discover shared interests in research, technology, social impact and music with Mehak at Jumeirah College, Dubai.'),component:Contact});
+function Contact(){return <main className="site-width enter"><div className="page-top"><div className="eyebrow">Good things start with a conversation</div><h1>Let’s connect the dots.</h1><p>I’m interested in conversations about human-centred technology, interdisciplinary research, digital inclusion and creative collaboration.</p><div className="photo-caption justify-start my-8"><MapPin size={14}/> Jumeirah College · Dubai, UAE</div></div><section className="contact-panel"><div><h2>A little more about my work.</h2><p>Explore my projects or download my complete portfolio, with more on the questions, experiences and ideas behind them.</p></div><div className="flex flex-wrap gap-3"><PortfolioDownload outline/><Button asChild><Link to="/work">Explore projects <ArrowUpRight/></Link></Button></div></section></main>;}

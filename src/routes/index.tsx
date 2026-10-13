@@ -1,24 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowDownRight, ArrowUpRight, MapPin, Code2, Heart, AudioLines, FlaskConical, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { PortfolioDownload } from '@/components/portfolio-shell';
+import { ProjectCard } from '@/components/project-card';
+import { pageHead, projects } from '@/lib/portfolio-data';
+import portrait from '@/assets/portrait.jpg.asset.json';
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+export const Route = createFileRoute('/')({ head:()=>pageHead('Student, researcher & changemaker','Meet Mehak, a student at Jumeirah College, Dubai, building at the intersection of technology, research, music and social impact.'),component:Index });
+function Index() { return <main className="site-width enter"><section className="hero"><div className="hero-copy"><div className="eyebrow"><span className="status-dot"/> Student. Researcher. Changemaker.</div><h1 className="editorial">Hello, I’m Mehak<span>.</span></h1><h2 className="editorial">Curious mind.<br/>Human-centred <span className="highlight">impact.</span></h2><p className="hero-description">Exploring the space where technology, human behaviour, and creativity meet. Building things that bring people closer and open up possibilities.</p><div className="hero-actions"><Button asChild className="h-11 px-5"><Link to="/work">Explore my work <ArrowDownRight /></Link></Button><PortfolioDownload /></div></div><div className="hero-photo-wrap"><img className="hero-photo" src={portrait.url} alt="Mehak, a student at Jumeirah College"/><svg className="hero-spark" viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M50 0 57 33 79 10 68 40 100 38 73 53 95 76 64 66 65 100 50 72 30 95 36 63 3 65 30 50 8 26 40 36Z"/></svg><span className="portrait-note">A little curiosity goes a long way.</span><p className="photo-caption"><MapPin size={12}/> Jumeirah College · Dubai, UAE</p></div></section><div className="interest-strip"><span>A few things that move me</span><span><Code2/> Technology & innovation</span><span><FlaskConical/> Independent research</span><span><Heart/> Social impact</span><span><AudioLines/> Music & creativity</span></div><section className="section"><div className="section-heading"><div><div className="eyebrow">Ideas into action</div><h2 className="editorial">A few things I’m building.</h2></div><Button asChild variant="ghost"><Link to="/work">View all work <ArrowUpRight/></Link></Button></div><div className="project-grid">{projects.slice(0,3).map(p=><ProjectCard key={p.id} project={p}/>)}</div></section><section className="metrics"><div className="metric"><strong>15,000+</strong><p>Women reached through DigiSakhi</p></div><div className="metric"><strong>4</strong><p>Interdisciplinary research projects</p></div><div className="metric"><strong>11+ years</strong><p>Of learning the language of music</p></div><div className="metric"><strong>150+</strong><p>Students mentored in mathematics</p></div></section><section className="section home-about"><div><div className="eyebrow mb-4"><Sparkles size={14}/> More than one discipline</div><h2 className="editorial">Different interests.<br/>One curious mind.</h2></div><div><p>I’m drawn to questions that don’t fit neatly into one subject. Can technology strengthen human connection? Can data uncover overlooked inequalities? Can mathematics help us hear music differently?</p><Button asChild variant="link" className="mt-5 px-0"><Link to="/about">A little more about me <ArrowUpRight/></Link></Button></div></section></main>; }

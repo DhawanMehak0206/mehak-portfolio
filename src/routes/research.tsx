@@ -1,0 +1,5 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { research, pageHead } from '@/lib/portfolio-data';
+import { PortfolioDownload } from '@/components/portfolio-shell';
+export const Route = createFileRoute('/research')({head:()=>pageHead('Research & independent inquiry','Mehak’s research in computational music, financial inclusion, physics, economics and machine-learning fraud detection.'),component:Research});
+function Research(){return <main className="site-width enter"><div className="page-top"><div className="eyebrow">Questions worth asking</div><h1>Curiosity, made rigorous.</h1><p>Moving between music, physics, economics and digital inclusion. Connecting quantitative methods with the human questions that make research matter.</p></div><section className="pb-12">{research.map((r,i)=><article className="research-row" key={r.title}><span className="number">0{i+1}</span><div><div className="eyebrow mb-3">{r.area}</div><h2 className="editorial">{r.title}</h2><p>{r.text}</p></div><div><span className="tag">{r.recognition}</span></div></article>)}<div className="border-t border-border pt-8"><PortfolioDownload outline/></div></section></main>;}
