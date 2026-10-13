@@ -1,0 +1,10 @@
+import { Link } from '@tanstack/react-router';
+import { ArrowUpRight, Download, Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import portfolio from '@/assets/portfolio.pdf.asset.json';
+
+const navigation = [{to:'/',label:'Home'},{to:'/about',label:'About'},{to:'/work',label:'My work'},{to:'/research',label:'Research'},{to:'/music',label:'Beyond academics'}] as const;
+export function SiteHeader() { return <header className="site-header site-width"><Link to="/" className="wordmark" aria-label="Mehak home">mehak<span>.</span></Link><nav className="desktop-nav" aria-label="Main navigation">{navigation.map(n=><Link key={n.to} to={n.to} className="nav-link" activeOptions={{exact:true}}>{n.label}</Link>)}<Button asChild variant="outline"><Link to="/contact">Let’s connect <ArrowUpRight /></Link></Button></nav><Sheet><SheetTrigger asChild><Button className="mobile-menu-button" variant="ghost" size="icon" aria-label="Open menu"><Menu /></Button></SheetTrigger><SheetContent><SheetTitle>mehak.</SheetTitle><nav className="mobile-nav">{navigation.map(n=><SheetClose asChild key={n.to}><Link to={n.to}>{n.label}</Link></SheetClose>)}<SheetClose asChild><Link to="/contact">Let’s connect</Link></SheetClose></nav></SheetContent></Sheet></header>; }
+export function PortfolioDownload({outline=false}:{outline?:boolean}) { return <Button asChild variant={outline?'outline':'ghost'}><a href={portfolio.url} target="_blank" rel="noreferrer" download="Mehak-Portfolio.pdf">Download portfolio <Download /></a></Button>; }
+export function SiteFooter() { return <footer className="footer site-width"><Link to="/" className="footer-brand">mehak.</Link><span>Curiosity. Creativity. Meaningful impact.</span><span>© {new Date().getFullYear()} Mehak</span></footer>; }
