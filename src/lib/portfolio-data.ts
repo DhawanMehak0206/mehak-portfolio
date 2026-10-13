@@ -1,6 +1,6 @@
-import digi from '@/assets/digisakhi.jpg.asset.json';
-import kindling from '@/assets/kindling.jpg.asset.json';
-import workshop from '@/assets/workshop.jpg.asset.json';
+import digi from '@/assets/digisakhi-web.jpg.asset.json';
+import kindling from '@/assets/kindling-web.jpg.asset.json';
+import workshop from '@/assets/workshop-web.jpg.asset.json';
 
 export const projects = [
   { id:'digisakhi', title:'DigiSakhi', category:'Social impact', subtitle:'Turning digital access into independence.', image:digi.url, tone:'green', role:'Founder · Digital & financial empowerment', detail:'I founded DigiSakhi to help women build the confidence and practical skills to navigate a digital world. What began with 25 women across eight sessions grew into a vernacular learning platform with bite-sized videos, blogs, student-led chapters and community partnerships.', result:'15,000+ women reached · 4 Indian states · 10+ student chapters' },
@@ -11,7 +11,7 @@ export const projects = [
 ];
 export type Project = typeof projects[number];
 export const research = [
- { title:'Quantifying tonal stability & harmonic motion', area:'Computational musicology', text:projects[2].detail, recognition:'Published in NHSJS · CREST Gold' },
+ { title:'Quantifying tonal stability & harmonic motion', area:'Computational musicology', text:projects.find(p=>p.id==='music-research')?.detail ?? '', recognition:'Published in NHSJS · CREST Gold' },
  { title:'Beyond the interface: access, agency & inclusion', area:'Economics & digital inclusion', text:'An empirical study of women’s financial inclusion across 22 Indian states and Union Territories. Combining regression analysis with field interviews involving 15 women, I explored why digital infrastructure alone does not guarantee financial empowerment.', recognition:'Published in IJSRR · Runner-up Best Presenter' },
  { title:'Understanding and simulating standing waves', area:'Computational physics', text:'Under the mentorship of Dr. Nishchal Dwivedi at IIT Bombay, I developed Python simulations to investigate standing waves, boundary conditions, Gaussian noise and damping, connecting mathematical derivations with computational experimentation.', recognition:'Research internship · IIT Bombay' },
  { title:'Determinants of foreign direct investment in India', area:'Applied economics', text:'An empirical analysis of FDI inflows from 1993–2022 under Dr. Nand Kumar. Using World Bank data, OLS regression, ARDL models and Granger-causality analysis, I investigated the role of GDP, interest rates and exchange rates.', recognition:'Econometrics · Independent inquiry' },
