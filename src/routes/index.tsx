@@ -1,10 +1,145 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowDownRight, ArrowUpRight, MapPin, Code2, Heart, AudioLines, FlaskConical, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { PortfolioDownload } from '@/components/portfolio-shell';
-import { ProjectCard } from '@/components/project-card';
-import { pageHead, projects } from '@/lib/portfolio-data';
-import portrait from '@/assets/portrait.jpg.asset.json';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PortfolioDownload, SectionHeading } from "@/components/portfolio-shell";
+import { ProjectCard } from "@/components/project-card";
+import { featuredHonours, highlights, pageHead, projects, research } from "@/lib/portfolio-data";
+import portrait from "@/assets/portrait.jpg.asset.json";
 
-export const Route = createFileRoute('/')({ head:()=>pageHead('Student, researcher & changemaker','Meet Mehak, a student at Jumeirah College, Dubai, building at the intersection of technology, research, music and social impact.'),component:Index });
-function Index() { return <main className="site-width enter"><section className="hero"><div className="hero-copy"><div className="eyebrow"><span className="status-dot"/> Student. Researcher. Changemaker.</div><h1 className="editorial">Hello, I’m Mehak<span>.</span></h1><h2 className="editorial">Curious mind.<br/>Human-centred <span className="highlight">impact.</span></h2><p className="hero-description">Exploring the space where technology, human behaviour, and creativity meet. Building things that bring people closer and open up possibilities.</p><div className="hero-actions"><Button asChild className="h-11 px-5"><Link to="/work">Explore my work <ArrowDownRight /></Link></Button><PortfolioDownload /></div></div><div className="hero-photo-wrap"><img className="hero-photo" src={portrait.url} alt="Mehak, a student at Jumeirah College"/><svg className="hero-spark" viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M50 0 57 33 79 10 68 40 100 38 73 53 95 76 64 66 65 100 50 72 30 95 36 63 3 65 30 50 8 26 40 36Z"/></svg><span className="portrait-note">A little curiosity goes a long way.</span><p className="photo-caption"><MapPin size={12}/> Jumeirah College · Dubai, UAE</p></div></section><div className="interest-strip"><span>A few things that move me</span><span><Code2/> Technology & innovation</span><span><FlaskConical/> Independent research</span><span><Heart/> Social impact</span><span><AudioLines/> Music & creativity</span></div><section className="section"><div className="section-heading"><div><div className="eyebrow">Ideas into action</div><h2 className="editorial">A few things I’m building.</h2></div><Button asChild variant="ghost"><Link to="/work">View all work <ArrowUpRight/></Link></Button></div><div className="project-grid">{projects.slice(0,3).map(p=><ProjectCard key={p.id} project={p}/>)}</div></section><section className="metrics"><div className="metric"><strong>15,000+</strong><p>Women reached through DigiSakhi</p></div><div className="metric"><strong>4</strong><p>Interdisciplinary research projects</p></div><div className="metric"><strong>11+ years</strong><p>Of learning the language of music</p></div><div className="metric"><strong>150+</strong><p>Students mentored in mathematics</p></div></section><section className="section home-about"><div><div className="eyebrow mb-4"><Sparkles size={14}/> More than one discipline</div><h2 className="editorial">Different interests.<br/>One curious mind.</h2></div><div><p>I’m drawn to questions that don’t fit neatly into one subject. Can technology strengthen human connection? Can data uncover overlooked inequalities? Can mathematics help us hear music differently?</p><Button asChild variant="link" className="mt-5 px-0"><Link to="/about">A little more about me <ArrowUpRight/></Link></Button></div></section></main>; }
+export const Route = createFileRoute("/")({
+  head: () =>
+    pageHead(
+      "Student, researcher and founder",
+      "Mehak is a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
+    ),
+  component: Index,
+});
+
+function Index() {
+  return (
+    <main id="main" className="enter">
+      <section className="site-width hero">
+        <div className="hero-copy">
+          <p className="eyebrow">Student · Researcher · Founder</p>
+          <h1 className="hero-title">Mehak</h1>
+          <p className="hero-lead">
+            Building technology and research that bring people closer, from family connection to
+            women’s financial inclusion.
+          </p>
+          <p className="hero-description">
+            I’m a student at Jumeirah College, Dubai, studying Mathematics, Further Mathematics,
+            Physics and Economics. My work spans human–computer interaction, digital inclusion,
+            applied economics and computational music.
+          </p>
+          <div className="hero-actions">
+            <Button asChild size="lg">
+              <Link to="/work">
+                View projects <ArrowRight />
+              </Link>
+            </Button>
+            <PortfolioDownload />
+          </div>
+        </div>
+        <figure className="hero-portrait">
+          <div className="portrait-frame">
+            <img src={portrait.url} alt="Portrait of Mehak" width={854} height={960} />
+          </div>
+          <figcaption>Jumeirah College, Dubai</figcaption>
+        </figure>
+      </section>
+
+      <section className="site-width highlights" aria-label="Highlights">
+        {highlights.map((item) => (
+          <div className="highlight" key={item.label}>
+            <strong>{item.value}</strong>
+            <span>{item.label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="site-width section">
+        <SectionHeading
+          eyebrow="Selected projects"
+          title="Ideas put into practice."
+          action={
+            <Link to="/work" className="text-link">
+              All projects <ArrowRight />
+            </Link>
+          }
+        />
+        <div className="project-grid">
+          {projects.slice(0, 3).map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </section>
+
+      <section className="section section-tinted">
+        <div className="site-width">
+          <SectionHeading
+            eyebrow="Research"
+            title="Published and presented work."
+            action={
+              <Link to="/research" className="text-link">
+                All research <ArrowRight />
+              </Link>
+            }
+          />
+          <ol className="publication-list">
+            {research.slice(0, 3).map((entry) => (
+              <li key={entry.id}>
+                <Link to="/research" hash={entry.id} className="publication">
+                  <span className="publication-field">{entry.field}</span>
+                  <span className="publication-main">
+                    <span className="publication-title">{entry.title}</span>
+                    <span className="publication-venue">{entry.outcomes[0] ?? entry.context}</span>
+                  </span>
+                  <ArrowRight className="publication-arrow" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="site-width section recognition">
+        <div>
+          <p className="eyebrow">Recognition</p>
+          <h2 className="section-title">Selected honours.</h2>
+          <p className="section-intro">
+            Distinctions across mathematics, science, innovation, research and service.
+          </p>
+          <Link to="/about" hash="honours" className="text-link">
+            Full list of honours <ArrowRight />
+          </Link>
+        </div>
+        <ul className="honour-list">
+          {featuredHonours.map((honour) => (
+            <li key={honour.title}>
+              <span>{honour.title}</span>
+              <span>{honour.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="cta-band">
+        <div className="site-width cta-inner">
+          <div>
+            <h2>The complete portfolio.</h2>
+            <p>
+              A detailed account of my projects, research, leadership and recognition, available as
+              a PDF.
+            </p>
+          </div>
+          <div className="cta-actions">
+            <PortfolioDownload className="button-light" />
+            <Button asChild size="lg" className="button-outline-light">
+              <Link to="/contact">Contact</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

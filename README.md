@@ -1,6 +1,8 @@
 # Aesthetic Student Portfolio
 
-build me a professional yet asthetic portfolio website for the student,
+Portfolio website for Mehak, a student at Jumeirah College, Dubai, covering her projects, research, music, experience and honours.
+
+Portfolio content lives in `src/lib/portfolio-data.ts`. To show contact details on the contact page, fill in `profile.email` and `profile.linkedin` there.
 
 This project was built with [Lovable](https://lovable.dev).
 

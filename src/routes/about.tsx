@@ -1,5 +1,122 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { pageHead } from '@/lib/portfolio-data';
-import portrait from '@/assets/portrait.jpg.asset.json';
-export const Route = createFileRoute('/about')({head:()=>pageHead('About me','Meet Mehak: Jumeirah College student, founder, researcher, pianist and peer mentor in Dubai.'),component:About});
-function About(){return <main className="site-width enter"><div className="page-top"><div className="eyebrow">The person behind the projects</div><h1>A mind that makes connections.</h1></div><section className="about-layout pb-16"><img src={portrait.url} alt="Mehak"/><div className="prose"><h2>Hello! I’m Mehak.</h2><p>I’m a student at Jumeirah College, Dubai. Growing up between Delhi and Dubai has shaped the way I see people, places and possibilities. I’m fascinated by the intersection of technology, human behaviour and creativity — and by the ways seemingly distinct disciplines can inform one another.</p><p>Through technology-driven initiatives, computational research and exploring the social implications of innovation, I try to turn curiosity into meaningful work. At the heart of it is a desire to combine analytical rigour with human understanding.</p><h2 className="mt-10">Learning across disciplines.</h2><p>Mathematics, Further Mathematics, Physics and Economics give me different lenses through which to question assumptions and connect theoretical ideas with real-world problems.</p><div className="grade-grid">{['Mathematics','Further Mathematics','Physics','Economics'].map(g=><div className="grade" key={g}>{g}<strong>A*</strong><span className="text-muted-foreground">Predicted</span></div>)}</div><p className="mt-6">EPQ: A* achieved · SAT: 1550 · ICSE Grade 10: 97.6%<br/>AP Computer Science Principles: 5/5 · AP Microeconomics: 5/5<br/>IELTS: 8.5/9 · French: DELF B2 Diploma</p><h2 className="mt-10">A few milestones.</h2>{[['British Mathematical Olympiad','Round 1 Distinction · Round 2 qualification'],['British Physics Olympiad','Gold'],['International Psychology Olympiad','Highest Distinction · UAE National Team'],['COBIS Student Achievement Award','Contribution to the wider community'],['John Locke Essay Competition','History Commendation · 2025']].map(([a,b])=><div className="award-row" key={a}>{a}<span>{b}</span></div>)}<h2 className="mt-10">Learning by lifting others.</h2><p>As a Senior Prefect, Math Captain and Head of STEAM, I help build spaces for younger students to explore their own interests. I’ve mentored over 150 students in mathematics, led the school Math Society, and supported five innovation teams. Leadership, to me, begins with listening.</p></div></section></main>;}
+import { createFileRoute } from "@tanstack/react-router";
+import { CvSection, PageIntro } from "@/components/portfolio-shell";
+import {
+  education,
+  experience,
+  honours,
+  leadership,
+  pageHead,
+  scores,
+  type Entry,
+} from "@/lib/portfolio-data";
+import portrait from "@/assets/portrait.jpg.asset.json";
+
+export const Route = createFileRoute("/about")({
+  head: () =>
+    pageHead(
+      "About",
+      "Mehak’s education, experience, leadership and honours: a Jumeirah College student, founder and researcher in Dubai.",
+    ),
+  component: About,
+});
+
+function EntryList({ entries }: { entries: Entry[] }) {
+  return (
+    <div className="entry-list">
+      {entries.map((entry) => (
+        <article className="entry" key={entry.title}>
+          <div className="entry-head">
+            <h3>{entry.title}</h3>
+            <span>{entry.organisation}</span>
+          </div>
+          <p>{entry.description}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <main id="main" className="site-width enter">
+      <PageIntro eyebrow="About" title="Analytical rigour, with human understanding." />
+
+      <section className="about-intro">
+        <div className="portrait-frame">
+          <img src={portrait.url} alt="Portrait of Mehak" width={854} height={960} />
+        </div>
+        <div className="prose">
+          <p className="lead">
+            I’m a student at Jumeirah College, Dubai, fascinated by the intersection of technology,
+            human behaviour and creativity, and by the ways seemingly distinct disciplines can
+            inform one another.
+          </p>
+          <p>
+            I’m drawn to questions that challenge conventional perspectives: how technology can
+            strengthen human connection, how data can uncover overlooked inequalities, and how
+            mathematical models can offer new ways of understanding complex systems.
+          </p>
+          <p>
+            Through developing technology-driven initiatives, conducting computational research and
+            exploring the social implications of innovation, I have sought to translate these
+            questions into meaningful work. My experiences span human–computer interaction, digital
+            inclusion, economics and computational music, each offering a different lens through
+            which to investigate problems and develop solutions.
+          </p>
+        </div>
+      </section>
+
+      <CvSection id="education" title="Education">
+        <div className="entry-list">
+          {education.map((item) => (
+            <article className="entry" key={item.school}>
+              <div className="entry-head">
+                <h3>{item.school}</h3>
+                <span>{item.qualification}</span>
+              </div>
+              <ul className="detail-list">
+                {item.details.map((detail) => (
+                  <li key={detail}>{detail}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <h3 className="eyebrow subsection-label">Examinations and languages</h3>
+        <dl className="score-grid">
+          {scores.map((score) => (
+            <div key={score.label}>
+              <dt>{score.label}</dt>
+              <dd className="score-value">{score.value}</dd>
+              {score.note && <dd className="score-note">{score.note}</dd>}
+            </div>
+          ))}
+        </dl>
+      </CvSection>
+
+      <CvSection id="experience" title="Experience">
+        <EntryList entries={experience} />
+      </CvSection>
+
+      <CvSection id="leadership" title="Leadership">
+        <EntryList entries={leadership} />
+      </CvSection>
+
+      <CvSection id="honours" title="Honours and awards">
+        {honours.map((group) => (
+          <div className="honour-group" key={group.group}>
+            <h3 className="eyebrow">{group.group}</h3>
+            <ul className="honour-list">
+              {group.items.map((honour) => (
+                <li key={honour.title}>
+                  <span>{honour.title}</span>
+                  <span>{honour.detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </CvSection>
+    </main>
+  );
+}

@@ -1,5 +1,72 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { research, pageHead } from '@/lib/portfolio-data';
-import { PortfolioDownload } from '@/components/portfolio-shell';
-export const Route = createFileRoute('/research')({head:()=>pageHead('Research & independent inquiry','Mehak’s research in computational music, financial inclusion, physics, economics and machine-learning fraud detection.'),component:Research});
-function Research(){return <main className="site-width enter"><div className="page-top"><div className="eyebrow">Questions worth asking</div><h1>Curiosity, made rigorous.</h1><p>Moving between music, physics, economics and digital inclusion. Connecting quantitative methods with the human questions that make research matter.</p></div><section className="pb-12">{research.map((r,i)=><article className="research-row" key={r.title}><span className="number">0{i+1}</span><div><div className="eyebrow mb-3">{r.area}</div><h2 className="editorial">{r.title}</h2><p>{r.text}</p></div><div><span className="tag">{r.recognition}</span></div></article>)}<div className="border-t border-border pt-8"><PortfolioDownload outline/></div></section></main>;}
+import { createFileRoute } from "@tanstack/react-router";
+import { research, pageHead } from "@/lib/portfolio-data";
+import { PageIntro, PortfolioDownload } from "@/components/portfolio-shell";
+
+export const Route = createFileRoute("/research")({
+  head: () =>
+    pageHead(
+      "Research",
+      "Mehak’s research in computational musicology, women’s financial inclusion, computational physics, foreign direct investment and machine-learning fraud detection.",
+    ),
+  component: Research,
+});
+
+function Research() {
+  return (
+    <main id="main" className="site-width enter">
+      <PageIntro eyebrow="Research" title="Questions pursued with rigour.">
+        <p>
+          My research uses quantitative methods to understand complex systems, from the mathematical
+          structures underlying music to the economic and social factors shaping financial
+          inclusion. I am most interested in work that connects abstract models with real human
+          experience.
+        </p>
+      </PageIntro>
+
+      <section aria-label="Research projects">
+        {research.map((entry, i) => (
+          <article className="research-entry" id={entry.id} key={entry.id}>
+            <span className="research-index">{String(i + 1).padStart(2, "0")}</span>
+            <div className="research-main">
+              <p className="eyebrow">{entry.field}</p>
+              <h2>{entry.title}</h2>
+              <p className="research-context">{entry.context}</p>
+              <p className="research-summary">{entry.summary}</p>
+              <ul className="method-list" aria-label="Methods">
+                {entry.methods.map((method) => (
+                  <li key={method}>{method}</li>
+                ))}
+              </ul>
+            </div>
+            <aside className="research-outcomes" aria-label={`Outcomes: ${entry.title}`}>
+              <h3 className="eyebrow">Outcomes</h3>
+              <ul>
+                {entry.outcomes.map((outcome) => (
+                  <li key={outcome}>{outcome}</li>
+                ))}
+              </ul>
+            </aside>
+          </article>
+        ))}
+      </section>
+
+      <section className="research-closing">
+        <h2 className="section-title">What connects my research.</h2>
+        <div className="prose">
+          <p>
+            Across music, physics, economics and digital inclusion, each project has followed a
+            similar process: identifying a question, translating it into a framework that can be
+            investigated, testing ideas against evidence, and considering what the findings reveal.
+          </p>
+          <p>
+            Computational music research showed me how mathematics can illuminate creative
+            expression. My work on financial inclusion revealed the gap between access and agency.
+            Physics and economics taught me to approach complex systems through modelling,
+            diagnostics and careful interpretation.
+          </p>
+          <PortfolioDownload />
+        </div>
+      </section>
+    </main>
+  );
+}

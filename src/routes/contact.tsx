@@ -1,7 +1,80 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowUpRight, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { PortfolioDownload } from '@/components/portfolio-shell';
-import { pageHead } from '@/lib/portfolio-data';
-export const Route = createFileRoute('/contact')({head:()=>pageHead('Let’s connect','Discover shared interests in research, technology, social impact and music with Mehak at Jumeirah College, Dubai.'),component:Contact});
-function Contact(){return <main className="site-width enter"><div className="page-top"><div className="eyebrow">Good things start with a conversation</div><h1>Let’s connect the dots.</h1><p>I’m interested in conversations about human-centred technology, interdisciplinary research, digital inclusion and creative collaboration.</p><div className="photo-caption justify-start my-8"><MapPin size={14}/> Jumeirah College · Dubai, UAE</div></div><section className="contact-panel"><div><h2>A little more about my work.</h2><p>Explore my projects or download my complete portfolio, with more on the questions, experiences and ideas behind them.</p></div><div className="flex flex-wrap gap-3"><PortfolioDownload outline/><Button asChild><Link to="/work">Explore projects <ArrowUpRight/></Link></Button></div></section></main>;}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { PageIntro, PortfolioDownload } from "@/components/portfolio-shell";
+import { pageHead, profile } from "@/lib/portfolio-data";
+
+export const Route = createFileRoute("/contact")({
+  head: () =>
+    pageHead(
+      "Contact",
+      "Get in touch with Mehak about research, human-centred technology, digital inclusion and music.",
+    ),
+  component: Contact,
+});
+
+function Contact() {
+  return (
+    <main id="main" className="site-width enter">
+      <PageIntro eyebrow="Contact" title="Get in touch.">
+        <p>
+          I welcome conversations about human-centred technology, interdisciplinary research,
+          digital inclusion and creative collaboration.
+        </p>
+      </PageIntro>
+
+      <section className="contact-grid">
+        <dl className="contact-details">
+          {profile.email && (
+            <div>
+              <dt>Email</dt>
+              <dd>
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              </dd>
+            </div>
+          )}
+          {profile.linkedin && (
+            <div>
+              <dt>LinkedIn</dt>
+              <dd>
+                <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                  View profile <ArrowUpRight aria-hidden="true" />
+                </a>
+              </dd>
+            </div>
+          )}
+          <div>
+            <dt>School</dt>
+            <dd>{profile.school}</dd>
+          </div>
+          <div>
+            <dt>Based in</dt>
+            <dd>{profile.location}</dd>
+          </div>
+          <div>
+            <dt>Explore</dt>
+            <dd className="contact-links">
+              <Link to="/work" className="text-link">
+                Projects <ArrowRight />
+              </Link>
+              <Link to="/research" className="text-link">
+                Research <ArrowRight />
+              </Link>
+              <Link to="/about" className="text-link">
+                Experience and honours <ArrowRight />
+              </Link>
+            </dd>
+          </div>
+        </dl>
+        <aside className="contact-panel">
+          <p className="eyebrow">Portfolio</p>
+          <h2>The complete portfolio.</h2>
+          <p>
+            A detailed PDF covering my projects, research, leadership, music and recognition, with
+            more on the questions and experiences behind them.
+          </p>
+          <PortfolioDownload variant="default" />
+        </aside>
+      </section>
+    </main>
+  );
+}
