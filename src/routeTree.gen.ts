@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AwardsRouteImport } from './routes/awards'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EducationRouteImport } from './routes/education'
+import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as LeadershipRouteImport } from './routes/leadership'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as WorkRouteImport } from './routes/work'
@@ -26,9 +31,34 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AwardsRoute = AwardsRouteImport.update({
+  id: '/awards',
+  path: '/awards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EducationRoute = EducationRouteImport.update({
+  id: '/education',
+  path: '/education',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienceRoute = ExperienceRouteImport.update({
+  id: '/experience',
+  path: '/experience',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadershipRoute = LeadershipRouteImport.update({
+  id: '/leadership',
+  path: '/leadership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MusicRoute = MusicRouteImport.update({
@@ -50,7 +80,12 @@ const WorkRoute = WorkRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/awards': typeof AwardsRoute
+  '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/education': typeof EducationRoute
+  '/experience': typeof ExperienceRoute
+  '/leadership': typeof LeadershipRoute
   '/music': typeof MusicRoute
   '/research': typeof ResearchRoute
   '/work': typeof WorkRoute
@@ -58,7 +93,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/awards': typeof AwardsRoute
+  '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/education': typeof EducationRoute
+  '/experience': typeof ExperienceRoute
+  '/leadership': typeof LeadershipRoute
   '/music': typeof MusicRoute
   '/research': typeof ResearchRoute
   '/work': typeof WorkRoute
@@ -67,24 +107,67 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/awards': typeof AwardsRoute
+  '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/education': typeof EducationRoute
+  '/experience': typeof ExperienceRoute
+  '/leadership': typeof LeadershipRoute
   '/music': typeof MusicRoute
   '/research': typeof ResearchRoute
   '/work': typeof WorkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/music' | '/research' | '/work'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/awards'
+    | '/community'
+    | '/contact'
+    | '/education'
+    | '/experience'
+    | '/leadership'
+    | '/music'
+    | '/research'
+    | '/work'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/music' | '/research' | '/work'
+  to:
+    | '/'
+    | '/about'
+    | '/awards'
+    | '/community'
+    | '/contact'
+    | '/education'
+    | '/experience'
+    | '/leadership'
+    | '/music'
+    | '/research'
+    | '/work'
   id:
-    '__root__' | '/' | '/about' | '/contact' | '/music' | '/research' | '/work'
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/awards'
+    | '/community'
+    | '/contact'
+    | '/education'
+    | '/experience'
+    | '/leadership'
+    | '/music'
+    | '/research'
+    | '/work'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AwardsRoute: typeof AwardsRoute
+  CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
+  EducationRoute: typeof EducationRoute
+  ExperienceRoute: typeof ExperienceRoute
+  LeadershipRoute: typeof LeadershipRoute
   MusicRoute: typeof MusicRoute
   ResearchRoute: typeof ResearchRoute
   WorkRoute: typeof WorkRoute
@@ -106,11 +189,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/awards': {
+      id: '/awards'
+      path: '/awards'
+      fullPath: '/awards'
+      preLoaderRoute: typeof AwardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/education': {
+      id: '/education'
+      path: '/education'
+      fullPath: '/education'
+      preLoaderRoute: typeof EducationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experience': {
+      id: '/experience'
+      path: '/experience'
+      fullPath: '/experience'
+      preLoaderRoute: typeof ExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leadership': {
+      id: '/leadership'
+      path: '/leadership'
+      fullPath: '/leadership'
+      preLoaderRoute: typeof LeadershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/music': {
@@ -140,7 +258,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AwardsRoute: AwardsRoute,
+  CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
+  EducationRoute: EducationRoute,
+  ExperienceRoute: ExperienceRoute,
+  LeadershipRoute: LeadershipRoute,
   MusicRoute: MusicRoute,
   ResearchRoute: ResearchRoute,
   WorkRoute: WorkRoute,

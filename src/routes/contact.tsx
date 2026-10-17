@@ -1,80 +1,80 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { PageIntro, PortfolioDownload } from "@/components/portfolio-shell";
+import { PortfolioDownload } from "@/components/portfolio-shell";
+import { Band, BandHead, NeuCard, PageHeader } from "@/components/site-ui";
 import { pageHead, profile } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
     pageHead(
       "Contact",
-      "Get in touch with Mehak about research, human-centred technology, digital inclusion and music.",
+      "Get in touch with Mehak Dhawan about research, human-centred technology, digital inclusion and music.",
     ),
   component: Contact,
 });
 
 function Contact() {
   return (
-    <main id="main" className="site-width enter">
-      <PageIntro eyebrow="Contact" title="Get in touch.">
+    <main id="main">
+      <PageHeader title="Contact Me">
         <p>
           I welcome conversations about human-centred technology, interdisciplinary research,
-          digital inclusion and creative collaboration.
+          digital inclusion and music.
         </p>
-      </PageIntro>
+      </PageHeader>
 
-      <section className="contact-grid">
-        <dl className="contact-details">
+      <section className="section section--tight" aria-label="Contact details">
+        <div className="container card-flow">
           {profile.email && (
-            <div>
-              <dt>Email</dt>
-              <dd>
-                <a href={`mailto:${profile.email}`}>{profile.email}</a>
-              </dd>
-            </div>
+            <NeuCard icon="pen" title="Email">
+              <a className="card-link" href={`mailto:${profile.email}`}>
+                {profile.email}
+              </a>
+            </NeuCard>
           )}
           {profile.linkedin && (
-            <div>
-              <dt>LinkedIn</dt>
-              <dd>
-                <a href={profile.linkedin} target="_blank" rel="noreferrer">
-                  View profile <ArrowUpRight aria-hidden="true" />
-                </a>
-              </dd>
-            </div>
+            <NeuCard icon="users" title="LinkedIn">
+              <a className="card-link" href={profile.linkedin} target="_blank" rel="noreferrer">
+                View profile <ArrowUpRight aria-hidden="true" />
+              </a>
+            </NeuCard>
           )}
-          <div>
-            <dt>School</dt>
-            <dd>{profile.school}</dd>
-          </div>
-          <div>
-            <dt>Based in</dt>
-            <dd>{profile.location}</dd>
-          </div>
-          <div>
-            <dt>Explore</dt>
-            <dd className="contact-links">
-              <Link to="/work" className="text-link">
-                Projects <ArrowRight />
-              </Link>
-              <Link to="/research" className="text-link">
-                Research <ArrowRight />
-              </Link>
-              <Link to="/about" className="text-link">
-                Experience and honours <ArrowRight />
-              </Link>
-            </dd>
-          </div>
-        </dl>
-        <aside className="contact-panel">
-          <p className="eyebrow">Portfolio</p>
-          <h2>The complete portfolio.</h2>
-          <p>
-            A detailed PDF covering my projects, research, leadership, music and recognition, with
-            more on the questions and experiences behind them.
-          </p>
-          <PortfolioDownload variant="default" />
-        </aside>
+          <NeuCard icon="school" title="School">
+            <p className="card-text">{profile.school}</p>
+          </NeuCard>
+          <NeuCard icon="globe" title="Based in">
+            <p className="card-text">{profile.location}</p>
+          </NeuCard>
+          <NeuCard icon="compass" title="Explore">
+            <ul className="link-list">
+              <li>
+                <Link to="/research">
+                  Research <ArrowRight aria-hidden="true" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/experience">
+                  Experience <ArrowRight aria-hidden="true" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/awards">
+                  Awards <ArrowRight aria-hidden="true" />
+                </Link>
+              </li>
+            </ul>
+          </NeuCard>
+        </div>
       </section>
+
+      <Band labelledBy="portfolio-heading">
+        <BandHead id="portfolio-heading" title="The Complete Portfolio">
+          A detailed PDF covering my projects, research, leadership, music and recognition.
+        </BandHead>
+        <div className="band-actions">
+          <PortfolioDownload variant="light" />
+        </div>
+      </Band>
     </main>
   );
 }

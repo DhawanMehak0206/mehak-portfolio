@@ -1,145 +1,174 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { PortfolioDownload, SectionHeading } from "@/components/portfolio-shell";
-import { ProjectCard } from "@/components/project-card";
-import { featuredHonours, highlights, pageHead, projects, research } from "@/lib/portfolio-data";
-import portrait from "@/assets/portrait.jpg.asset.json";
+import { ArrowRight, MapPin } from "lucide-react";
+import { PortfolioDownload } from "@/components/portfolio-shell";
+import { TonnetzArt } from "@/components/research-art";
+import { Band, BandHead, NeuCard, SectionHead } from "@/components/site-ui";
+import {
+  highlights,
+  pageHead,
+  photos,
+  principles,
+  profile,
+  roles,
+  selectedWork,
+  type WorkHighlight,
+} from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead(
       "Student, researcher and founder",
-      "Mehak is a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
+      "Mehak Dhawan is a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
     ),
   component: Index,
 });
 
-function Index() {
+function WorkCard({ item }: { item: WorkHighlight }) {
   return (
-    <main id="main" className="enter">
-      <section className="site-width hero">
-        <div className="hero-copy">
-          <p className="eyebrow">Student · Researcher · Founder</p>
-          <h1 className="hero-title">Mehak</h1>
-          <p className="hero-lead">
-            Building technology and research that bring people closer, from family connection to
-            women’s financial inclusion.
-          </p>
-          <p className="hero-description">
-            I’m a student at Jumeirah College, Dubai, studying Mathematics, Further Mathematics,
-            Physics and Economics. My work spans human–computer interaction, digital inclusion,
-            applied economics and computational music.
-          </p>
-          <div className="hero-actions">
-            <Button asChild size="lg">
-              <Link to="/work">
-                View projects <ArrowRight />
-              </Link>
-            </Button>
-            <PortfolioDownload />
-          </div>
-        </div>
-        <figure className="hero-portrait">
-          <div className="portrait-frame">
-            <img src={portrait.url} alt="Portrait of Mehak" width={854} height={960} />
-          </div>
-          <figcaption>Jumeirah College, Dubai</figcaption>
-        </figure>
-      </section>
-
-      <section className="site-width highlights" aria-label="Highlights">
-        {highlights.map((item) => (
-          <div className="highlight" key={item.label}>
-            <strong>{item.value}</strong>
-            <span>{item.label}</span>
-          </div>
-        ))}
-      </section>
-
-      <section className="site-width section">
-        <SectionHeading
-          eyebrow="Selected projects"
-          title="Ideas put into practice."
-          action={
-            <Link to="/work" className="text-link">
-              All projects <ArrowRight />
-            </Link>
-          }
-        />
-        <div className="project-grid">
-          {projects.slice(0, 3).map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section section-tinted">
-        <div className="site-width">
-          <SectionHeading
-            eyebrow="Research"
-            title="Published and presented work."
-            action={
-              <Link to="/research" className="text-link">
-                All research <ArrowRight />
-              </Link>
-            }
+    <Link to={item.to} hash={item.hash} className="work-card">
+      <div className={`work-media is-${item.media.kind}`}>
+        {item.media.kind === "art" ? (
+          <TonnetzArt decorative />
+        ) : (
+          <img
+            src={item.media.photo.src}
+            alt={item.media.photo.alt}
+            width={item.media.photo.width}
+            height={item.media.photo.height}
+            loading="lazy"
+            decoding="async"
           />
-          <ol className="publication-list">
-            {research.slice(0, 3).map((entry) => (
-              <li key={entry.id}>
-                <Link to="/research" hash={entry.id} className="publication">
-                  <span className="publication-field">{entry.field}</span>
-                  <span className="publication-main">
-                    <span className="publication-title">{entry.title}</span>
-                    <span className="publication-venue">{entry.outcomes[0] ?? entry.context}</span>
-                  </span>
-                  <ArrowRight className="publication-arrow" aria-hidden="true" />
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+        )}
+      </div>
+      <div className="work-body">
+        <p className="card-meta">{item.kicker}</p>
+        <h3 className="work-title">{item.title}</h3>
+        <p className="card-text">{item.text}</p>
+        <span className="work-link">
+          Read more <ArrowRight aria-hidden="true" />
+        </span>
+      </div>
+    </Link>
+  );
+}
 
-      <section className="site-width section recognition">
-        <div>
-          <p className="eyebrow">Recognition</p>
-          <h2 className="section-title">Selected honours.</h2>
-          <p className="section-intro">
-            Distinctions across mathematics, science, innovation, research and service.
-          </p>
-          <Link to="/about" hash="honours" className="text-link">
-            Full list of honours <ArrowRight />
-          </Link>
-        </div>
-        <ul className="honour-list">
-          {featuredHonours.map((honour) => (
-            <li key={honour.title}>
-              <span>{honour.title}</span>
-              <span>{honour.detail}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="cta-band">
-        <div className="site-width cta-inner">
-          <div>
-            <h2>The complete portfolio.</h2>
-            <p>
-              A detailed account of my projects, research, leadership and recognition, available as
-              a PDF.
+function Index() {
+  const hero = photos.digisakhiSession;
+  return (
+    <main id="main">
+      <section className="hero" aria-labelledby="hero-title">
+        <img
+          className="hero-media"
+          src={hero.src}
+          alt={hero.alt}
+          width={hero.width}
+          height={hero.height}
+          fetchPriority="high"
+        />
+        <div className="container hero-inner">
+          <div className="hero-copy reveal">
+            <p className="hero-chip">
+              <MapPin aria-hidden="true" />
+              {profile.school} · {profile.city}
             </p>
-          </div>
-          <div className="cta-actions">
-            <PortfolioDownload className="button-light" />
-            <Button asChild size="lg" className="button-outline-light">
-              <Link to="/contact">Contact</Link>
-            </Button>
+            <h1 className="hero-title" id="hero-title">
+              {profile.name}
+            </h1>
+            <p className="hero-tagline">{profile.tagline}</p>
+            <div className="hero-actions">
+              <Link to="/experience" className="btn btn--primary">
+                Explore my work <ArrowRight aria-hidden="true" />
+              </Link>
+              <PortfolioDownload variant="ghost" />
+            </div>
           </div>
         </div>
       </section>
+
+      <section className="container stats-wrap" aria-label="Highlights">
+        <dl className="stats-card">
+          {highlights.map((item) => (
+            <div className="stat" key={item.label}>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="section" aria-labelledby="about-heading">
+        <div className="container about-split">
+          <div className="photo-frame">
+            <img
+              src={photos.portrait.src}
+              alt={photos.portrait.alt}
+              width={photos.portrait.width}
+              height={photos.portrait.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div className="about-copy">
+            <h2 className="about-title" id="about-heading">
+              About Me
+            </h2>
+            <p>
+              I’m a student at Jumeirah College, Dubai, fascinated by the intersection of
+              technology, human behaviour and creativity, and by the ways seemingly distinct
+              disciplines can inform one another.
+            </p>
+            <p>
+              My work spans human–computer interaction, digital inclusion, economics and
+              computational music. At its heart is a desire to combine analytical rigour with human
+              understanding.
+            </p>
+            <p className="about-cue">Explore my work…</p>
+            <div className="button-row">
+              <Link to="/about" className="btn btn--primary">
+                More about me
+              </Link>
+              <PortfolioDownload />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--white" aria-labelledby="principles-heading">
+        <div className="container">
+          <SectionHead id="principles-heading" kicker="What drives me" title="Guiding Principles" />
+          <div className="grid-3">
+            {principles.map((item) => (
+              <NeuCard key={item.title} icon={item.icon} title={item.title}>
+                <p className="card-text">{item.text}</p>
+              </NeuCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="roles-heading">
+        <div className="container">
+          <SectionHead id="roles-heading" kicker="How I contribute" title="Leadership Roles" />
+          <div className="grid-3">
+            {roles.map((item) => (
+              <NeuCard key={item.title} icon={item.icon} title={item.title}>
+                <p className="card-text">{item.text}</p>
+              </NeuCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Band labelledBy="work-heading">
+        <BandHead id="work-heading" title="Selected Work">
+          Three projects that show how I turn questions into platforms, products and research.
+        </BandHead>
+        <div className="grid-3 work-grid">
+          {selectedWork.map((item) => (
+            <WorkCard key={item.title} item={item} />
+          ))}
+        </div>
+      </Band>
     </main>
   );
 }

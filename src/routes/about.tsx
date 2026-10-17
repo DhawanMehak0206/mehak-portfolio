@@ -1,122 +1,103 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { CvSection, PageIntro } from "@/components/portfolio-shell";
-import {
-  education,
-  experience,
-  honours,
-  leadership,
-  pageHead,
-  scores,
-  type Entry,
-} from "@/lib/portfolio-data";
-import portrait from "@/assets/portrait.jpg.asset.json";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { PortfolioDownload } from "@/components/portfolio-shell";
+import { ChipList, NeuCard, SectionHead } from "@/components/site-ui";
+import { facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/about")({
   head: () =>
     pageHead(
       "About",
-      "Mehak’s education, experience, leadership and honours: a Jumeirah College student, founder and researcher in Dubai.",
+      "Mehak Dhawan, a Jumeirah College student in Dubai working across technology, human behaviour and creativity.",
     ),
   component: About,
 });
 
-function EntryList({ entries }: { entries: Entry[] }) {
-  return (
-    <div className="entry-list">
-      {entries.map((entry) => (
-        <article className="entry" key={entry.title}>
-          <div className="entry-head">
-            <h3>{entry.title}</h3>
-            <span>{entry.organisation}</span>
-          </div>
-          <p>{entry.description}</p>
-        </article>
-      ))}
-    </div>
-  );
-}
-
 function About() {
   return (
-    <main id="main" className="site-width enter">
-      <PageIntro eyebrow="About" title="Analytical rigour, with human understanding." />
-
-      <section className="about-intro">
-        <div className="portrait-frame">
-          <img src={portrait.url} alt="Portrait of Mehak" width={854} height={960} />
-        </div>
-        <div className="prose">
-          <p className="lead">
-            I’m a student at Jumeirah College, Dubai, fascinated by the intersection of technology,
-            human behaviour and creativity, and by the ways seemingly distinct disciplines can
-            inform one another.
-          </p>
-          <p>
-            I’m drawn to questions that challenge conventional perspectives: how technology can
-            strengthen human connection, how data can uncover overlooked inequalities, and how
-            mathematical models can offer new ways of understanding complex systems.
-          </p>
-          <p>
-            Through developing technology-driven initiatives, conducting computational research and
-            exploring the social implications of innovation, I have sought to translate these
-            questions into meaningful work. My experiences span human–computer interaction, digital
-            inclusion, economics and computational music, each offering a different lens through
-            which to investigate problems and develop solutions.
-          </p>
+    <main id="main">
+      <section className="section about-page">
+        <div className="container">
+          <div className="about-split reveal">
+            <div className="photo-frame">
+              <img
+                src={photos.portrait.src}
+                alt={photos.portrait.alt}
+                width={photos.portrait.width}
+                height={photos.portrait.height}
+              />
+            </div>
+            <div className="about-copy">
+              <h1 className="about-title about-title--page">About Me</h1>
+              <p>
+                I’m a student at Jumeirah College, Dubai. I’m fascinated by the intersection of
+                technology, human behaviour and creativity, and by the ways seemingly distinct
+                disciplines can inform one another. I’m drawn to questions that challenge
+                conventional perspectives: how technology can strengthen human connection, how data
+                can uncover overlooked inequalities, and how mathematical models can offer new ways
+                of understanding complex systems.
+              </p>
+              <p>
+                Through developing technology-driven initiatives, conducting computational research
+                and exploring the social implications of innovation, I have sought to translate
+                these questions into meaningful work. My experiences span human–computer
+                interaction, digital inclusion, economics and computational music, each offering a
+                different lens through which to investigate problems and develop solutions.
+              </p>
+            </div>
+          </div>
+          <div className="about-more">
+            <p>
+              Growing up between Delhi and Dubai, I always found myself rushing home to spend time
+              with my parents and grandparents, and I felt fortunate to be able to share almost
+              anything with them. As I listened to friends and families around me, I realised that
+              this kind of openness was not universal. That realisation eventually led me to create
+              Kindling.
+            </p>
+            <p>
+              Music has been a central part of my life for over 11 years of formal piano training.
+              At the heart of everything I do is a desire to combine analytical rigour with human
+              understanding, approaching complex challenges with curiosity, creativity and a
+              commitment to building things that matter.
+            </p>
+            <div className="button-row">
+              <Link to="/research" className="btn btn--primary">
+                See my research <ArrowRight aria-hidden="true" />
+              </Link>
+              <PortfolioDownload />
+            </div>
+          </div>
         </div>
       </section>
 
-      <CvSection id="education" title="Education">
-        <div className="entry-list">
-          {education.map((item) => (
-            <article className="entry" key={item.school}>
-              <div className="entry-head">
-                <h3>{item.school}</h3>
-                <span>{item.qualification}</span>
+      <section className="section section--white" aria-labelledby="glance-heading">
+        <div className="container">
+          <SectionHead id="glance-heading" kicker="Profile" title="At a Glance" />
+          <dl className="fact-grid">
+            {facts.map((fact) => (
+              <div key={fact.label} className="fact">
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
               </div>
-              <ul className="detail-list">
-                {item.details.map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+            ))}
+          </dl>
         </div>
-        <h3 className="eyebrow subsection-label">Examinations and languages</h3>
-        <dl className="score-grid">
-          {scores.map((score) => (
-            <div key={score.label}>
-              <dt>{score.label}</dt>
-              <dd className="score-value">{score.value}</dd>
-              {score.note && <dd className="score-note">{score.note}</dd>}
-            </div>
-          ))}
-        </dl>
-      </CvSection>
+      </section>
 
-      <CvSection id="experience" title="Experience">
-        <EntryList entries={experience} />
-      </CvSection>
-
-      <CvSection id="leadership" title="Leadership">
-        <EntryList entries={leadership} />
-      </CvSection>
-
-      <CvSection id="honours" title="Honours and awards">
-        {honours.map((group) => (
-          <div className="honour-group" key={group.group}>
-            <h3 className="eyebrow">{group.group}</h3>
-            <ul className="honour-list">
-              {group.items.map((honour) => (
-                <li key={honour.title}>
-                  <span>{honour.title}</span>
-                  <span>{honour.detail}</span>
-                </li>
-              ))}
-            </ul>
+      <section className="section" aria-labelledby="skills-heading">
+        <div className="container">
+          <SectionHead id="skills-heading" kicker="Toolkit" title="Skills and Tools">
+            The methods and technologies I have used across my research, internships and projects.
+          </SectionHead>
+          <div className="grid-3">
+            {skillGroups.map((group) => (
+              <NeuCard key={group.title} icon={group.icon} title={group.title}>
+                <ChipList items={group.items} label={group.title} />
+              </NeuCard>
+            ))}
           </div>
-        ))}
-      </CvSection>
+        </div>
+      </section>
     </main>
   );
 }

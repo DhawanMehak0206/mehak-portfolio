@@ -12,17 +12,16 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SiteHeader, SiteFooter } from "@/components/portfolio-shell";
+import { BackToTop, SiteHeader, SiteFooter } from "@/components/portfolio-shell";
 
 function NotFoundComponent() {
   return (
-    <main id="main" className="site-width not-found">
-      <p className="eyebrow">Error 404</p>
-      <h1 className="page-title">Page not found.</h1>
-      <p className="page-description">
-        The page you’re looking for doesn’t exist or has been moved.
-      </p>
-      <Link to="/" className="text-link">
+    <main id="main" className="container not-found">
+      <p className="section-kicker">Error 404</p>
+      <h1 className="page-title">Page not found</h1>
+      <span className="title-rule" aria-hidden="true" />
+      <p className="page-intro">The page you’re looking for doesn’t exist or has been moved.</p>
+      <Link to="/" className="btn btn--primary">
         Return home
       </Link>
     </main>
@@ -72,15 +71,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#f9f7f2" },
-      { title: "Mehak — Student, Researcher and Founder" },
+      { name: "theme-color", content: "#ecf0f3" },
+      { title: "Mehak Dhawan — Student, Researcher and Founder" },
       {
         name: "description",
         content:
-          "Portfolio of Mehak, a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
+          "Portfolio of Mehak Dhawan, a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
       },
-      { name: "author", content: "Mehak" },
-      { property: "og:title", content: "Mehak — Student, Researcher and Founder" },
+      { name: "author", content: "Mehak Dhawan" },
+      { property: "og:title", content: "Mehak Dhawan — Student, Researcher and Founder" },
       {
         property: "og:description",
         content:
@@ -100,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Playball&family=Poppins:wght@300;400;500;600&display=swap",
       },
     ],
   }),
@@ -136,6 +135,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <SiteFooter />
+      <BackToTop />
     </QueryClientProvider>
   );
 }

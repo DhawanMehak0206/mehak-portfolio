@@ -1,72 +1,106 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { research, pageHead } from "@/lib/portfolio-data";
-import { PageIntro, PortfolioDownload } from "@/components/portfolio-shell";
+import { Check } from "lucide-react";
+import { TonnetzArt } from "@/components/research-art";
+import {
+  Band,
+  BandHead,
+  CheckList,
+  ChipList,
+  Icon,
+  NeuCard,
+  PageHeader,
+} from "@/components/site-ui";
+import { featuredResearch, pageHead, research, researchThreads } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/research")({
   head: () =>
     pageHead(
       "Research",
-      "Mehak’s research in computational musicology, women’s financial inclusion, computational physics, foreign direct investment and machine-learning fraud detection.",
+      "Mehak Dhawan’s research in computational musicology, women’s financial inclusion, computational physics, foreign direct investment and machine-learning fraud detection.",
     ),
   component: Research,
 });
 
 function Research() {
   return (
-    <main id="main" className="site-width enter">
-      <PageIntro eyebrow="Research" title="Questions pursued with rigour.">
+    <main id="main">
+      <PageHeader title="Research & Independent Inquiry">
         <p>
-          My research uses quantitative methods to understand complex systems, from the mathematical
-          structures underlying music to the economic and social factors shaping financial
-          inclusion. I am most interested in work that connects abstract models with real human
-          experience.
+          My research explores how quantitative methods can help us understand complex systems, from
+          the mathematical structures underlying music to the economic and social factors shaping
+          financial inclusion. It is most meaningful to me when it connects abstract models with
+          human experiences and real-world problems.
         </p>
-      </PageIntro>
+      </PageHeader>
 
-      <section aria-label="Research projects">
-        {research.map((entry, i) => (
-          <article className="research-entry" id={entry.id} key={entry.id}>
-            <span className="research-index">{String(i + 1).padStart(2, "0")}</span>
-            <div className="research-main">
-              <p className="eyebrow">{entry.field}</p>
-              <h2>{entry.title}</h2>
-              <p className="research-context">{entry.context}</p>
-              <p className="research-summary">{entry.summary}</p>
-              <ul className="method-list" aria-label="Methods">
-                {entry.methods.map((method) => (
-                  <li key={method}>{method}</li>
-                ))}
-              </ul>
-            </div>
-            <aside className="research-outcomes" aria-label={`Outcomes: ${entry.title}`}>
-              <h3 className="eyebrow">Outcomes</h3>
-              <ul>
-                {entry.outcomes.map((outcome) => (
-                  <li key={outcome}>{outcome}</li>
-                ))}
-              </ul>
-            </aside>
-          </article>
-        ))}
-      </section>
+      <Band id={featuredResearch.id} labelledBy="featured-heading" className="band--feature">
+        <BandHead id="featured-heading" title={featuredResearch.title}>
+          {featuredResearch.kicker}
+        </BandHead>
+        <div className="feature-split">
+          <figure className="art-panel">
+            <TonnetzArt />
+            <figcaption>
+              A Tonnetz maps harmonic relationships as a lattice: notes a fifth apart sit side by
+              side, and thirds run along the diagonals. The C major and C minor triads are
+              highlighted.
+            </figcaption>
+          </figure>
+          <div className="feature-copy">
+            {featuredResearch.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+        <ul className="outcome-chips" aria-label="Outcomes">
+          {featuredResearch.outcomes.map((outcome) => (
+            <li key={outcome}>
+              <Check aria-hidden="true" />
+              {outcome}
+            </li>
+          ))}
+        </ul>
+      </Band>
 
-      <section className="research-closing">
-        <h2 className="section-title">What connects my research.</h2>
-        <div className="prose">
-          <p>
-            Across music, physics, economics and digital inclusion, each project has followed a
-            similar process: identifying a question, translating it into a framework that can be
-            investigated, testing ideas against evidence, and considering what the findings reveal.
-          </p>
-          <p>
-            Computational music research showed me how mathematics can illuminate creative
-            expression. My work on financial inclusion revealed the gap between access and agency.
-            Physics and economics taught me to approach complex systems through modelling,
-            diagnostics and careful interpretation.
-          </p>
-          <PortfolioDownload />
+      <section className="section section--white" aria-label="Further research">
+        <div className="container grid-2">
+          {research.map((entry) => (
+            <NeuCard
+              key={entry.id}
+              id={entry.id}
+              icon={entry.icon}
+              title={entry.title}
+              {...(entry.subtitle ? { subtitle: entry.subtitle } : {})}
+              meta={entry.field}
+              className="research-card"
+            >
+              <p className="card-context">{entry.context}</p>
+              <p className="card-text">{entry.text}</p>
+              <ChipList items={entry.methods} label="Methods" />
+              <CheckList items={entry.outcomes} />
+            </NeuCard>
+          ))}
         </div>
       </section>
+
+      <Band labelledBy="threads-heading">
+        <BandHead id="threads-heading" title="What Connects My Research">
+          Across music, physics, economics and digital inclusion, each project has followed the same
+          process: identifying a question, translating it into a framework that can be investigated,
+          testing ideas against evidence, and considering what the findings reveal.
+        </BandHead>
+        <div className="grid-3 thread-grid">
+          {researchThreads.map((thread) => (
+            <div key={thread.title} className="thread">
+              <span className="thread-icon">
+                <Icon name={thread.icon} />
+              </span>
+              <h3>{thread.title}</h3>
+              <p>{thread.text}</p>
+            </div>
+          ))}
+        </div>
+      </Band>
     </main>
   );
 }

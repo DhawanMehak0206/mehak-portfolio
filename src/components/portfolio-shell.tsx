@@ -1,59 +1,80 @@
-import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Download, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowUp, Download, Menu } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import portfolio from "@/assets/portfolio.pdf.asset.json";
 import { profile } from "@/lib/portfolio-data";
+import { cn } from "@/lib/utils";
 
 const navigation = [
+  { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/work", label: "Projects" },
+  { to: "/education", label: "Education" },
   { to: "/research", label: "Research" },
+  { to: "/experience", label: "Experience" },
+  { to: "/community", label: "Community" },
+  { to: "/leadership", label: "Leadership" },
+  { to: "/awards", label: "Awards" },
   { to: "/music", label: "Music" },
-  { to: "/contact", label: "Contact" },
 ] as const;
+
+function Logo() {
+  return (
+    <Link to="/" className="logo" aria-label={`${profile.name}, home`}>
+      <span className="logo-first">{profile.firstName}</span>
+      <span className="logo-last">{profile.lastName}</span>
+    </Link>
+  );
+}
 
 export function SiteHeader() {
   return (
     <header className="site-header">
-      <div className="site-width site-header-inner">
-        <Link to="/" className="wordmark" aria-label="Mehak, home">
-          Mehak
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
+      <div className="header-inner">
+        <Logo />
+        <nav className="main-nav" aria-label="Main navigation">
           {navigation.map((item) => (
-            <Link key={item.to} to={item.to} className="nav-link">
+            <Link
+              key={item.to}
+              to={item.to}
+              className="nav-link"
+              activeOptions={{ exact: item.to === "/" }}
+            >
               {item.label}
             </Link>
           ))}
         </nav>
+        <Link to="/contact" className="btn btn--primary btn--sm header-cta">
+          Contact me
+        </Link>
         <Sheet>
           <SheetTrigger asChild>
-            <Button
-              className="mobile-menu-button"
-              variant="ghost"
-              size="icon"
-              aria-label="Open menu"
-            >
-              <Menu />
-            </Button>
+            <button type="button" className="menu-button" aria-label="Open menu">
+              <Menu aria-hidden="true" />
+            </button>
           </SheetTrigger>
           <SheetContent className="mobile-sheet">
-            <SheetTitle className="wordmark">Mehak</SheetTitle>
+            <SheetTitle className="mobile-sheet-title">
+              <span className="logo-first">{profile.firstName}</span>
+              <span className="logo-last">{profile.lastName}</span>
+            </SheetTitle>
             <nav className="mobile-nav" aria-label="Mobile navigation">
-              <SheetClose asChild>
-                <Link to="/" activeOptions={{ exact: true }}>
-                  Home
-                </Link>
-              </SheetClose>
               {navigation.map((item) => (
                 <SheetClose asChild key={item.to}>
-                  <Link to={item.to}>{item.label}</Link>
+                  <Link to={item.to} activeOptions={{ exact: item.to === "/" }}>
+                    {item.label}
+                  </Link>
                 </SheetClose>
               ))}
             </nav>
-            <PortfolioDownload />
+            <div className="mobile-sheet-actions">
+              <SheetClose asChild>
+                <Link to="/contact" className="btn btn--primary">
+                  Contact me
+                </Link>
+              </SheetClose>
+              <PortfolioDownload />
+            </div>
           </SheetContent>
         </Sheet>
       </div>
@@ -62,108 +83,80 @@ export function SiteHeader() {
 }
 
 export function PortfolioDownload({
-  variant = "outline",
+  variant = "neu",
   className,
 }: {
-  variant?: "default" | "outline";
+  variant?: "primary" | "neu" | "light" | "ghost";
   className?: string;
 }) {
   return (
-    <Button asChild variant={variant} size="lg" className={className}>
-      <a href={portfolio.url} target="_blank" rel="noreferrer" download="Mehak-Portfolio.pdf">
-        Download portfolio <Download />
-      </a>
-    </Button>
-  );
-}
-
-export function PageIntro({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  children?: ReactNode;
-}) {
-  return (
-    <header className="page-intro">
-      <p className="eyebrow">{eyebrow}</p>
-      <h1 className="page-title">{title}</h1>
-      {children && <div className="page-description">{children}</div>}
-    </header>
-  );
-}
-
-export function SectionHeading({
-  eyebrow,
-  title,
-  action,
-}: {
-  eyebrow: string;
-  title: string;
-  action?: ReactNode;
-}) {
-  return (
-    <div className="section-heading">
-      <div>
-        <p className="eyebrow">{eyebrow}</p>
-        <h2 className="section-title">{title}</h2>
-      </div>
-      {action}
-    </div>
-  );
-}
-
-export function CvSection({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <section id={id} className="cv-section" aria-labelledby={`${id}-heading`}>
-      <h2 id={`${id}-heading`} className="cv-heading">
-        {title}
-      </h2>
-      <div className="cv-body">{children}</div>
-    </section>
+    <a
+      className={cn("btn", `btn--${variant}`, className)}
+      href={portfolio.url}
+      target="_blank"
+      rel="noreferrer"
+      download="Mehak-Dhawan-Portfolio.pdf"
+    >
+      Download portfolio <Download aria-hidden="true" />
+    </a>
   );
 }
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="site-width footer-grid">
-        <div>
-          <Link to="/" className="footer-brand">
-            Mehak
-          </Link>
+      <div className="container footer-top">
+        <div className="footer-brand">
+          <Logo />
           <p>
-            Student at {profile.school}, Dubai. Working across technology, research and social
-            impact.
+            Student at {profile.school}, {profile.city}, working across technology, research and
+            social impact.
           </p>
         </div>
         <nav className="footer-nav" aria-label="Footer navigation">
-          {navigation.map((item) => (
+          {navigation.slice(1).map((item) => (
             <Link key={item.to} to={item.to}>
               {item.label}
             </Link>
           ))}
+          <Link to="/contact">Contact</Link>
         </nav>
-        <div className="footer-actions">
+        <div className="footer-cta">
           <PortfolioDownload />
         </div>
       </div>
-      <div className="site-width footer-base">
+      <div className="container footer-bottom">
         <span>
-          © {new Date().getFullYear()} {profile.name}
+          © {new Date().getFullYear()} {profile.name}. All rights reserved.
         </span>
         <span>{profile.location}</span>
       </div>
     </footer>
+  );
+}
+
+export function BackToTop() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const update = () => setVisible(window.scrollY > 640);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return (
+    <button
+      type="button"
+      className="to-top"
+      data-visible={visible}
+      aria-label="Back to top"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
+      onClick={() => {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      }}
+    >
+      <ArrowUp aria-hidden="true" />
+    </button>
   );
 }
