@@ -561,7 +561,7 @@ export const experience: Engagement[] = [
     id: "curtin",
     organisation: "Curtin University STEM Challenge",
     role: "Team Lead",
-    text: "I led a six-person team to first place nationally, competing against more than 50 teams with an autonomous LiDAR robot car built on an Arduino-based prototype. Winning also earned me an internship opportunity at Lab of the Future.",
+    text: "Won first place nationally, competing against more than 50 teams with an autonomous LiDAR robot car built on an Arduino-based prototype. Winning also earned me an internship opportunity at Lab of the Future.",
   },
   {
     id: "tedx",
@@ -647,10 +647,9 @@ export const leadership: EntryCard[] = [
     icon: "lightbulb",
     title: "Head of STEAM and Founder of the STEM Club",
     meta: "Innovation Committee · Innovators’ Hub",
-    text: "I lead STEAM initiatives across the school, including campus-wide projects such as JC Buddy, Tech Feud and the Innovation Magazine.",
+    text: "I lead STEAM initiatives across the school, including running my own STEM Club and mentoring younger students with their STEM Projects.",
     points: [
       "Mentored five teams for the GEMS Global Innovation Challenge",
-      "Directed Shark Tank DXB, with 150+ participants and six venture capitalists as judges",
     ],
   },
   {
@@ -661,9 +660,9 @@ export const leadership: EntryCard[] = [
   },
   {
     icon: "music",
-    title: "Music Ambassador",
-    meta: "Jumeirah College",
-    text: "I help organise music competitions, school showcases and Battle of the Bands events, perform as a pianist with the JC Band, and help younger students develop their instrumental skills.",
+    title: "Music Organizer",
+    meta: "GEMS Modern Academy",
+    text: "I organised music competitions, school showcases and Battle of the Bands events, and helped younger students develop their instrumental skills.",
   },
   {
     icon: "handshake",
@@ -747,7 +746,7 @@ export const honourGroups: HonourGroup[] = [
       {
         title: "Curtin University STEM Challenge",
         detail: "National first prize",
-        text: "Led a six-person team to first place among more than 50 teams with an autonomous LiDAR robot car.",
+        text: "Won first place among more than 50 teams with an autonomous LiDAR robot car.",
       },
       {
         title: "Blue Ocean Student Entrepreneur Competition",
@@ -864,9 +863,9 @@ export const musicCards: MusicCard[] = [
     text: "I have received Laureate and finalist honours across more than 10 international music competitions. At the Beethoven Award International Music Competition, I placed among the top 80 participants and received Laureate recognition.",
   },
   {
-    title: "Music Ambassador",
-    meta: "Jumeirah College",
-    text: "I help organise music competitions, showcases and Battle of the Bands events, perform as a pianist with the JC Band, and support younger students as they develop their instrumental skills.",
+    title: "Music",
+    meta: "Piano",
+    text: "Perfomer.",
   },
   {
     title: "Let the Music Speak!",
