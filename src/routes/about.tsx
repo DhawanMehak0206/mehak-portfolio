@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { PortfolioDownload } from "@/components/portfolio-shell";
+import { ResumeLink } from "@/components/portfolio-shell";
 import { ChipList, NeuCard, SectionHead } from "@/components/site-ui";
 import { facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
 
@@ -64,7 +64,7 @@ function About() {
               <Link to="/research" className="btn btn--primary">
                 See my research <ArrowRight aria-hidden="true" />
               </Link>
-              <PortfolioDownload />
+              <ResumeLink />
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ function About() {
 
       <section className="section section--white" aria-labelledby="glance-heading">
         <div className="container">
-          <SectionHead id="glance-heading" kicker="Profile" title="At a Glance" />
+          <SectionHead id="glance-heading" title="At a Glance" />
           <dl className="fact-grid">
             {facts.map((fact) => (
               <div key={fact.label} className="fact">
@@ -86,7 +86,7 @@ function About() {
 
       <section className="section" aria-labelledby="skills-heading">
         <div className="container">
-          <SectionHead id="skills-heading" kicker="Toolkit" title="Skills and Tools">
+          <SectionHead id="skills-heading" title="Skills and Tools">
             The methods and technologies I have used across my research, internships and projects.
           </SectionHead>
           <div className="grid-3">

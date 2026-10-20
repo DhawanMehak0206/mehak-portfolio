@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Band, BandHead, BandStats, CheckList, NeuCard, PageHeader } from "@/components/site-ui";
-import { leadership, leadershipStats, pageHead } from "@/lib/portfolio-data";
+import { CheckList, NeuCard, PageHeader } from "@/components/site-ui";
+import { leadership, pageHead } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/leadership")({
   head: () =>
@@ -32,11 +32,6 @@ function Leadership() {
           ))}
         </div>
       </section>
-
-      <Band labelledBy="leadership-numbers-heading">
-        <BandHead id="leadership-numbers-heading" title="Leadership in Numbers" />
-        <BandStats items={leadershipStats} label="Leadership figures" />
-      </Band>
     </main>
   );
 }

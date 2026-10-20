@@ -22,6 +22,8 @@ export const profile = {
   city: "Dubai",
   location: "Dubai, United Arab Emirates",
   tagline: "Exploring the intersection of technology, human behaviour and creativity",
+  // Resume link for the Resume buttons; they stay hidden while this is empty.
+  resumeUrl: "",
   // Contact details appear on the contact page once they are filled in.
   email: "",
   linkedin: "",
@@ -670,16 +672,6 @@ export const leadership: EntryCard[] = [
   },
 ];
 
-export const leadershipStats: Stat[] = [
-  { value: "150+", label: "Students tutored for the BMO, AMC and other competitions" },
-  {
-    value: "~300",
-    label: "Participants in the Dubai Math Super League and JC Math Championship 2026",
-  },
-  { value: "150+", label: "Participants at Shark Tank DXB, judged by six venture capitalists" },
-  { value: "5", label: "Teams mentored for the GEMS Global Innovation Challenge" },
-];
-
 export interface Honour {
   title: string;
   detail: string;
@@ -853,13 +845,6 @@ export const honourGroups: HonourGroup[] = [
   },
 ];
 
-export const honourStats: Stat[] = [
-  { value: "Top 0.1%", label: "British Mathematical Olympiad Round 2 qualification" },
-  { value: "Top 5%", label: "International Psychology Olympiad, with UAE national team selection" },
-  { value: "1 of 28", label: "Youth Entrepreneurship and Service awardees, from 277 applications" },
-  { value: "Top 500", label: "Of more than 23,000 Blue Ocean entrepreneurship submissions" },
-];
-
 export interface MusicCard {
   title: string;
   meta: string;
@@ -899,13 +884,6 @@ export const musicCompetitions = [
   "Mozart International Music Competition",
   "World’s Best Musicians",
   "Haydn Music International Competition",
-];
-
-export const musicStats: Stat[] = [
-  { value: "11+", label: "Years of formal piano training" },
-  { value: "Grade 8", label: "Distinction, London College of Music" },
-  { value: "10+", label: "International competitions with Laureate or finalist honours" },
-  { value: "75+", label: "Performers at the music festival I organised" },
 ];
 
 export function pageHead(title: string, description: string) {

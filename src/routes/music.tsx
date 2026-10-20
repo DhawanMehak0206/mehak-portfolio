@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Music2 } from "lucide-react";
-import { Band, BandHead, BandStats, BlueCard, PageHeader } from "@/components/site-ui";
-import { musicCards, musicCompetitions, musicStats, pageHead, photos } from "@/lib/portfolio-data";
+import { Band, BandHead, BlueCard, PageHeader } from "@/components/site-ui";
+import { musicCards, musicCompetitions, pageHead, photos } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/music")({
   head: () =>
@@ -81,7 +81,6 @@ function Music() {
             </li>
           ))}
         </ul>
-        <BandStats items={musicStats} label="Music figures" />
       </Band>
     </main>
   );

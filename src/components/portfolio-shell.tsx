@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, Download, Menu } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Menu } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import portfolio from "@/assets/portfolio.pdf.asset.json";
 import { profile } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
@@ -20,9 +19,8 @@ const navigation = [
 
 function Logo() {
   return (
-    <Link to="/" className="logo" aria-label={`${profile.name}, home`}>
-      <span className="logo-first">{profile.firstName}</span>
-      <span className="logo-last">{profile.lastName}</span>
+    <Link to="/" className="logo">
+      {profile.firstName} <span>{profile.lastName}</span>
     </Link>
   );
 }
@@ -54,9 +52,8 @@ export function SiteHeader() {
             </button>
           </SheetTrigger>
           <SheetContent className="mobile-sheet">
-            <SheetTitle className="mobile-sheet-title">
-              <span className="logo-first">{profile.firstName}</span>
-              <span className="logo-last">{profile.lastName}</span>
+            <SheetTitle className="logo">
+              {profile.firstName} <span>{profile.lastName}</span>
             </SheetTitle>
             <nav className="mobile-nav" aria-label="Mobile navigation">
               {navigation.map((item) => (
@@ -73,7 +70,7 @@ export function SiteHeader() {
                   Contact me
                 </Link>
               </SheetClose>
-              <PortfolioDownload />
+              <ResumeLink variant="neu" />
             </div>
           </SheetContent>
         </Sheet>
@@ -82,22 +79,23 @@ export function SiteHeader() {
   );
 }
 
-export function PortfolioDownload({
+/** Opens the resume in a new tab; renders nothing until `profile.resumeUrl` is set. */
+export function ResumeLink({
   variant = "neu",
   className,
 }: {
   variant?: "primary" | "neu" | "light" | "ghost";
   className?: string;
 }) {
+  if (!profile.resumeUrl) return null;
   return (
     <a
       className={cn("btn", `btn--${variant}`, className)}
-      href={portfolio.url}
+      href={profile.resumeUrl}
       target="_blank"
       rel="noreferrer"
-      download="Mehak-Dhawan-Portfolio.pdf"
     >
-      Download portfolio <Download aria-hidden="true" />
+      Resume <ArrowUpRight aria-hidden="true" />
     </a>
   );
 }
@@ -122,7 +120,7 @@ export function SiteFooter() {
           <Link to="/contact">Contact</Link>
         </nav>
         <div className="footer-cta">
-          <PortfolioDownload />
+          <ResumeLink />
         </div>
       </div>
       <div className="container footer-bottom">

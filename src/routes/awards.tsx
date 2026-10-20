@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Band, BandHead, BandStats, IconBadge, PageHeader } from "@/components/site-ui";
-import { honourGroups, honourStats, pageHead } from "@/lib/portfolio-data";
+import { PageHeader } from "@/components/site-ui";
+import { honourGroups, pageHead } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/awards")({
   head: () =>
@@ -59,7 +59,6 @@ function Awards() {
               <div className="card-flow">
                 {group.items.map((honour) => (
                   <article key={honour.title} className="neu-card award-card">
-                    <IconBadge name={group.icon} small />
                     <h3 className="card-title">{honour.title}</h3>
                     <p className="card-meta">{honour.detail}</p>
                     <p className="card-text">{honour.text}</p>
@@ -70,11 +69,6 @@ function Awards() {
           ))}
         </div>
       </section>
-
-      <Band labelledBy="recognition-heading">
-        <BandHead id="recognition-heading" title="Recognition by the Numbers" />
-        <BandStats items={honourStats} label="Recognition figures" />
-      </Band>
     </main>
   );
 }

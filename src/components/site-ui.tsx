@@ -4,7 +4,6 @@ import {
   Brain,
   Calculator,
   ChartLine,
-  Check,
   Code2,
   Compass,
   Cpu,
@@ -100,13 +99,13 @@ export function SectionHead({
   children,
 }: {
   id: string;
-  kicker: string;
+  kicker?: string;
   title: string;
   children?: ReactNode;
 }) {
   return (
     <div className="section-head">
-      <p className="section-kicker">{kicker}</p>
+      {kicker && <p className="section-kicker">{kicker}</p>}
       <h2 className="section-title" id={id}>
         {title}
       </h2>
@@ -119,10 +118,7 @@ export function CheckList({ items, className }: { items: string[]; className?: s
   return (
     <ul className={cn("check-list", className)}>
       {items.map((item) => (
-        <li key={item}>
-          <Check aria-hidden="true" />
-          <span>{item}</span>
-        </li>
+        <li key={item}>{item}</li>
       ))}
     </ul>
   );

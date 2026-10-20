@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { PortfolioDownload } from "@/components/portfolio-shell";
+import { ResumeLink } from "@/components/portfolio-shell";
 import { Band, BandHead, NeuCard, PageHeader } from "@/components/site-ui";
 import { pageHead, profile } from "@/lib/portfolio-data";
 
@@ -67,14 +67,16 @@ function Contact() {
         </div>
       </section>
 
-      <Band labelledBy="portfolio-heading">
-        <BandHead id="portfolio-heading" title="The Complete Portfolio">
-          A detailed PDF covering my projects, research, leadership, music and recognition.
-        </BandHead>
-        <div className="band-actions">
-          <PortfolioDownload variant="light" />
-        </div>
-      </Band>
+      {profile.resumeUrl && (
+        <Band labelledBy="resume-heading">
+          <BandHead id="resume-heading" title="Resume">
+            My education, research, projects and recognition on one page.
+          </BandHead>
+          <div className="band-actions">
+            <ResumeLink variant="light" />
+          </div>
+        </Band>
+      )}
     </main>
   );
 }

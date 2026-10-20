@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MapPin } from "lucide-react";
-import { PortfolioDownload } from "@/components/portfolio-shell";
+import { ArrowRight } from "lucide-react";
+import { ResumeLink } from "@/components/portfolio-shell";
 import { TonnetzArt } from "@/components/research-art";
 import { Band, BandHead, NeuCard, SectionHead } from "@/components/site-ui";
 import {
@@ -68,8 +68,7 @@ function Index() {
         <div className="container hero-inner">
           <div className="hero-copy reveal">
             <p className="hero-chip">
-              <MapPin aria-hidden="true" />
-              {profile.school} · {profile.city}
+              {profile.school}, {profile.city}
             </p>
             <h1 className="hero-title" id="hero-title">
               {profile.name}
@@ -79,7 +78,7 @@ function Index() {
               <Link to="/experience" className="btn btn--primary">
                 Explore my work <ArrowRight aria-hidden="true" />
               </Link>
-              <PortfolioDownload variant="ghost" />
+              <ResumeLink variant="ghost" />
             </div>
           </div>
         </div>
@@ -122,12 +121,11 @@ function Index() {
               computational music. At its heart is a desire to combine analytical rigour with human
               understanding.
             </p>
-            <p className="about-cue">Explore my work…</p>
             <div className="button-row">
               <Link to="/about" className="btn btn--primary">
                 More about me
               </Link>
-              <PortfolioDownload />
+              <ResumeLink />
             </div>
           </div>
         </div>
@@ -135,7 +133,7 @@ function Index() {
 
       <section className="section section--white" aria-labelledby="principles-heading">
         <div className="container">
-          <SectionHead id="principles-heading" kicker="What drives me" title="Guiding Principles" />
+          <SectionHead id="principles-heading" title="What Guides My Work" />
           <div className="grid-3">
             {principles.map((item) => (
               <NeuCard key={item.title} icon={item.icon} title={item.title}>
@@ -148,7 +146,7 @@ function Index() {
 
       <section className="section" aria-labelledby="roles-heading">
         <div className="container">
-          <SectionHead id="roles-heading" kicker="How I contribute" title="Leadership Roles" />
+          <SectionHead id="roles-heading" title="Roles I Take On" />
           <div className="grid-3">
             {roles.map((item) => (
               <NeuCard key={item.title} icon={item.icon} title={item.title}>
