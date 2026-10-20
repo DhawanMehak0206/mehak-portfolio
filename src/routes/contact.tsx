@@ -26,7 +26,7 @@ function Contact() {
       <section className="section section--tight" aria-label="Contact details">
         <div className="container card-flow">
           {profile.email && (
-            <NeuCard icon="pen" title="Email">
+            <NeuCard icon="mail" title="Email">
               <a className="card-link" href={`mailto:${profile.email}`}>
                 {profile.email}
               </a>

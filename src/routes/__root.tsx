@@ -76,14 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Portfolio of Mehak Dhawan, a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
+          "Portfolio of Mehak Dhawan, a student at Jumeirah College, Dubai, exploring cognitive science, computer science, economics and music.",
       },
       { name: "author", content: "Mehak Dhawan" },
       { property: "og:title", content: "Mehak Dhawan — Student, Researcher and Founder" },
       {
         property: "og:description",
         content:
-          "Technology, research and social impact at the intersection of human behaviour and creativity.",
+          "Research, technology and social impact at the intersection of cognitive science, computer science, economics and music.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -99,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap",
       },
     ],
   }),

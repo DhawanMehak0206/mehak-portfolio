@@ -16,6 +16,7 @@ import {
   House,
   Landmark,
   Languages,
+  Mail,
   Lightbulb,
   Medal,
   Mic,
@@ -52,6 +53,7 @@ const icons: Record<IconName, LucideIcon> = {
   house: House,
   landmark: Landmark,
   languages: Languages,
+  mail: Mail,
   lightbulb: Lightbulb,
   medal: Medal,
   mic: Mic,
@@ -84,10 +86,11 @@ export function IconBadge({ name, small = false }: { name: IconName; small?: boo
 /** Centred title and introduction at the top of each inner page. */
 export function PageHeader({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <header className="page-header container reveal">
-      <h1 className="page-title">{title}</h1>
-      <span className="title-rule" aria-hidden="true" />
-      {children && <div className="page-intro">{children}</div>}
+    <header className="page-header">
+      <div className="container reveal">
+        <h1 className="page-title">{title}</h1>
+        {children && <div className="page-intro">{children}</div>}
+      </div>
     </header>
   );
 }

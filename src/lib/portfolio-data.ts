@@ -21,11 +21,11 @@ export const profile = {
   school: "Jumeirah College",
   city: "Dubai",
   location: "Dubai, United Arab Emirates",
-  tagline: "Exploring the intersection of technology, human behaviour and creativity",
+  tagline: "Exploring the intersection of cognitive science, computer science, economics and music",
   // Resume link for the Resume buttons; they stay hidden while this is empty.
   resumeUrl: "",
   // Contact details appear on the contact page once they are filled in.
-  email: "",
+  email: "mehak.dhawan0206@gmail.com",
   linkedin: "",
 };
 
@@ -58,6 +58,7 @@ export type IconName =
   | "house"
   | "landmark"
   | "languages"
+  | "mail"
   | "lightbulb"
   | "medal"
   | "mic"
@@ -216,7 +217,7 @@ export const principles: Feature[] = [
   {
     icon: "lightbulb",
     title: "Curiosity",
-    text: "A love of music led me to ask why some harmonies feel stable and others surprising, and then to measure it. I am drawn to questions that challenge conventional perspectives.",
+    text: "A love of music led me to ask why some harmonies feel stable and others surprising, and then to measure it.",
   },
 ];
 
@@ -279,7 +280,7 @@ export const facts = [
   { label: "Studying", value: "Mathematics, Further Mathematics, Physics and Economics" },
   {
     label: "Interests",
-    value: "Human–computer interaction, digital inclusion, economics and computational music",
+    value: "Cognitive science, computer science, economics and music",
   },
   { label: "Languages", value: "English (IELTS 8.5) and French (DELF B2)" },
 ];

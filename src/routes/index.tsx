@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ResumeLink } from "@/components/portfolio-shell";
 import { TonnetzArt } from "@/components/research-art";
-import { Band, BandHead, NeuCard, SectionHead } from "@/components/site-ui";
+import { Icon, NeuCard, SectionHead } from "@/components/site-ui";
 import {
   highlights,
   pageHead,
@@ -18,14 +18,15 @@ export const Route = createFileRoute("/")({
   head: () =>
     pageHead(
       "Student, researcher and founder",
-      "Mehak Dhawan is a student at Jumeirah College, Dubai, working across human–computer interaction, digital inclusion, economics research and music.",
+      "Mehak Dhawan is a student at Jumeirah College, Dubai, exploring questions at the intersection of cognitive science, computer science, economics and music.",
     ),
   component: Index,
 });
 
-function WorkCard({ item }: { item: WorkHighlight }) {
+/** One project per row; the image swaps sides on alternate rows. */
+function WorkRow({ item }: { item: WorkHighlight }) {
   return (
-    <Link to={item.to} hash={item.hash} className="work-card">
+    <article className="work-row">
       <div className={`work-media is-${item.media.kind}`}>
         {item.media.kind === "art" ? (
           <TonnetzArt decorative />
@@ -43,12 +44,12 @@ function WorkCard({ item }: { item: WorkHighlight }) {
       <div className="work-body">
         <p className="card-meta">{item.kicker}</p>
         <h3 className="work-title">{item.title}</h3>
-        <p className="card-text">{item.text}</p>
-        <span className="work-link">
+        <p className="work-text">{item.text}</p>
+        <Link to={item.to} hash={item.hash} className="text-link">
           Read more <ArrowRight aria-hidden="true" />
-        </span>
+        </Link>
       </div>
-    </Link>
+    </article>
   );
 }
 
@@ -82,21 +83,40 @@ function Index() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="container stats-wrap" aria-label="Highlights">
-        <dl className="stats-card">
-          {highlights.map((item) => (
-            <div className="stat" key={item.label}>
-              <dt>{item.label}</dt>
-              <dd>{item.value}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="container">
+          <dl className="hero-stats" aria-label="Highlights">
+            {highlights.map((item) => (
+              <div key={item.label}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
 
       <section className="section" aria-labelledby="about-heading">
-        <div className="container about-split">
+        <div className="container about-split about-split--reverse">
+          <div className="about-copy">
+            <h2 className="about-title" id="about-heading">
+              About Me
+            </h2>
+            <p>
+              I’m a student at Jumeirah College, Dubai, exploring questions at the intersection of
+              cognitive science, computer science, economics and music.
+            </p>
+            <p>
+              I’m interested in how people process information, make decisions, learn and connect
+              with one another, and in what computational models can help us understand about these
+              processes.
+            </p>
+            <div className="button-row">
+              <Link to="/about" className="btn btn--primary">
+                More about me
+              </Link>
+              <ResumeLink />
+            </div>
+          </div>
           <div className="photo-frame">
             <img
               src={photos.portrait.src}
@@ -107,38 +127,19 @@ function Index() {
               decoding="async"
             />
           </div>
-          <div className="about-copy">
-            <h2 className="about-title" id="about-heading">
-              About Me
-            </h2>
-            <p>
-              I’m a student at Jumeirah College, Dubai, fascinated by the intersection of
-              technology, human behaviour and creativity, and by the ways seemingly distinct
-              disciplines can inform one another.
-            </p>
-            <p>
-              My work spans human–computer interaction, digital inclusion, economics and
-              computational music. At its heart is a desire to combine analytical rigour with human
-              understanding.
-            </p>
-            <div className="button-row">
-              <Link to="/about" className="btn btn--primary">
-                More about me
-              </Link>
-              <ResumeLink />
-            </div>
-          </div>
         </div>
       </section>
 
       <section className="section section--white" aria-labelledby="principles-heading">
         <div className="container">
           <SectionHead id="principles-heading" title="What Guides My Work" />
-          <div className="grid-3">
+          <div className="pillars">
             {principles.map((item) => (
-              <NeuCard key={item.title} icon={item.icon} title={item.title}>
-                <p className="card-text">{item.text}</p>
-              </NeuCard>
+              <article key={item.title} className="pillar">
+                <Icon name={item.icon} className="pillar-icon" />
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
             ))}
           </div>
         </div>
@@ -149,7 +150,12 @@ function Index() {
           <SectionHead id="roles-heading" title="Roles I Take On" />
           <div className="grid-3">
             {roles.map((item) => (
-              <NeuCard key={item.title} icon={item.icon} title={item.title}>
+              <NeuCard
+                key={item.title}
+                icon={item.icon}
+                title={item.title}
+                className="neu-card--row"
+              >
                 <p className="card-text">{item.text}</p>
               </NeuCard>
             ))}
@@ -157,16 +163,18 @@ function Index() {
         </div>
       </section>
 
-      <Band labelledBy="work-heading">
-        <BandHead id="work-heading" title="Selected Work">
-          Three projects that show how I turn questions into platforms, products and research.
-        </BandHead>
-        <div className="grid-3 work-grid">
-          {selectedWork.map((item) => (
-            <WorkCard key={item.title} item={item} />
-          ))}
+      <section className="section section--white" aria-labelledby="work-heading">
+        <div className="container">
+          <SectionHead id="work-heading" title="Selected Work">
+            Three projects that show how I turn questions into platforms, products and research.
+          </SectionHead>
+          <div className="work-list">
+            {selectedWork.map((item) => (
+              <WorkRow key={item.title} item={item} />
+            ))}
+          </div>
         </div>
-      </Band>
+      </section>
     </main>
   );
 }

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/about")({
   head: () =>
     pageHead(
       "About",
-      "Mehak Dhawan, a Jumeirah College student in Dubai working across technology, human behaviour and creativity.",
+      "Mehak Dhawan, a Jumeirah College student in Dubai exploring cognitive science, computer science, economics and music.",
     ),
   component: About,
 });
@@ -30,19 +30,13 @@ function About() {
             <div className="about-copy">
               <h1 className="about-title about-title--page">About Me</h1>
               <p>
-                I’m a student at Jumeirah College, Dubai. I’m fascinated by the intersection of
-                technology, human behaviour and creativity, and by the ways seemingly distinct
-                disciplines can inform one another. I’m drawn to questions that challenge
-                conventional perspectives: how technology can strengthen human connection, how data
-                can uncover overlooked inequalities, and how mathematical models can offer new ways
-                of understanding complex systems.
+                I’m a student at Jumeirah College, Dubai. I explore questions at the intersection of
+                cognitive science, computer science, economics and music.
               </p>
               <p>
-                Through developing technology-driven initiatives, conducting computational research
-                and exploring the social implications of innovation, I have sought to translate
-                these questions into meaningful work. My experiences span human–computer
-                interaction, digital inclusion, economics and computational music, each offering a
-                different lens through which to investigate problems and develop solutions.
+                I’m interested in how people process information, make decisions, learn from their
+                environments and connect with one another, and in what computational models can help
+                us understand about these processes.
               </p>
             </div>
           </div>
@@ -55,10 +49,9 @@ function About() {
               Kindling.
             </p>
             <p>
-              Music has been a central part of my life for over 11 years of formal piano training.
-              At the heart of everything I do is a desire to combine analytical rigour with human
-              understanding, approaching complex challenges with curiosity, creativity and a
-              commitment to building things that matter.
+              Those questions run through my work, from Kindling and DigiSakhi to research in
+              computational musicology, economics and physics. Music has also been a central part of
+              my life for over 11 years of formal piano training.
             </p>
             <div className="button-row">
               <Link to="/research" className="btn btn--primary">
