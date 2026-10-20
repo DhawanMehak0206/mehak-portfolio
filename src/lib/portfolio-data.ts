@@ -558,7 +558,7 @@ export const experience: Engagement[] = [
     id: "curtin",
     organisation: "Curtin University STEM Challenge",
     role: "Team Lead",
-    text: "I led a six-person team to first place nationally, competing against more than 50 teams with an autonomous LiDAR robot car built on an Arduino-based prototype. Winning also earned me an internship opportunity at Lab of the Future.",
+    text: "Won first place nationally, competing against more than 50 teams with an autonomous LiDAR robot car built on an Arduino-based prototype. Winning also earned me an internship opportunity at Lab of the Future.",
   },
   {
     id: "tedx",
@@ -644,10 +644,9 @@ export const leadership: EntryCard[] = [
     icon: "lightbulb",
     title: "Head of STEAM and Founder of the STEM Club",
     meta: "Innovation Committee · Innovators’ Hub",
-    text: "I lead STEAM initiatives across the school, including campus-wide projects such as JC Buddy, Tech Feud and the Innovation Magazine.",
+    text: "I lead STEAM initiatives across the school, including running my own STEM Club and mentoring younger students with their STEM Projects.",
     points: [
       "Mentored five teams for the GEMS Global Innovation Challenge",
-      "Directed Shark Tank DXB, with 150+ participants and six venture capitalists as judges",
     ],
   },
   {
@@ -754,7 +753,7 @@ export const honourGroups: HonourGroup[] = [
       {
         title: "Curtin University STEM Challenge",
         detail: "National first prize",
-        text: "Led a six-person team to first place among more than 50 teams with an autonomous LiDAR robot car.",
+        text: "Won first place among more than 50 teams with an autonomous LiDAR robot car.",
       },
       {
         title: "Blue Ocean Student Entrepreneur Competition",
