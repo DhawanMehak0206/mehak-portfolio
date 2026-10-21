@@ -1,7 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Music2 } from "lucide-react";
+import { EvidenceSection } from "@/components/evidence";
+import { PhotoGallery } from "@/components/gallery";
 import { Band, BandHead, BlueCard, PageHeader } from "@/components/site-ui";
-import { musicCards, musicCompetitions, pageHead, photos } from "@/lib/portfolio-data";
+import {
+  evidenceSets,
+  musicCards,
+  musicCompetitions,
+  pageHead,
+  photos,
+} from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/music")({
   head: () =>
@@ -81,7 +89,20 @@ function Music() {
             </li>
           ))}
         </ul>
+        <div className="band-block">
+          <h3 className="band-subtitle">At Let the Music Speak!</h3>
+          <PhotoGallery
+            large
+            label="Let the Music Speak! photos"
+            photos={[photos.festivalPerformer]}
+          />
+        </div>
       </Band>
+
+      <EvidenceSection id="music-evidence" title="Music Certificates" ids={evidenceSets.music}>
+        London College of Music examinations from Step 2 to Grade 8, and final-round selections in
+        international competitions.
+      </EvidenceSection>
     </main>
   );
 }

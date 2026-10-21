@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { EvidenceSection } from "@/components/evidence";
 import { PhotoGallery } from "@/components/gallery";
 import { Band, BandHead, BlueCard, CheckList, PageHeader } from "@/components/site-ui";
-import { community, pageHead, photos } from "@/lib/portfolio-data";
+import { community, evidenceSets, pageHead, photos } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/community")({
   head: () =>
@@ -42,6 +43,7 @@ function Community() {
         <div className="band-block">
           <h3 className="band-subtitle">DigiSakhi</h3>
           <PhotoGallery
+            large
             label="DigiSakhi photos"
             photos={[
               photos.digisakhiSession,
@@ -49,7 +51,16 @@ function Community() {
               photos.digisakhiStudents,
               photos.digisakhiTalk,
               photos.digisakhiClassroom,
+              photos.digisakhiPractice,
             ]}
+          />
+        </div>
+        <div className="band-block">
+          <h3 className="band-subtitle">The DigiSakhi platform</h3>
+          <PhotoGallery
+            wide
+            label="DigiSakhi platform screenshots"
+            photos={[photos.digisakhiPlatformVideos, photos.digisakhiPlatformBlogs]}
           />
         </div>
         <div className="band-block">
@@ -57,10 +68,25 @@ function Community() {
           <PhotoGallery
             large
             label="Kindling Connect photos"
-            photos={[photos.kindlingLearnovate, photos.kindlingFamily, photos.kindlingOnline]}
+            photos={[
+              photos.kindlingLearnovate,
+              photos.kindlingFamily,
+              photos.kindlingOnline,
+              photos.kindlingConnectSpecialNeeds,
+              photos.kindlingConnectSupport,
+            ]}
           />
         </div>
       </Band>
+
+      <EvidenceSection
+        id="community-evidence"
+        title="Letters and Recognition"
+        ids={evidenceSets.community}
+      >
+        Letters from the organisations I have worked with, and the awards for DigiSakhi and
+        Kindling.
+      </EvidenceSection>
     </main>
   );
 }

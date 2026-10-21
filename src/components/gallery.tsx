@@ -9,10 +9,14 @@ export function PhotoGallery({
   photos,
   label,
   large = false,
+  wide = false,
 }: {
   photos: Photo[];
   label: string;
+  /** Bigger square tiles, three to a row. */
   large?: boolean;
+  /** Landscape tiles for screenshots, two to a row. */
+  wide?: boolean;
 }) {
   const [index, setIndex] = useState<number | null>(null);
   const count = photos.length;
@@ -22,7 +26,10 @@ export function PhotoGallery({
 
   return (
     <>
-      <ul className={cn("gallery", large && "gallery--large")} aria-label={label}>
+      <ul
+        className={cn("gallery", large && "gallery--large", wide && "gallery--wide")}
+        aria-label={label}
+      >
         {photos.map((photo, i) => (
           <li key={photo.src} className="gallery-item">
             <button
@@ -34,7 +41,7 @@ export function PhotoGallery({
               aria-label={`Enlarge photo: ${photo.caption}`}
             >
               <img
-                src={photo.src}
+                src={photo.thumb}
                 alt=""
                 width={photo.width}
                 height={photo.height}

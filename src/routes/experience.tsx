@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PhoneRow } from "@/components/gallery";
+import { EvidenceSection } from "@/components/evidence";
+import { PhoneRow, PhotoGallery } from "@/components/gallery";
 import { Band, BandHead, CheckList, PageHeader } from "@/components/site-ui";
-import { experience, pageHead, photos } from "@/lib/portfolio-data";
+import { evidenceSets, experience, pageHead, photos } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/experience")({
   head: () =>
@@ -50,7 +51,35 @@ function Experience() {
           screens={[photos.kindlingHome, photos.kindlingQuestion, photos.kindlingAssessment]}
           label="Kindling app screens"
         />
+        <div className="band-block">
+          <h3 className="band-subtitle">Kindling in schools</h3>
+          <p className="band-note">
+            Sessions with families at schools in Learnovate’s KIIT JEE network, March 2026. Other
+            people’s faces are blurred.
+          </p>
+          <PhotoGallery
+            large
+            label="Kindling school session photos"
+            photos={[
+              photos.kindlingShowcaseFamily,
+              photos.kindlingShowcaseGroup,
+              photos.kindlingShowcaseDemo,
+              photos.kindlingShowcaseFather,
+              photos.kindlingSchoolGuide,
+              photos.kindlingSchoolStand,
+            ]}
+          />
+        </div>
       </Band>
+
+      <EvidenceSection
+        id="experience-evidence"
+        title="Letters and Recognition"
+        ids={evidenceSets.experience}
+      >
+        A letter from Learnovate, the Technovation prize, the Curtin STEM Challenge win and the YYGS
+        certificate.
+      </EvidenceSection>
     </main>
   );
 }

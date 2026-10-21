@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckList, NeuCard, PageHeader } from "@/components/site-ui";
-import { leadership, pageHead } from "@/lib/portfolio-data";
+import { EvidenceSection } from "@/components/evidence";
+import { evidenceSets, leadership, pageHead } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/leadership")({
   head: () =>
@@ -32,6 +33,13 @@ function Leadership() {
           ))}
         </div>
       </section>
+
+      <EvidenceSection
+        id="leadership-evidence"
+        title="From the School"
+        ids={evidenceSets.leadership}
+        white
+      />
     </main>
   );
 }

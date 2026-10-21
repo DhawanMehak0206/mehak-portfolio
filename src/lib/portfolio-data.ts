@@ -1,18 +1,29 @@
-import portraitSrc from "@/assets/photos/portrait.jpg";
-import digisakhiGuidingSrc from "@/assets/photos/digisakhi-guiding.jpg";
-import kindlingHomeSrc from "@/assets/photos/kindling-home.jpg";
-import learnovateSrc from "@/assets/photos/kindling-learnovate.jpg";
-import festivalSrc from "@/assets/photos/let-the-music-speak.jpg";
-import digisakhiSessionSrc from "@/assets/photos/digisakhi-session.jpg";
-import digisakhiStudentsSrc from "@/assets/photos/digisakhi-students.jpg";
-import digisakhiTalkSrc from "@/assets/photos/digisakhi-talk.jpg";
-import digisakhiClassroomSrc from "@/assets/photos/digisakhi-classroom.jpg";
-import kindlingQuestionSrc from "@/assets/photos/kindling-question.jpg";
-import kindlingAssessmentSrc from "@/assets/photos/kindling-assessment.jpg";
-import kindlingFamilySrc from "@/assets/photos/kindling-connect-family.jpg";
-import kindlingOnlineSrc from "@/assets/photos/kindling-connect-online.jpg";
+// Photos and evidence images are bundled from src/assets; each has a small thumbnail for grids.
+const imageFiles = import.meta.glob<string>(
+  ["../assets/photos/*.jpg", "../assets/evidence/*.jpg"],
+  {
+    eager: true,
+    import: "default",
+  },
+);
+const thumbFiles = import.meta.glob<string>(
+  ["../assets/photos/thumbs/*.jpg", "../assets/evidence/thumbs/*.jpg"],
+  { eager: true, import: "default" },
+);
+const documentFiles = import.meta.glob<string>("../assets/evidence/files/*.pdf", {
+  eager: true,
+  import: "default",
+});
 
-// Every fact below comes from Mehak's portfolio PDF.
+/** Bundled URLs for an image in src/assets/<folder>, plus its thumbnail. */
+function asset(folder: "photos" | "evidence", name: string) {
+  const src = imageFiles[`../assets/${folder}/${name}.jpg`];
+  const thumb = thumbFiles[`../assets/${folder}/thumbs/${name}.jpg`];
+  if (!src || !thumb) throw new Error(`Missing image: ${folder}/${name}.jpg (or its thumbnail)`);
+  return { src, thumb };
+}
+
+// Facts come from Mehak's portfolio PDF and the certificates and letters in her evidence folder.
 export const profile = {
   firstName: "Mehak",
   // Taken from her name in the online Kindling Connect session; the PDF text has no surname.
@@ -76,6 +87,8 @@ export type IconName =
 
 export interface Photo {
   src: string;
+  /** Smaller copy for gallery tiles. */
+  thumb: string;
   alt: string;
   caption: string;
   width: number;
@@ -88,21 +101,21 @@ export interface Photo {
 
 export const photos = {
   portrait: {
-    src: portraitSrc,
+    ...asset("photos", "portrait"),
     width: 854,
     height: 960,
     alt: "Portrait of Mehak Dhawan",
     caption: "Mehak Dhawan",
   },
   digisakhiSession: {
-    src: digisakhiSessionSrc,
+    ...asset("photos", "digisakhi-session"),
     width: 1690,
     height: 1260,
     alt: "Mehak leaning over a laptop to guide a participant in a computer lab",
     caption: "Guiding a participant during a DigiSakhi session",
   },
   digisakhiGuiding: {
-    src: digisakhiGuidingSrc,
+    ...asset("photos", "digisakhi-guiding"),
     width: 816,
     height: 1024,
     alt: "Mehak helping a participant at a computer",
@@ -110,14 +123,14 @@ export const photos = {
     focus: "top",
   },
   digisakhiStudents: {
-    src: digisakhiStudentsSrc,
+    ...asset("photos", "digisakhi-students"),
     width: 952,
     height: 1144,
     alt: "Mehak working on a laptop with a group of students gathered around her",
     caption: "Working through a session with students",
   },
   digisakhiTalk: {
-    src: digisakhiTalkSrc,
+    ...asset("photos", "digisakhi-talk"),
     width: 920,
     height: 1052,
     alt: "Mehak speaking to a class of students",
@@ -125,42 +138,42 @@ export const photos = {
     focus: "upper",
   },
   digisakhiClassroom: {
-    src: digisakhiClassroomSrc,
+    ...asset("photos", "digisakhi-classroom"),
     width: 1400,
     height: 920,
     alt: "A classroom of students listening during a session",
     caption: "Students during a session",
   },
   kindlingHome: {
-    src: kindlingHomeSrc,
+    ...asset("photos", "kindling-home"),
     width: 648,
     height: 1382,
     alt: "Kindling home screen with a parenting-style assessment, a daily plan and weekly milestones",
     caption: "Daily plan and milestones",
   },
   kindlingQuestion: {
-    src: kindlingQuestionSrc,
+    ...asset("photos", "kindling-question"),
     width: 628,
     height: 1382,
     alt: "Kindling assessment question about warmth and structure, with five answer options",
     caption: "Parenting-style assessment",
   },
   kindlingAssessment: {
-    src: kindlingAssessmentSrc,
+    ...asset("photos", "kindling-assessment"),
     width: 654,
     height: 1366,
     alt: "Kindling screen describing personalised plans, AI-powered insights and weekly challenges",
     caption: "Personalised plans and insights",
   },
   kindlingLearnovate: {
-    src: learnovateSrc,
+    ...asset("photos", "kindling-learnovate"),
     width: 922,
     height: 1184,
     alt: "Mehak presenting Kindling to a family in the Learnovate innovation space",
     caption: "Presenting Kindling to a family",
   },
   kindlingFamily: {
-    src: kindlingFamilySrc,
+    ...asset("photos", "kindling-connect-family"),
     width: 542,
     height: 1026,
     alt: "Mehak at a table with a laptop, printed materials and a QR code, talking with a visitor",
@@ -168,7 +181,7 @@ export const photos = {
     focus: "upper",
   },
   kindlingOnline: {
-    src: kindlingOnlineSrc,
+    ...asset("photos", "kindling-connect-online"),
     width: 1400,
     height: 680,
     alt: "Slide from an online session asking: One word that describes parenting your child during growing years?",
@@ -176,11 +189,103 @@ export const photos = {
     fit: "contain",
   },
   festival: {
-    src: festivalSrc,
+    ...asset("photos", "let-the-music-speak"),
     width: 1572,
     height: 1136,
     alt: "Mehak speaking at a lectern beside a screen reading Let the Music Speak!",
     caption: "Speaking at Let the Music Speak!",
+  },
+  digisakhiPractice: {
+    ...asset("photos", "digisakhi-practice"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak standing behind a row of participants practising at computers",
+    caption: "Participants practising at the computers",
+  },
+  digisakhiPlatformVideos: {
+    ...asset("photos", "digisakhi-platform-videos"),
+    width: 1400,
+    height: 657,
+    alt: "The DigiSakhi platform's video library, showing Module 2: Financial Digital Literacy lessons presented by Mehak",
+    caption: "The DigiSakhi video library",
+    fit: "contain",
+  },
+  digisakhiPlatformBlogs: {
+    ...asset("photos", "digisakhi-platform-blogs"),
+    width: 1400,
+    height: 748,
+    alt: "The DigiSakhi platform's blog page, with articles in Tamil, English and Punjabi",
+    caption: "Blogs in several Indian languages",
+    fit: "contain",
+  },
+  kindlingShowcaseFamily: {
+    ...asset("photos", "kindling-showcase-family"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak at the Kindling stand showing a father and daughter the app on a laptop and phone",
+    caption: "Showing a parent and child the app",
+    focus: "upper",
+  },
+  kindlingShowcaseGroup: {
+    ...asset("photos", "kindling-showcase-group"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak explaining Kindling to a family of four holding a printed leaflet",
+    caption: "Explaining Kindling to a family",
+    focus: "upper",
+  },
+  kindlingShowcaseDemo: {
+    ...asset("photos", "kindling-showcase-demo"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak demonstrating Kindling on a laptop to a mother and her teenage son",
+    caption: "A demonstration for a mother and son",
+    focus: "upper",
+  },
+  kindlingShowcaseFather: {
+    ...asset("photos", "kindling-showcase-father"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak talking with a seated father and daughter at the Kindling stand",
+    caption: "Talking with a father and daughter",
+    focus: "upper",
+  },
+  kindlingSchoolGuide: {
+    ...asset("photos", "kindling-school-guide"),
+    width: 1400,
+    height: 637,
+    alt: "Mehak walking a father and daughter through Kindling at a school session",
+    caption: "Guiding a family through the app",
+  },
+  kindlingSchoolStand: {
+    ...asset("photos", "kindling-school-stand"),
+    width: 1400,
+    height: 637,
+    alt: "Mehak speaking with parents seated at a round table with the Kindling leaflet and QR code",
+    caption: "A Kindling session at a partner school",
+  },
+  kindlingConnectSpecialNeeds: {
+    ...asset("photos", "kindling-connect-special-needs"),
+    width: 1400,
+    height: 751,
+    alt: "Title slide: Navigating Adolescence for Children with Special Needs, Healing Nest Foundation",
+    caption: "An online session on adolescence for children with special needs",
+    fit: "contain",
+  },
+  kindlingConnectSupport: {
+    ...asset("photos", "kindling-connect-support"),
+    width: 1400,
+    height: 788,
+    alt: "Slide on government support and financial planning, covering the UDID card, Niramaya health insurance and disability pensions",
+    caption: "A session on government support and financial planning",
+    fit: "contain",
+  },
+  festivalPerformer: {
+    ...asset("photos", "let-the-music-speak-performer"),
+    width: 1400,
+    height: 805,
+    alt: "A student performing on a digital piano at the Let the Music Speak! festival",
+    caption: "A performer at the festival",
   },
 } satisfies Record<string, Photo>;
 
@@ -405,8 +510,8 @@ export const scores: Stat[] = [
 
 export const featuredResearch = {
   id: "tonal-stability",
-  title: "Quantifying Tonal Stability and Harmonic Motion",
-  kicker: "Computational musicology · Published in NHSJS",
+  title: "Quantifying Tonal Stability and Key Ambiguity Metrics across Musical Genres",
+  kicker: "Computational musicology · Published in NHSJS, September 2026",
   paragraphs: [
     "Music has been part of my life for over a decade, but I have always been curious about more than how it sounds. I wanted to understand the mathematical structures that make music feel stable, surprising or emotionally complex.",
     "Using Python and symbolic MIDI data, I analysed 50 musical excerpts across five categories: Classical, Pop, Rock, Jazz and Stravinsky’s compositions. I combined the Krumhansl–Schmuckler key-finding algorithm with Tonnetz-based representations of harmonic relationships to build a quantitative framework for examining tonal ambiguity and movement.",
@@ -523,8 +628,9 @@ export const experience: Engagement[] = [
     role: "Founder",
     text: "Kindling is a context-aware, emotionally intelligent app designed to strengthen parent–adolescent relationships. Developed in consultation with professional psychologists, it offers an AI-powered chatbot, conversation starters, activity suggestions, smart reminders and parenting tips tailored to each family. I didn’t want to build another app competing for a family’s attention; Kindling is designed to help people put their phones down and reconnect.",
     points: [
+      "Piloted with Learnovate across 8 schools in the KIIT JEE network, engaging about 2,500–3,000 families",
       "Technovation Girls semifinalist, the only UAE-based project to advance",
-      "Break the Scroll Award",
+      "Winner of the 2025–2026 Technovation Break the Scroll Prize",
       "₹18 lakh pre-seed funding committed by Country Delight",
     ],
   },
@@ -586,7 +692,8 @@ export const community: Engagement[] = [
     points: [
       "More than 15,000 women reached across four Indian states",
       "Supported by more than 10 student chapters",
-      "Youth Entrepreneurship and Service Award",
+      "Learning content integrated into Frontier Markets’ Meri Saheli network, alongside 20+ workshops and community sessions",
+      "Youth Empowerment & Service Award of Excellence, 2026",
     ],
   },
   {
@@ -607,6 +714,7 @@ export const community: Engagement[] = [
     role: "Family-friendly workplace policy",
     text: "Following workshops with Country Delight, I presented its executive team with a five-point family-wellness policy framework covering childcare assistance, caregiving support and structured family leave.",
     points: [
+      "Designed and led 10 workshops, reaching nearly 11,000 members of the company’s workforce community",
       "Two core proposals formally adopted into the company’s updated HR policy",
       "₹18 lakh in pre-seed funding committed to Kindling",
     ],
@@ -648,9 +756,7 @@ export const leadership: EntryCard[] = [
     title: "Head of STEAM and Founder of the STEM Club",
     meta: "Innovation Committee · Innovators’ Hub",
     text: "I lead STEAM initiatives across the school, including running my own STEM Club and mentoring younger students with their STEM Projects.",
-    points: [
-      "Mentored five teams for the GEMS Global Innovation Challenge",
-    ],
+    points: ["Mentored five teams for the GEMS Global Innovation Challenge"],
   },
   {
     icon: "house",
@@ -676,6 +782,8 @@ export interface Honour {
   title: string;
   detail: string;
   text: string;
+  /** Key into `evidence` for the certificate or letter behind this honour. */
+  evidence?: EvidenceId;
 }
 
 export interface HonourGroup {
@@ -695,16 +803,19 @@ export const honourGroups: HonourGroup[] = [
         title: "British Mathematical Olympiad",
         detail: "Round 1 Distinction and Round 2 qualification",
         text: "One of only two students in my year group selected for the BMO. I achieved a Distinction in Round 1, within the top 0.3% of UKMT SMC participants, and qualified for Round 2 (top 0.1%), placing among the top 100 participants worldwide.",
+        evidence: "bmoRound1",
       },
       {
         title: "British Physics Olympiad",
-        detail: "Gold",
-        text: "One of only three students in my entire year group to receive Gold.",
+        detail: "Gold, Online Senior Physics Challenge",
+        text: "Gold Award in the BPhO Online Senior Physics Challenge 2026, one of only three students in my entire year group to receive Gold.",
+        evidence: "bpho",
       },
       {
         title: "International Psychology Olympiad",
         detail: "Highest Distinction",
         text: "A regional top-six score in the UAE, within the top 5%, and selection for the UAE Psychology National Team.",
+        evidence: "ipsyo",
       },
       {
         title: "ChallengeME Mathematics Competition",
@@ -715,11 +826,13 @@ export const honourGroups: HonourGroup[] = [
         title: "CREST Gold Award",
         detail: "British Science Association",
         text: "Awarded for my STEM work and independent project development, including my computational music research.",
+        evidence: "crest",
       },
       {
         title: "Azeem Scholar Award",
         detail: "GEMS Modern Academy",
         text: "Sustained academic excellence from April 2021 to April 2025, as overall topper in Grade 9 and a subject topper in Grade 10.",
+        evidence: "azeemScholar",
       },
       {
         title: "Sunny Varkey Merit Scholarship",
@@ -742,21 +855,25 @@ export const honourGroups: HonourGroup[] = [
         title: "Technovation Girls Global Challenge",
         detail: "Semifinalist and Break the Scroll Award",
         text: "Kindling was the only UAE-based project to advance as a semifinalist, then won the $500 Break the Scroll Award for encouraging in-person connection.",
+        evidence: "technovation",
       },
       {
         title: "Curtin University STEM Challenge",
         detail: "National first prize",
         text: "Won first place among more than 50 teams with an autonomous LiDAR robot car.",
+        evidence: "curtin",
       },
       {
         title: "Blue Ocean Student Entrepreneur Competition",
         detail: "Top 500",
         text: "Ranked among the top 500 of more than 23,000 submissions.",
+        evidence: "blueOcean",
       },
       {
         title: "Learnovate Technovator and Social Impact Distinction",
-        detail: "Innovation and community impact",
-        text: "Recognising my efforts to apply technology to practical challenges.",
+        detail: "Learnovate and the KIIT JEE school network",
+        text: "Awarded for Kindling; I was the first and only high-school student in the network to receive it.",
+        evidence: "letterLearnovate",
       },
     ],
   },
@@ -769,11 +886,13 @@ export const honourGroups: HonourGroup[] = [
         title: "COBIS Student Achievement Award",
         detail: "Significant Contribution to the Wider Community",
         text: "Nominated by my school for my work through Kindling and DigiSakhi, one of 456 students from 172 international British schools to receive it.",
+        evidence: "cobis",
       },
       {
-        title: "Youth Entrepreneurship and Service Award",
+        title: "Youth Empowerment & Service Award",
         detail: "For DigiSakhi",
         text: "One of 28 awardees from 277 applications across 45 countries, presented by Mr. Prabhat Kumar Jha of India’s Ministry of MSME and Shri P. K. Majumder of the Consulate General of India in Dubai.",
+        evidence: "yesAward",
       },
       {
         title: "Platinum Award",
@@ -801,6 +920,7 @@ export const honourGroups: HonourGroup[] = [
         title: "Global Confluence Review International Conference",
         detail: "Runner-up, Best Presenter",
         text: "Recognised for my DigiSakhi research paper, competing alongside postgraduate and graduate researchers.",
+        evidence: "gcrBestPresenter",
       },
     ],
   },
@@ -813,11 +933,13 @@ export const honourGroups: HonourGroup[] = [
         title: "London College of Music",
         detail: "Grade 8 Piano, Distinction",
         text: "Awarded through London College of Music Examinations at the University of West London.",
+        evidence: "lcmGrade8",
       },
       {
         title: "International music competitions",
         detail: "Laureate honours",
         text: "Laureate honours across 10 international competitions, including the Ravel, Brahms and Beethoven awards.",
+        evidence: "finalRounds",
       },
     ],
   },
@@ -830,16 +952,19 @@ export const honourGroups: HonourGroup[] = [
         title: "Mathematics camp",
         detail: "St Catharine’s College, Cambridge",
         text: "A selective camp of approximately 35 high-school students.",
+        evidence: "mathCamps",
       },
       {
         title: "British Mathematical Olympiad camp",
         detail: "Pembroke College, Oxford",
         text: "A camp bringing together approximately 30 high-school students.",
+        evidence: "mathCamps",
       },
       {
         title: "BMO Asia Camp",
         detail: "Beijing, China",
         text: "Advanced mathematics and olympiad-level problem-solving.",
+        evidence: "bmoAsiaCamp",
       },
     ],
   },
@@ -885,6 +1010,496 @@ export const musicCompetitions = [
   "World’s Best Musicians",
   "Haydn Music International Competition",
 ];
+
+export interface EvidenceDoc {
+  title: string;
+  issuer: string;
+  /** Left out when the document itself is undated. */
+  date?: string;
+  kind: string;
+  description: string;
+  /** Page images, in reading order. */
+  pages: { src: string; thumb: string }[];
+  /** The original document, when it is published alongside the images. */
+  file?: { href: string; label: string };
+}
+
+function doc(
+  meta: Omit<EvidenceDoc, "pages" | "file">,
+  pages: string[],
+  file?: { name: string; label: string },
+): EvidenceDoc {
+  const href = file && documentFiles[`../assets/evidence/files/${file.name}`];
+  if (file && !href) throw new Error(`Missing document: evidence/files/${file.name}`);
+  return {
+    ...meta,
+    pages: pages.map((name) => asset("evidence", name)),
+    ...(file && href ? { file: { href, label: file.label } } : {}),
+  };
+}
+
+// Certificates, letters and results from Mehak's evidence folder. Dates of birth, candidate
+// numbers, a family member's name and other people's faces are hidden in the images.
+export const evidence = {
+  icseResults: doc(
+    {
+      title: "ICSE Class X results",
+      issuer: "Council for the Indian School Certificate Examinations",
+      date: "2025",
+      kind: "Result",
+      description:
+        "Official Class X results: 100 in History, Civics & Geography and in Robotics & AI, 97 in English and 96 in Science. Candidate ID and date of birth are hidden.",
+    },
+    ["icse-results-2025"],
+  ),
+  azeemScholar: doc(
+    {
+      title: "Azeem Scholar Award",
+      issuer: "GEMS Modern Academy",
+      date: "2021–2025",
+      kind: "Certificate",
+      description:
+        "Awarded for academic excellence in four consecutive years, from Grade 7 (2021–22) to Grade 10 (2024–25).",
+    },
+    [
+      "azeem-scholar-2024-25",
+      "azeem-scholar-2021-24-p1",
+      "azeem-scholar-2021-24-p2",
+      "azeem-scholar-2021-24-p3",
+    ],
+  ),
+  yygs: doc(
+    {
+      title: "Yale Young Global Scholars",
+      issuer: "Yale University",
+      date: "July 2026",
+      kind: "Certificate of completion",
+      description:
+        "Completed all elements of the Innovations in Science & Technology session, 5–17 July 2026.",
+    },
+    ["yygs-certificate"],
+  ),
+  mathCamps: doc(
+    {
+      title: "Mathematics camps at Cambridge and Oxford",
+      issuer: "St Catharine’s College, Cambridge · Pembroke College, Oxford",
+      date: "August 2026",
+      kind: "Programme details",
+      description:
+        "The two camps, open to British Mathematical Olympiad award winners: 35 places at St Catharine’s College and 30 at Pembroke College.",
+    },
+    ["math-camps-oxford-cambridge"],
+  ),
+  bmoAsiaCamp: doc(
+    {
+      title: "BMO Asia Camp, Beijing",
+      issuer: "UK Mathematics Trust",
+      date: "July 2026",
+      kind: "Programme details",
+      description:
+        "The camp in Beijing, China, open to award winners in the 2025–26 British Mathematical Olympiad.",
+    },
+    ["bmo-asia-camp-beijing"],
+  ),
+  bmoRound1: doc(
+    {
+      title: "British Mathematical Olympiad Round 1",
+      issuer: "UK Mathematics Trust",
+      date: "2025",
+      kind: "Certificate of Distinction",
+      description: "Certificate of Distinction in BMO Round 1, with the Best in Year award.",
+    },
+    ["bmo-round-1"],
+  ),
+  bmoRound2: doc(
+    {
+      title: "British Mathematical Olympiad Round 2",
+      issuer: "UK Mathematics Trust",
+      date: "2026",
+      kind: "Certificate",
+      description:
+        "Certificate for taking part in BMO Round 2, for which I qualified through my Round 1 result.",
+    },
+    ["bmo-round-2"],
+  ),
+  bpho: doc(
+    {
+      title: "British Physics Olympiad: Gold Award",
+      issuer: "British Physics Olympiad",
+      date: "January 2026",
+      kind: "Certificate",
+      description: "Gold Award in the BPhO Online Senior Physics Challenge 2026.",
+    },
+    ["bpho-gold"],
+  ),
+  ipsyo: doc(
+    {
+      title: "International Psychology Olympiad",
+      issuer: "IPsyO",
+      date: "July 2026",
+      kind: "Certificates of achievement",
+      description:
+        "Highest Distinction in the 2026 International Psychology Olympiad, and a Regional Top 6 Scorer certificate for the United Arab Emirates.",
+    },
+    ["ipsyo-highest-distinction", "ipsyo-regional-top-six"],
+  ),
+  crest: doc(
+    {
+      title: "CREST Gold Award",
+      issuer: "British Science Association",
+      date: "June 2026",
+      kind: "Award email",
+      description:
+        "Assessment result for “Quantifying Tonal Stability and Key Ambiguity Across Musical Genres”, awarded CREST Gold.",
+    },
+    ["crest-gold"],
+  ),
+  technovation: doc(
+    {
+      title: "Technovation Break the Scroll Prize",
+      issuer: "Technovation",
+      date: "July 2026",
+      kind: "Award email",
+      description:
+        "Team Kindling selected as winner of the 2025–2026 Break the Scroll Prize, with $500 for each student team member.",
+    },
+    ["technovation-break-the-scroll"],
+  ),
+  curtin: doc(
+    {
+      title: "Curtin University STEM Challenge: Winner",
+      issuer: "Curtin University Dubai",
+      date: "May 2025",
+      kind: "Certificate",
+      description:
+        "Winner certificate for Team Quark, GEMS Modern Academy, in the STEM Challenge 2025.",
+    },
+    ["curtin-stem-challenge"],
+  ),
+  blueOcean: doc(
+    {
+      title: "Blue Ocean Student Entrepreneur Competition",
+      issuer: "Blue Ocean Competition",
+      date: "May 2026",
+      kind: "Certificate of achievement",
+      description:
+        "Top 500 Finalist in the 2026 competition, which drew more than 23,000 students from 175 countries.",
+    },
+    ["blue-ocean-top-500"],
+  ),
+  cobis: doc(
+    {
+      title: "COBIS Student Achievement Award",
+      issuer: "Council of British International Schools",
+      date: "2026",
+      kind: "Certificate",
+      description:
+        "Student Achievement Awards 2026, for significant contribution to the wider community.",
+    },
+    ["cobis-student-achievement"],
+  ),
+  yesAward: doc(
+    {
+      title: "Youth Empowerment & Service Award of Excellence",
+      issuer: "KCS Foundation and YES Events",
+      date: "October 2026",
+      kind: "Certificate",
+      description:
+        "Award of Excellence 2026, presented in Dubai on 4 October 2026, for leadership, dedication and community service through DigiSakhi.",
+    },
+    ["yes-award-2026"],
+  ),
+  nhsjsPaper: doc(
+    {
+      title:
+        "Quantifying Tonal Stability and Key Ambiguity Metrics across Musical Genres using KS and Tonnetz",
+      issuer: "National High School Journal of Science",
+      date: "September 2026",
+      kind: "Published paper",
+      description:
+        "First page of the published paper. Received April 2026, accepted August 2026, published online 15 September 2026.",
+    },
+    ["nhsjs-paper-p1"],
+    { name: "nhsjs-tonal-stability-paper.pdf", label: "Read the full paper (PDF)" },
+  ),
+  sigmaXiShowcase: doc(
+    {
+      title: "Sigma Xi Student Research Showcase",
+      issuer: "Sigma Xi",
+      date: "2026",
+      kind: "Project page",
+      description:
+        "My Math & Computer Science entry, “Quantifying Music to Understand Human Perception”, with its abstract, slideshow and headshot.",
+    },
+    ["sigma-xi-showcase"],
+  ),
+  gcrBestPresenter: doc(
+    {
+      title: "Best Presenter Award, Runner-up",
+      issuer: "Global Confluence Review International Multidisciplinary Conference",
+      date: "August 2026",
+      kind: "Certificate",
+      description:
+        "For the paper “Beyond the Interface”, presented at the GCR International Multidisciplinary Conference 2026.",
+    },
+    ["gcr-best-presenter"],
+  ),
+  mnluSeminar: doc(
+    {
+      title: "International Seminar on Women and Child Rights",
+      issuer: "Law Mantra Trust and Maharashtra National Law University, Nagpur",
+      date: "July 2026",
+      kind: "Certificate",
+      description:
+        "For attending and presenting “Beyond the Interface” at the two-day international seminar, 17–18 July 2026.",
+    },
+    ["mnlu-seminar"],
+  ),
+  gcrColloquium: doc(
+    {
+      title: "GCR International Multidisciplinary Colloquium",
+      issuer: "Global Confluence Review",
+      date: "August 2026",
+      kind: "Certificate",
+      description: "For active participation in the GCR Colloquium on 29 August 2026.",
+    },
+    ["gcr-colloquium"],
+  ),
+  iferp: doc(
+    {
+      title: "Acceptance: Women, Gender and Leadership conference",
+      issuer: "IFERP",
+      date: "2026",
+      kind: "Acceptance email",
+      description:
+        "“Bridging the Gap: Rethinking Women’s Financial Inclusion Beyond Access” accepted for presentation at the 3rd International Conference on Women, Gender, and Leadership in Thailand, 25–26 September 2026.",
+    },
+    ["iferp-acceptance"],
+  ),
+  ifore: doc(
+    {
+      title: "Acceptance: IFoRE Student Research Awards",
+      issuer: "Sigma Xi",
+      date: "2026",
+      kind: "Acceptance email",
+      description: "Abstract accepted for the IFoRE Student Research Awards Competition.",
+    },
+    ["sigma-xi-ifore-acceptance"],
+  ),
+  letterCountryDelight: doc(
+    {
+      title: "Letter of recommendation: Country Delight",
+      issuer: "Nitin Kaushal, Co-Founder and CEO, Country Delight",
+      kind: "Letter of recommendation",
+      description:
+        "On the Kindling partnership: 10 workshops reaching nearly 11,000 members of the workforce community, two policy proposals adopted and ₹18 lakh in pre-seed funding.",
+    },
+    ["letter-country-delight-p1", "letter-country-delight-p2"],
+  ),
+  letterLearnovate: doc(
+    {
+      title: "Letter of recommendation: Learnovate",
+      issuer: "Sachin Kumar, Founder, Learnovate (True Cost Sourcing)",
+      kind: "Letter of recommendation",
+      description:
+        "On piloting Kindling across 8 schools with about 2,500–3,000 families, and the Learnovate Technovator & Social Impact Distinction.",
+    },
+    ["letter-learnovate-p1", "letter-learnovate-p2"],
+  ),
+  letterFrontierMarkets: doc(
+    {
+      title: "Letter of recommendation: Frontier Markets",
+      issuer: "Sushmita Ganguly, Manager – HR & Administration, Frontier Markets",
+      date: "August 2026",
+      kind: "Letter of recommendation",
+      description:
+        "On bringing DigiSakhi’s curriculum into the Meri Saheli network and its outreach to more than 15,000 women.",
+    },
+    ["letter-frontier-markets-p1", "letter-frontier-markets-p2"],
+  ),
+  letterTctf: doc(
+    {
+      title: "Letter of recommendation: The Creative Thinkers Forum",
+      issuer: "President, The Creative Thinkers Forum (TCTF), New Delhi",
+      date: "August 2025",
+      kind: "Letter of recommendation",
+      description:
+        "On the technology bootcamp for young women that I designed and led during summer 2025.",
+    },
+    ["letter-tctf-p1", "letter-tctf-p2"],
+  ),
+  letterNutanMarathi: doc(
+    {
+      title: "Letter of support: Nutan Marathi Senior Secondary School",
+      issuer: "Nutan Marathi Senior Secondary School, New Delhi",
+      kind: "Letter of support",
+      description:
+        "On DigiSakhi workshops for students, teachers and the wider school community, covering AI, online safety, digital banking and UPI payments.",
+    },
+    ["letter-nutan-marathi"],
+  ),
+  mathCaptain: doc(
+    {
+      title: "Mathematics Captain",
+      issuer: "Jumeirah College",
+      kind: "School announcement",
+      description:
+        "The school’s announcement of its Mathematics Captains. The other captain’s face and name are hidden.",
+    },
+    ["math-captain"],
+  ),
+  lcmGrade8: doc(
+    {
+      title: "Piano Grade 8 with Distinction",
+      issuer: "London College of Music Examinations, University of West London",
+      kind: "Certificate",
+      description:
+        "UWL Level 3 Certificate in Graded Examination in Music Performance (Grade 8), with Distinction.",
+    },
+    ["lcm-grade-8"],
+  ),
+  lcmGrades: doc(
+    {
+      title: "Piano Grades 1–7 and Step 2",
+      issuer: "London College of Music Examinations, University of West London",
+      date: "2017 onwards",
+      kind: "Certificates",
+      description:
+        "Distinctions in Grades 2–6 and Merits in Grades 1 and 7, from Step 2 in 2017 onwards.",
+    },
+    [
+      "lcm-grades-p1",
+      "lcm-grades-p2",
+      "lcm-grades-p3",
+      "lcm-grades-p4",
+      "lcm-grades-p5",
+      "lcm-grades-p6",
+      "lcm-grades-p7",
+      "lcm-grades-p8",
+    ],
+  ),
+  finalRounds: doc(
+    {
+      title: "International competition final rounds",
+      issuer:
+        "Beethoven, Brahms, Classical Music Stars, Fenix, Global Young Musicians and Ravel competitions",
+      date: "2026",
+      kind: "Selection emails",
+      description:
+        "Invitations to the final round in the Piano category. Shown to the point of selection; entry and confirmation details are cropped out.",
+    },
+    [
+      "final-round-beethoven",
+      "final-round-brahms",
+      "final-round-classical-music-stars",
+      "final-round-fenix",
+      "final-round-global-young-musicians",
+      "final-round-ravel",
+    ],
+  ),
+  codingAi: doc(
+    {
+      title: "Artificial Intelligence with Python",
+      issuer: "Coding & More",
+      date: "2024–2025",
+      kind: "Certificates of completion",
+      description:
+        "Modules 2 (April 2025) and 1 (September 2024) of the Artificial Intelligence with Python enrichment programme.",
+    },
+    ["coding-and-more-ai-python", "coding-and-more-ai-python-p2"],
+  ),
+  codingPython: doc(
+    {
+      title: "Python: Data Structures and Core Python",
+      issuer: "CodingZen Academy",
+      date: "2023",
+      kind: "Certificates of achievement",
+      description: "Python: DSA Level I (November 2023) and Core Python Level I (October 2023).",
+    },
+    ["codingzen-python-dsa", "codingzen-core-python"],
+  ),
+  freeCodeCamp: doc(
+    {
+      title: "Responsive Web Design",
+      issuer: "freeCodeCamp",
+      date: "September 2021",
+      kind: "Developer certification",
+      description:
+        "The Responsive Web Design Developer Certification, about 300 hours of coursework.",
+    },
+    ["freecodecamp-web-design"],
+  ),
+  tennisNationals: doc(
+    {
+      title: "CISCE National Tennis Tournament",
+      issuer: "Council for the Indian School Certificate Examinations",
+      date: "September 2022",
+      kind: "Certificate of participation",
+      description:
+        "Under-14 Girls category at the CISCE National Sports & Games 2022, Bengal Tennis Association, Kolkata. Date of birth hidden.",
+    },
+    ["tennis-cisce-nationals-2022"],
+  ),
+  tennisTraining: doc(
+    {
+      title: "Tennis training, Al Nasr Leisureland",
+      issuer: "Al Nasr Leisureland, Dubai",
+      date: "July–October 2023",
+      kind: "Certificate of participation",
+      description:
+        "Tennis training from 1 July to 1 October 2023 with ITF-certified coach Manuel H. Gayon.",
+    },
+    ["tennis-al-nasr-training-2023"],
+  ),
+} satisfies Record<string, EvidenceDoc>;
+
+export type EvidenceId = keyof typeof evidence;
+
+/** The documents shown on each page, in display order. */
+export const evidenceSets = {
+  education: ["icseResults", "azeemScholar", "yygs", "mathCamps", "bmoAsiaCamp"],
+  research: [
+    "nhsjsPaper",
+    "crest",
+    "sigmaXiShowcase",
+    "gcrBestPresenter",
+    "mnluSeminar",
+    "gcrColloquium",
+    "iferp",
+    "ifore",
+  ],
+  experience: ["letterLearnovate", "technovation", "curtin", "yygs"],
+  community: [
+    "letterCountryDelight",
+    "letterFrontierMarkets",
+    "letterTctf",
+    "letterNutanMarathi",
+    "yesAward",
+    "cobis",
+  ],
+  leadership: ["mathCaptain"],
+  music: ["lcmGrade8", "lcmGrades", "finalRounds"],
+  coding: ["codingAi", "codingPython", "freeCodeCamp"],
+  tennis: ["tennisNationals", "tennisTraining"],
+  awards: [
+    "bmoRound1",
+    "bmoRound2",
+    "bpho",
+    "ipsyo",
+    "crest",
+    "azeemScholar",
+    "technovation",
+    "curtin",
+    "blueOcean",
+    "cobis",
+    "yesAward",
+    "gcrBestPresenter",
+    "lcmGrade8",
+    "finalRounds",
+    "mathCamps",
+    "bmoAsiaCamp",
+  ],
+} satisfies Record<string, EvidenceId[]>;
 
 export function pageHead(title: string, description: string) {
   const fullTitle = `${title} — ${profile.name}`;

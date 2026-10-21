@@ -10,7 +10,14 @@ import {
   NeuCard,
   PageHeader,
 } from "@/components/site-ui";
-import { featuredResearch, pageHead, research, researchThreads } from "@/lib/portfolio-data";
+import { EvidenceSection } from "@/components/evidence";
+import {
+  evidenceSets,
+  featuredResearch,
+  pageHead,
+  research,
+  researchThreads,
+} from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/research")({
   head: () =>
@@ -101,6 +108,14 @@ function Research() {
           ))}
         </div>
       </Band>
+
+      <EvidenceSection
+        id="research-evidence"
+        title="Publication and Recognition"
+        ids={evidenceSets.research}
+      >
+        The published paper, acceptances and certificates behind this research.
+      </EvidenceSection>
     </main>
   );
 }

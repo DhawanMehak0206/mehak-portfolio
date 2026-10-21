@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { EvidenceButton, EvidenceSection } from "@/components/evidence";
 import { PageHeader } from "@/components/site-ui";
-import { honourGroups, pageHead } from "@/lib/portfolio-data";
+import { evidenceSets, honourGroups, pageHead } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/awards")({
   head: () =>
@@ -62,6 +63,7 @@ function Awards() {
                     <h3 className="card-title">{honour.title}</h3>
                     <p className="card-meta">{honour.detail}</p>
                     <p className="card-text">{honour.text}</p>
+                    {honour.evidence && <EvidenceButton id={honour.evidence} />}
                   </article>
                 ))}
               </div>
@@ -69,6 +71,15 @@ function Awards() {
           ))}
         </div>
       </section>
+
+      <EvidenceSection
+        id="awards-evidence"
+        title="Certificates and Documents"
+        ids={evidenceSets.awards}
+        white
+      >
+        Every certificate behind the honours above. Select one to view it in full.
+      </EvidenceSection>
     </main>
   );
 }

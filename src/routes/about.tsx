@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ResumeLink } from "@/components/portfolio-shell";
+import { EvidenceGrid, EvidenceSection } from "@/components/evidence";
 import { ChipList, NeuCard, SectionHead } from "@/components/site-ui";
-import { facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
+import { evidenceSets, facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -89,8 +90,16 @@ function About() {
               </NeuCard>
             ))}
           </div>
+          <h3 className="subsection-title">Coding certificates</h3>
+          <EvidenceGrid ids={evidenceSets.coding} label="Coding certificates" />
         </div>
       </section>
+
+      <EvidenceSection id="tennis" title="Tennis" ids={evidenceSets.tennis} white>
+        I competed in the Under-14 Girls category of the CISCE National Tennis Tournament in Kolkata
+        in September 2022, and trained at Al Nasr Leisureland in Dubai from July to October 2023
+        with an ITF-certified coach.
+      </EvidenceSection>
     </main>
   );
 }

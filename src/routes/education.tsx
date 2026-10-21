@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Band, BandHead, BandStats, CheckList, NeuCard, PageHeader } from "@/components/site-ui";
-import { education, pageHead, scores } from "@/lib/portfolio-data";
+import { EvidenceSection } from "@/components/evidence";
+import { education, evidenceSets, pageHead, scores } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/education")({
   head: () =>
@@ -40,6 +41,14 @@ function Education() {
         </BandHead>
         <BandStats items={scores} label="Examination results" />
       </Band>
+
+      <EvidenceSection
+        id="education-evidence"
+        title="Certificates and Results"
+        ids={evidenceSets.education}
+      >
+        Select a document to view it in full.
+      </EvidenceSection>
     </main>
   );
 }
