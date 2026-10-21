@@ -54,8 +54,7 @@ function Music() {
               Laureate and finalist honours across more than 10 international music competitions.
             </p>
             <p>
-              At Jumeirah College, I serve as Music Ambassador, help organise musical competitions
-              and showcases, and perform as a pianist with the JC Band. At GEMS Modern Academy, I
+              At GEMS Modern Academy, I
               founded Let the Music Speak! and organised the school’s first music festival.
             </p>
             <div className="button-row">
