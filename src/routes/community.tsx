@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { EvidenceSection } from "@/components/evidence";
 import { PhotoGallery } from "@/components/gallery";
+import { MediaSection } from "@/components/media";
 import { Band, BandHead, BlueCard, CheckList, PageHeader } from "@/components/site-ui";
 import { community, evidenceSets, pageHead, photos } from "@/lib/portfolio-data";
 
@@ -78,6 +79,8 @@ function Community() {
           />
         </div>
       </Band>
+
+      <MediaSection white />
 
       <EvidenceSection
         id="community-evidence"

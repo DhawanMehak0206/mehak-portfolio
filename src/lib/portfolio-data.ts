@@ -289,6 +289,11 @@ export const photos = {
   },
 } satisfies Record<string, Photo>;
 
+export interface ExternalLink {
+  href: string;
+  label: string;
+}
+
 export interface Stat {
   value: string;
   label: string;
@@ -335,7 +340,7 @@ export const roles: Feature[] = [
   {
     icon: "flask",
     title: "Researcher",
-    text: "My research spans computational musicology, development economics and physics, with papers published in NHSJS and the International Journal of Scientific Research and Review.",
+    text: "My research spans computational musicology, development economics and physics, with papers published in NHSJS and the International Journal of Social Science Research and Review.",
   },
   {
     icon: "users",
@@ -511,7 +516,11 @@ export const scores: Stat[] = [
 export const featuredResearch = {
   id: "tonal-stability",
   title: "Quantifying Tonal Stability and Key Ambiguity Metrics across Musical Genres",
-  kicker: "Computational musicology · Published in NHSJS, September 2026",
+  kicker: "Computational musicology · Published in NHSJS, 2026",
+  link: {
+    href: "https://nhsjs.com/2026/quantifying-tonal-stability-and-key-ambiguity-metrics-across-musical-genres-using-ks-and-tonnetz/",
+    label: "Read the paper on NHSJS",
+  } as ExternalLink,
   paragraphs: [
     "Music has been part of my life for over a decade, but I have always been curious about more than how it sounds. I wanted to understand the mathematical structures that make music feel stable, surprising or emotionally complex.",
     "Using Python and symbolic MIDI data, I analysed 50 musical excerpts across five categories: Classical, Pop, Rock, Jazz and Stravinsky’s compositions. I combined the Krumhansl–Schmuckler key-finding algorithm with Tonnetz-based representations of harmonic relationships to build a quantitative framework for examining tonal ambiguity and movement.",
@@ -537,6 +546,7 @@ export interface ResearchEntry {
   text: string;
   methods: string[];
   outcomes: string[];
+  link?: ExternalLink;
 }
 
 export const research: ResearchEntry[] = [
@@ -551,11 +561,15 @@ export const research: ResearchEntry[] = [
     text: "I examined state-level differences in women’s financial inclusion across 22 Indian states and Union Territories, using data from the Reserve Bank of India, the Telecom Regulatory Authority of India and the Ministry of Finance, and interviewed 15 women from digital-literacy programmes. My central argument is that digital infrastructure can create opportunities for inclusion, but individual agency and accessible education influence whether they become financial empowerment.",
     methods: ["Regression analysis", "Hypothesis testing", "Model diagnostics", "Field interviews"],
     outcomes: [
-      "Published in the International Journal of Scientific Research and Review",
+      "Published in the International Journal of Social Science Research and Review, October 2026",
       "Runner-up, Best Presenter, Global Confluence Review International Conference",
       "Presented at the international seminar Women and Child Rights: Legal Perspectives and Challenges, organised by Law Mantra Trust with Maharashtra National Law University, Nagpur",
       "Accepted at the Princetonian Conference, IFERP’s WGL 2026 and the IFoRE conference",
     ],
+    link: {
+      href: "https://ijssrr.com/journal/article/view/3600",
+      label: "Read the paper on IJSSRR",
+    },
   },
   {
     id: "standing-waves",
@@ -565,7 +579,11 @@ export const research: ResearchEntry[] = [
     context: "Research internship with Dr. Nishchal Dwivedi, IIT Bombay",
     text: "I studied how standing waves emerge from the superposition of waves travelling in opposite directions, and how boundary conditions determine nodes, antinodes and allowed frequencies. I then built Python simulations of wave displacement over time, adding Gaussian noise and damping to represent real-world conditions, and compared the results with theoretical predictions.",
     methods: ["Python", "NumPy", "Matplotlib", "Numerical methods"],
-    outcomes: ["Research paper: Understanding and Simulating Standing Waves"],
+    outcomes: ["Independent study report, Research Archive of Rising Scholars, October 2025"],
+    link: {
+      href: "https://www.research-archive.org/index.php/rars/preprint/view/3165",
+      label: "Read the report",
+    },
   },
   {
     id: "fdi-india",
@@ -619,6 +637,7 @@ export interface Engagement {
   role: string;
   text: string;
   points?: string[];
+  link?: ExternalLink;
 }
 
 export const experience: Engagement[] = [
@@ -656,6 +675,10 @@ export const experience: Engagement[] = [
     organisation: "IIT Bombay",
     role: "Research Intern, Computational Physics",
     text: "With Dr. Nishchal Dwivedi, I explored the mathematics of standing waves and built Python simulations to show how Gaussian noise and damping change wave behaviour, comparing the results with theoretical predictions.",
+    link: {
+      href: "https://www.research-archive.org/index.php/rars/preprint/view/3165",
+      label: "Read the report",
+    },
   },
   {
     id: "dtu",
@@ -714,7 +737,7 @@ export const community: Engagement[] = [
     role: "Family-friendly workplace policy",
     text: "Following workshops with Country Delight, I presented its executive team with a five-point family-wellness policy framework covering childcare assistance, caregiving support and structured family leave.",
     points: [
-      "Designed and led 10 workshops, reaching nearly 11,000 members of the company’s workforce community",
+      "Designed and led over 30 workshops, reaching nearly 11,000 members of the company’s workforce community",
       "Two core proposals formally adopted into the company’s updated HR policy",
       "₹18 lakh in pre-seed funding committed to Kindling",
     ],
@@ -1011,6 +1034,43 @@ export const musicCompetitions = [
   "Haydn Music International Competition",
 ];
 
+export interface MediaItem {
+  outlet: string;
+  kind: "Article" | "Video";
+  date: string;
+  title: string;
+  text: string;
+  href: string;
+  image?: Photo;
+}
+
+export const media: MediaItem[] = [
+  {
+    outlet: "ETEducation, The Economic Times",
+    kind: "Article",
+    date: "29 September 2026",
+    title:
+      "Dubai Grade 12 student uses technology to expand family learning, digital skills for women",
+    text: "A feature on how Kindling and DigiSakhi are changing family communication and women’s digital education.",
+    href: "https://education.economictimes.indiatimes.com/news/skills/dubai-grade-12-student-uses-technology-to-expand-family-learning-digital-skills-for-women/134555471",
+  },
+  {
+    outlet: "Être Girls",
+    kind: "Video",
+    date: "Gen E, episode 182",
+    title: "Gen E: Mehak Dhawan",
+    text: "A short video feature on DigiSakhi and what inspired me to pursue STEM and advocacy.",
+    href: "https://www.youtube.com/shorts/udyd4YvzLaw",
+    image: {
+      ...asset("photos", "media-etre-girls"),
+      width: 562,
+      height: 1000,
+      alt: "Mehak answering the question: What inspired you to pursue STEM and advocacy?",
+      caption: "Être Girls, Gen E",
+    },
+  },
+];
+
 export interface EvidenceDoc {
   title: string;
   issuer: string;
@@ -1022,12 +1082,15 @@ export interface EvidenceDoc {
   pages: { src: string; thumb: string }[];
   /** The original document, when it is published alongside the images. */
   file?: { href: string; label: string };
+  /** Where the document can be read online. */
+  link?: ExternalLink;
 }
 
 function doc(
-  meta: Omit<EvidenceDoc, "pages" | "file">,
+  meta: Omit<EvidenceDoc, "pages" | "file" | "link">,
   pages: string[],
   file?: { name: string; label: string },
+  link?: ExternalLink,
 ): EvidenceDoc {
   const href = file && documentFiles[`../assets/evidence/files/${file.name}`];
   if (file && !href) throw new Error(`Missing document: evidence/files/${file.name}`);
@@ -1035,23 +1098,13 @@ function doc(
     ...meta,
     pages: pages.map((name) => asset("evidence", name)),
     ...(file && href ? { file: { href, label: file.label } } : {}),
+    ...(link ? { link } : {}),
   };
 }
 
-// Certificates, letters and results from Mehak's evidence folder. Dates of birth, candidate
-// numbers, a family member's name and other people's faces are hidden in the images.
+// Certificates, letters and results from Mehak's evidence folder. Dates of birth, a family
+// member's name and other people's faces are hidden in the images.
 export const evidence = {
-  icseResults: doc(
-    {
-      title: "ICSE Class X results",
-      issuer: "Council for the Indian School Certificate Examinations",
-      date: "2025",
-      kind: "Result",
-      description:
-        "Official Class X results: 100 in History, Civics & Geography and in Robotics & AI, 97 in English and 96 in Science. Candidate ID and date of birth are hidden.",
-    },
-    ["icse-results-2025"],
-  ),
   azeemScholar: doc(
     {
       title: "Azeem Scholar Award",
@@ -1217,10 +1270,14 @@ export const evidence = {
       date: "September 2026",
       kind: "Published paper",
       description:
-        "First page of the published paper. Received April 2026, accepted August 2026, published online 15 September 2026.",
+        "First page of the published paper, received in April 2026 and accepted in August 2026.",
     },
     ["nhsjs-paper-p1"],
     { name: "nhsjs-tonal-stability-paper.pdf", label: "Read the full paper (PDF)" },
+    {
+      href: "https://nhsjs.com/2026/quantifying-tonal-stability-and-key-ambiguity-metrics-across-musical-genres-using-ks-and-tonnetz/",
+      label: "View on NHSJS",
+    },
   ),
   sigmaXiShowcase: doc(
     {
@@ -1292,7 +1349,7 @@ export const evidence = {
       issuer: "Nitin Kaushal, Co-Founder and CEO, Country Delight",
       kind: "Letter of recommendation",
       description:
-        "On the Kindling partnership: 10 workshops reaching nearly 11,000 members of the workforce community, two policy proposals adopted and ₹18 lakh in pre-seed funding.",
+        "On the Kindling Connect workshops with the company’s workforce community, the two policy proposals it adopted and its ₹18 lakh pre-seed commitment.",
     },
     ["letter-country-delight-p1", "letter-country-delight-p2"],
   ),
@@ -1357,26 +1414,6 @@ export const evidence = {
         "UWL Level 3 Certificate in Graded Examination in Music Performance (Grade 8), with Distinction.",
     },
     ["lcm-grade-8"],
-  ),
-  lcmGrades: doc(
-    {
-      title: "Piano Grades 1–7 and Step 2",
-      issuer: "London College of Music Examinations, University of West London",
-      date: "2017 onwards",
-      kind: "Certificates",
-      description:
-        "Distinctions in Grades 2–6 and Merits in Grades 1 and 7, from Step 2 in 2017 onwards.",
-    },
-    [
-      "lcm-grades-p1",
-      "lcm-grades-p2",
-      "lcm-grades-p3",
-      "lcm-grades-p4",
-      "lcm-grades-p5",
-      "lcm-grades-p6",
-      "lcm-grades-p7",
-      "lcm-grades-p8",
-    ],
   ),
   finalRounds: doc(
     {
@@ -1457,7 +1494,7 @@ export type EvidenceId = keyof typeof evidence;
 
 /** The documents shown on each page, in display order. */
 export const evidenceSets = {
-  education: ["icseResults", "azeemScholar", "yygs", "mathCamps", "bmoAsiaCamp"],
+  education: ["azeemScholar", "yygs", "mathCamps", "bmoAsiaCamp"],
   research: [
     "nhsjsPaper",
     "crest",
@@ -1478,7 +1515,7 @@ export const evidenceSets = {
     "cobis",
   ],
   leadership: ["mathCaptain"],
-  music: ["lcmGrade8", "lcmGrades", "finalRounds"],
+  music: ["lcmGrade8", "finalRounds"],
   coding: ["codingAi", "codingPython", "freeCodeCamp"],
   tennis: ["tennisNationals", "tennisTraining"],
   awards: [

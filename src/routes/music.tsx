@@ -100,7 +100,7 @@ function Music() {
       </Band>
 
       <EvidenceSection id="music-evidence" title="Music Certificates" ids={evidenceSets.music}>
-        London College of Music examinations from Step 2 to Grade 8, and final-round selections in
+        My Grade 8 piano certificate from the London College of Music, and final-round selections in
         international competitions.
       </EvidenceSection>
     </main>

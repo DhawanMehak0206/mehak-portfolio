@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { TonnetzArt } from "@/components/research-art";
 import {
   Band,
@@ -67,6 +67,16 @@ function Research() {
             </li>
           ))}
         </ul>
+        <div className="band-actions">
+          <a
+            className="btn btn--primary"
+            href={featuredResearch.link.href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {featuredResearch.link.label} <ArrowUpRight aria-hidden="true" />
+          </a>
+        </div>
       </Band>
 
       <section className="section section--white" aria-label="Further research">
@@ -85,6 +95,11 @@ function Research() {
               <p className="card-text">{entry.text}</p>
               <ChipList items={entry.methods} label="Methods" />
               <CheckList items={entry.outcomes} />
+              {entry.link && (
+                <a className="text-link" href={entry.link.href} target="_blank" rel="noreferrer">
+                  {entry.link.label} <ArrowUpRight aria-hidden="true" />
+                </a>
+              )}
             </NeuCard>
           ))}
         </div>

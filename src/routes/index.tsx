@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { MediaSection } from "@/components/media";
 import { ResumeLink } from "@/components/portfolio-shell";
 import { TonnetzArt } from "@/components/research-art";
 import { Icon, NeuCard, SectionHead } from "@/components/site-ui";
@@ -175,6 +176,8 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <MediaSection />
     </main>
   );
 }

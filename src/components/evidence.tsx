@@ -62,6 +62,11 @@ function EvidenceViewer({
                   {doc.file.label} <ArrowUpRight aria-hidden="true" />
                 </a>
               )}
+              {doc.link && (
+                <a href={doc.link.href} target="_blank" rel="noreferrer" className="text-link">
+                  {doc.link.label} <ArrowUpRight aria-hidden="true" />
+                </a>
+              )}
             </div>
             {many && (
               <div className="doc-viewer-nav">

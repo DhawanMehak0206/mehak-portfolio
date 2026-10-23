@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { EvidenceSection } from "@/components/evidence";
 import { PhoneRow, PhotoGallery } from "@/components/gallery";
 import { Band, BandHead, CheckList, PageHeader } from "@/components/site-ui";
@@ -36,6 +37,11 @@ function Experience() {
                 <div className="entry-main">
                   <p>{item.text}</p>
                   {item.points && <CheckList items={item.points} />}
+                  {item.link && (
+                    <a className="text-link" href={item.link.href} target="_blank" rel="noreferrer">
+                      {item.link.label} <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               </article>
             ))}
