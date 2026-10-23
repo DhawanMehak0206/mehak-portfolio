@@ -54,8 +54,8 @@ function Music() {
               Laureate and finalist honours across more than 10 international music competitions.
             </p>
             <p>
-              At GEMS Modern Academy, I
-              founded Let the Music Speak! and organised the school’s first music festival.
+              At GEMS Modern Academy, I founded Let the Music Speak! and organised the school’s
+              first music festival.
             </p>
             <div className="button-row">
               <Link to="/research" hash="tonal-stability" className="btn btn--primary">
