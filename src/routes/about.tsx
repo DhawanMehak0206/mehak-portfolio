@@ -1,9 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ResumeLink } from "@/components/portfolio-shell";
-import { EvidenceGrid, EvidenceSection } from "@/components/evidence";
 import { ChipList, NeuCard, SectionHead } from "@/components/site-ui";
-import { evidenceSets, facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
+import { facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -31,28 +30,42 @@ function About() {
             <div className="about-copy">
               <h1 className="about-title about-title--page">About Me</h1>
               <p>
-                I’m a student at Jumeirah College, Dubai. I explore questions at the intersection of
+                I’m a student at Jumeirah College, Dubai, exploring questions at the intersection of
                 cognitive science, computer science, economics and music.
               </p>
               <p>
                 I’m interested in how people process information, make decisions, learn from their
-                environments and connect with one another, and in what computational models can help
-                us understand about these processes.
+                environments and connect with one another, and what computational models can reveal
+                about these processes.
+              </p>
+              <p>
+                Growing up between Delhi and Dubai, I always found myself rushing home to spend time
+                with my parents and grandparents, with the freedom to share almost anything with
+                them. Listening to friends and families around me, I realised this openness wasn’t
+                universal. That realisation eventually led me to create Kindling, a platform
+                designed to strengthen family relationships in an increasingly digital world.
               </p>
             </div>
           </div>
           <div className="about-more">
             <p>
-              Growing up between Delhi and Dubai, I always found myself rushing home to spend time
-              with my parents and grandparents, and I felt fortunate to be able to share almost
-              anything with them. As I listened to friends and families around me, I realised that
-              this kind of openness was not universal. That realisation eventually led me to create
-              Kindling.
+              I’ve continued exploring these questions through DigiSakhi, which connects digital
+              literacy with financial inclusion and human agency, and through research in
+              computational musicology, economics and physics. Across these projects, I enjoy using
+              mathematical and computational approaches to understand complex systems and
+              investigate real-world problems.
             </p>
             <p>
-              Those questions run through my work, from Kindling and DigiSakhi to research in
-              computational musicology, economics and physics. Music has also been a central part of
-              my life for over 11 years of formal piano training.
+              Beyond research, music and sport have been constants in my life. With over 11 years of
+              formal piano training, I’ve developed an appreciation for patterns, interpretation and
+              expression. I also enjoy tennis and football, having represented my school in both and
+              competed in international and national-level sporting events over the years. These
+              experiences have taught me the value of discipline, collaboration and learning from
+              challenges.
+            </p>
+            <p>
+              Ultimately, I’m interested in understanding human behaviour and using that
+              understanding to build technology that responds thoughtfully to people’s needs.
             </p>
             <div className="button-row">
               <Link to="/research" className="btn btn--primary">
@@ -90,16 +103,8 @@ function About() {
               </NeuCard>
             ))}
           </div>
-          <h3 className="subsection-title">Coding certificates</h3>
-          <EvidenceGrid ids={evidenceSets.coding} label="Coding certificates" />
         </div>
       </section>
-
-      <EvidenceSection id="tennis" title="Tennis" ids={evidenceSets.tennis} white>
-        I competed in the Under-14 Girls category of the CISCE National Tennis Tournament in Kolkata
-        in September 2022, and trained at Al Nasr Leisureland in Dubai from July to October 2023
-        with an ITF-certified coach.
-      </EvidenceSection>
     </main>
   );
 }

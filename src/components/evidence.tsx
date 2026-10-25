@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ArrowUpRight, ChevronLeft, ChevronRight, FileText, Files } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, FileText } from "lucide-react";
 import type { ReactNode } from "react";
 import { SectionHead } from "@/components/site-ui";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { evidence, type EvidenceId } from "@/lib/portfolio-data";
+import { evidence, type EvidenceId, type Honour } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
 /** Every page of the given documents, in order, so the viewer can step through them. */
@@ -89,88 +89,87 @@ function EvidenceViewer({
   );
 }
 
-/** Thumbnail cards for certificates and letters; each opens the viewer. */
-export function EvidenceGrid({ ids, label }: { ids: EvidenceId[]; label: string }) {
+/** What clicking a document does, in words: "Read letter", "View paper" and so on. */
+function actionLabel(kind: string) {
+  if (/letter/i.test(kind)) return "Read letter";
+  if (/email/i.test(kind)) return "View email";
+  if (/paper/i.test(kind)) return "View paper";
+  if (/certificate|result/i.test(kind)) return "View certificate";
+  return "View document";
+}
+
+/** A compact card: the document's first page, its title and a link that opens the viewer. */
+function EvidenceChip({ id, onOpen }: { id: EvidenceId; onOpen: () => void }) {
+  const doc = evidence[id];
+  const first = doc.pages[0];
+  if (!first) return null;
+  return (
+    <button type="button" className="evidence-chip" onClick={onOpen}>
+      <span className="evidence-chip-thumb">
+        <img src={first.thumb} alt="" loading="lazy" decoding="async" />
+      </span>
+      <span className="evidence-chip-body">
+        <span className="evidence-chip-title">{doc.title}</span>
+        <span className="evidence-chip-action">
+          <FileText aria-hidden="true" />
+          {actionLabel(doc.kind)}
+          {doc.pages.length > 1 && ` · ${doc.pages.length} pages`}
+        </span>
+      </span>
+    </button>
+  );
+}
+
+/** Previews of the documents behind an entry, shown inside that entry. */
+export function EvidenceStrip({
+  ids,
+  title = "Supporting documents",
+  className,
+}: {
+  ids: EvidenceId[];
+  title?: string;
+  className?: string;
+}) {
   const [start, setStart] = useState<number | null>(null);
+  if (ids.length === 0) return null;
   const steps = pagesOf(ids);
   return (
-    <>
-      <ul className="evidence-grid" aria-label={label}>
-        {ids.map((id) => {
-          const doc = evidence[id];
-          const first = doc.pages[0];
-          if (!first) return null;
-          return (
-            <li key={id}>
-              <button
-                type="button"
-                className="evidence-card"
-                onClick={() => setStart(steps.findIndex((s) => s.id === id))}
-                aria-label={`View ${doc.title}`}
-              >
-                <span className="evidence-thumb">
-                  <img src={first.thumb} alt="" loading="lazy" decoding="async" />
-                  {doc.pages.length > 1 && (
-                    <span className="evidence-pages">
-                      <Files aria-hidden="true" />
-                      {doc.pages.length} pages
-                    </span>
-                  )}
-                </span>
-                <span className="evidence-body">
-                  <span className="card-meta">{doc.kind}</span>
-                  <span className="evidence-title">{doc.title}</span>
-                  <span className="evidence-issuer">
-                    {doc.issuer}
-                    {doc.date && ` · ${doc.date}`}
-                  </span>
-                </span>
-              </button>
-            </li>
-          );
-        })}
+    <div className={cn("evidence-strip", className)}>
+      <p className="evidence-strip-label">{title}</p>
+      <ul className="evidence-strip-list">
+        {ids.map((id) => (
+          <li key={id}>
+            <EvidenceChip id={id} onOpen={() => setStart(steps.findIndex((s) => s.id === id))} />
+          </li>
+        ))}
       </ul>
       {start !== null && <EvidenceViewer ids={ids} start={start} onClose={() => setStart(null)} />}
-    </>
+    </div>
   );
 }
 
-/** A small link that opens one document, used on award cards. */
+/** One document preview, used on award cards. */
 export function EvidenceButton({ id, className }: { id: EvidenceId; className?: string }) {
   const [open, setOpen] = useState(false);
-  const doc = evidence[id];
-  const label = /letter/i.test(doc.kind)
-    ? "Read letter"
-    : /email/i.test(doc.kind)
-      ? "View email"
-      : "View certificate";
   return (
-    <>
-      <button
-        type="button"
-        className={cn("evidence-button", className)}
-        onClick={() => setOpen(true)}
-      >
-        <FileText aria-hidden="true" />
-        {label}
-        {doc.pages.length > 1 && <span className="evidence-button-count">{doc.pages.length}</span>}
-      </button>
+    <div className={cn("evidence-single", className)}>
+      <EvidenceChip id={id} onOpen={() => setOpen(true)} />
       {open && <EvidenceViewer ids={[id]} start={0} onClose={() => setOpen(false)} />}
-    </>
+    </div>
   );
 }
 
-/** A page section listing documents under a heading. */
-export function EvidenceSection({
+/** Award cards for one page, each with a link to its certificate where there is one. */
+export function HonoursSection({
   id,
-  title,
-  ids,
+  title = "Honours and Awards",
+  items,
   white = false,
   children,
 }: {
   id: string;
-  title: string;
-  ids: EvidenceId[];
+  title?: string;
+  items: Honour[];
   white?: boolean;
   children?: ReactNode;
 }) {
@@ -180,7 +179,16 @@ export function EvidenceSection({
         <SectionHead id={`${id}-heading`} title={title}>
           {children}
         </SectionHead>
-        <EvidenceGrid ids={ids} label={title} />
+        <div className="card-flow">
+          {items.map((honour) => (
+            <article key={honour.title} className="neu-card award-card">
+              <h3 className="card-title">{honour.title}</h3>
+              <p className="card-meta">{honour.detail}</p>
+              <p className="card-text">{honour.text}</p>
+              {honour.evidence && <EvidenceButton id={honour.evidence} />}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

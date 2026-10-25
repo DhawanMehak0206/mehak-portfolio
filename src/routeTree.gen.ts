@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EducationRouteImport } from './routes/education'
 import { Route as ExperienceRouteImport } from './routes/experience'
 import { Route as LeadershipRouteImport } from './routes/leadership'
+import { Route as MediaRouteImport } from './routes/media'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as WorkRouteImport } from './routes/work'
@@ -61,6 +62,11 @@ const LeadershipRoute = LeadershipRouteImport.update({
   path: '/leadership',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MediaRoute = MediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MusicRoute = MusicRouteImport.update({
   id: '/music',
   path: '/music',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/education': typeof EducationRoute
   '/experience': typeof ExperienceRoute
   '/leadership': typeof LeadershipRoute
+  '/media': typeof MediaRoute
   '/music': typeof MusicRoute
   '/research': typeof ResearchRoute
   '/work': typeof WorkRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/education': typeof EducationRoute
   '/experience': typeof ExperienceRoute
   '/leadership': typeof LeadershipRoute
+  '/media': typeof MediaRoute
   '/music': typeof MusicRoute
   '/research': typeof ResearchRoute
   '/work': typeof WorkRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/education': typeof EducationRoute
   '/experience': typeof ExperienceRoute
   '/leadership': typeof LeadershipRoute
+  '/media': typeof MediaRoute
   '/music': typeof MusicRoute
   '/research': typeof ResearchRoute
   '/work': typeof WorkRoute
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/education'
     | '/experience'
     | '/leadership'
+    | '/media'
     | '/music'
     | '/research'
     | '/work'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/education'
     | '/experience'
     | '/leadership'
+    | '/media'
     | '/music'
     | '/research'
     | '/work'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/education'
     | '/experience'
     | '/leadership'
+    | '/media'
     | '/music'
     | '/research'
     | '/work'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   EducationRoute: typeof EducationRoute
   ExperienceRoute: typeof ExperienceRoute
   LeadershipRoute: typeof LeadershipRoute
+  MediaRoute: typeof MediaRoute
   MusicRoute: typeof MusicRoute
   ResearchRoute: typeof ResearchRoute
   WorkRoute: typeof WorkRoute
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeadershipRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/media': {
+      id: '/media'
+      path: '/media'
+      fullPath: '/media'
+      preLoaderRoute: typeof MediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/music': {
       id: '/music'
       path: '/music'
@@ -264,6 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   EducationRoute: EducationRoute,
   ExperienceRoute: ExperienceRoute,
   LeadershipRoute: LeadershipRoute,
+  MediaRoute: MediaRoute,
   MusicRoute: MusicRoute,
   ResearchRoute: ResearchRoute,
   WorkRoute: WorkRoute,

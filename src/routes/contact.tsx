@@ -58,8 +58,8 @@ function Contact() {
                 </Link>
               </li>
               <li>
-                <Link to="/awards">
-                  Awards <ArrowRight aria-hidden="true" />
+                <Link to="/music">
+                  Music <ArrowRight aria-hidden="true" />
                 </Link>
               </li>
             </ul>

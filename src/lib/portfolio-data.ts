@@ -48,8 +48,8 @@ export type SitePath =
   | "/experience"
   | "/community"
   | "/leadership"
-  | "/awards"
   | "/music"
+  | "/media"
   | "/contact";
 
 export type IconName =
@@ -280,12 +280,28 @@ export const photos = {
     caption: "A session on government support and financial planning",
     fit: "contain",
   },
-  festivalPerformer: {
-    ...asset("photos", "let-the-music-speak-performer"),
+  solarsoilShowcase: {
+    ...asset("photos", "solarsoil-showcase"),
     width: 1400,
-    height: 805,
-    alt: "A student performing on a digital piano at the Let the Music Speak! festival",
-    caption: "A performer at the festival",
+    height: 1152,
+    alt: "Mehak standing beside the SolarSoil display board, prototype planters and laptop",
+    caption: "Presenting SolarSoil",
+    focus: "upper",
+  },
+  pianoGrand: {
+    ...asset("photos", "piano-grand"),
+    width: 768,
+    height: 580,
+    alt: "Mehak playing a grand piano",
+    caption: "Performing Prelude and Fugue Formed On An Indian Scale",
+  },
+  pianoUpright: {
+    ...asset("photos", "piano-upright"),
+    width: 810,
+    height: 1190,
+    alt: "Mehak playing an upright piano from sheet music",
+    caption: "At the piano",
+    focus: "upper",
   },
 } satisfies Record<string, Photo>;
 
@@ -346,42 +362,6 @@ export const roles: Feature[] = [
     icon: "users",
     title: "Mentor",
     text: "As Math Captain, I have tutored more than 150 students for competitions such as the BMO and AMC, and established a peer-led mentoring programme at school.",
-  },
-];
-
-export interface WorkHighlight {
-  kicker: string;
-  title: string;
-  text: string;
-  to: SitePath;
-  hash: string;
-  media: { kind: "photo" | "screen"; photo: Photo } | { kind: "art" };
-}
-
-export const selectedWork: WorkHighlight[] = [
-  {
-    kicker: "Social impact",
-    title: "DigiSakhi",
-    text: "A vernacular learning platform helping women build digital and financial confidence, now reaching more than 15,000 women.",
-    to: "/community",
-    hash: "digisakhi",
-    media: { kind: "photo", photo: photos.digisakhiGuiding },
-  },
-  {
-    kicker: "Technology",
-    title: "Kindling",
-    text: "A context-aware app, developed with psychologists, that is designed to strengthen parent–adolescent relationships.",
-    to: "/experience",
-    hash: "kindling",
-    media: { kind: "screen", photo: photos.kindlingHome },
-  },
-  {
-    kicker: "Research",
-    title: "The mathematics of music",
-    text: "A published study that quantifies tonal stability and harmonic motion across five musical styles.",
-    to: "/research",
-    hash: "tonal-stability",
-    media: { kind: "art" },
   },
 ];
 
@@ -454,6 +434,8 @@ export interface EntryCard {
   meta: string;
   text: string;
   points?: string[];
+  /** Key into `evidence` for the certificate behind this entry. */
+  evidence?: EvidenceId;
 }
 
 export const education: EntryCard[] = [
@@ -483,24 +465,28 @@ export const education: EntryCard[] = [
     title: "Yale Young Global Scholars",
     meta: "Innovations in Science and Technology",
     text: "I explored scientific innovation alongside students from around the world, examining how interdisciplinary thinking can turn ideas into meaningful solutions. I was also selected as one of 10 speakers for the YYGS Speaker Series.",
+    evidence: "yygs",
   },
   {
     icon: "sigma",
     title: "St Catharine’s College, Cambridge",
     meta: "Mathematics camp",
     text: "Following my British Mathematical Olympiad results, I was selected for a mathematics camp of approximately 35 high-school students.",
+    evidence: "mathCamps",
   },
   {
     icon: "landmark",
     title: "Pembroke College, Oxford",
     meta: "British Mathematical Olympiad camp",
     text: "I was selected for the BMO camp at Pembroke College, which brings together approximately 30 high-school students.",
+    evidence: "mathCamps",
   },
   {
     icon: "compass",
     title: "BMO Asia Camp, Beijing",
     meta: "Olympiad training",
     text: "I was selected for the BMO Asia Camp in Beijing, China, continuing my engagement with advanced mathematics and olympiad-level problem-solving.",
+    evidence: "bmoAsiaCamp",
   },
 ];
 
@@ -517,6 +503,7 @@ export const featuredResearch = {
   id: "tonal-stability",
   title: "Quantifying Tonal Stability and Key Ambiguity Metrics across Musical Genres",
   kicker: "Computational musicology · Published in NHSJS, 2026",
+  evidence: ["nhsjsPaper", "crest", "sigmaXiShowcase"] as EvidenceId[],
   link: {
     href: "https://nhsjs.com/2026/quantifying-tonal-stability-and-key-ambiguity-metrics-across-musical-genres-using-ks-and-tonnetz/",
     label: "Read the paper on NHSJS",
@@ -547,6 +534,8 @@ export interface ResearchEntry {
   methods: string[];
   outcomes: string[];
   link?: ExternalLink;
+  /** Certificates and letters shown with this entry. */
+  evidence?: EvidenceId[];
 }
 
 export const research: ResearchEntry[] = [
@@ -570,6 +559,14 @@ export const research: ResearchEntry[] = [
       href: "https://ijssrr.com/journal/article/view/3600",
       label: "Read the paper on IJSSRR",
     },
+    evidence: [
+      "letterNandKumar",
+      "gcrBestPresenter",
+      "mnluSeminar",
+      "gcrColloquium",
+      "iferp",
+      "ifore",
+    ],
   },
   {
     id: "standing-waves",
@@ -638,6 +635,9 @@ export interface Engagement {
   text: string;
   points?: string[];
   link?: ExternalLink;
+  /** Certificates and letters shown with this entry. */
+  evidence?: EvidenceId[];
+  photo?: Photo;
 }
 
 export const experience: Engagement[] = [
@@ -652,12 +652,14 @@ export const experience: Engagement[] = [
       "Winner of the 2025–2026 Technovation Break the Scroll Prize",
       "₹18 lakh pre-seed funding committed by Country Delight",
     ],
+    evidence: ["letterLearnovate", "technovation"],
   },
   {
     id: "mywonder",
     organisation: "MyWonder",
-    role: "Computer Science Intern",
+    role: "Computer Science Intern · May–July 2025",
     text: "At an ed-tech startup featured on Shark Tank, I contributed to a learn-through-play voice assistant and AI companion for children. I developed a GPT-powered Python function that generated personalised messages using JSON, contributed to UI/UX improvements, and worked with Supabase and AWS Lambda on code deployed to production.",
+    evidence: ["letterMyWonder"],
   },
   {
     id: "solarsoil",
@@ -669,6 +671,7 @@ export const experience: Engagement[] = [
       "Pitched to more than 100 investors, CEOs and industry professionals",
       "Selected for a six-month incubation programme associated with Plug and Play Tech Center",
     ],
+    photo: photos.solarsoilShowcase,
   },
   {
     id: "iit-bombay",
@@ -685,12 +688,14 @@ export const experience: Engagement[] = [
     organisation: "Delhi Technological University",
     role: "Research Intern, Economics",
     text: "With Dr. Nand Kumar, I investigated the determinants of foreign direct investment into India between 1993 and 2022 using OLS regression, ARDL bounds testing and Granger-causality analysis. Dr. Kumar also mentored my research on women’s financial inclusion.",
+    evidence: ["letterNandKumar"],
   },
   {
     id: "curtin",
     organisation: "Curtin University STEM Challenge",
     role: "Team Lead",
     text: "Won first place nationally, competing against more than 50 teams with an autonomous LiDAR robot car built on an Arduino-based prototype. Winning also earned me an internship opportunity at Lab of the Future.",
+    evidence: ["curtin"],
   },
   {
     id: "tedx",
@@ -703,6 +708,7 @@ export const experience: Engagement[] = [
     organisation: "Yale Young Global Scholars",
     role: "Speaker, YYGS Speaker Series",
     text: "Selected as one of 10 speakers for the YYGS Speaker Series, I presented my computational music research on tonal stability and harmonic motion to approximately 300 participants, followed by discussions with Yale professors.",
+    evidence: ["yygs"],
   },
 ];
 
@@ -716,7 +722,16 @@ export const community: Engagement[] = [
       "More than 15,000 women reached across four Indian states",
       "Supported by more than 10 student chapters",
       "Learning content integrated into Frontier Markets’ Meri Saheli network, alongside 20+ workshops and community sessions",
+      "Pre-seed support from Opternix, valued at about ₹5 lakh",
       "Youth Empowerment & Service Award of Excellence, 2026",
+    ],
+    evidence: [
+      "letterFrontierMarkets",
+      "letterOpternix",
+      "letterTctf",
+      "letterNutanMarathi",
+      "yesAward",
+      "cobis",
     ],
   },
   {
@@ -741,6 +756,7 @@ export const community: Engagement[] = [
       "Two core proposals formally adopted into the company’s updated HR policy",
       "₹18 lakh in pre-seed funding committed to Kindling",
     ],
+    evidence: ["letterCountryDelight"],
   },
   {
     id: "let-the-music-speak",
@@ -749,10 +765,12 @@ export const community: Engagement[] = [
     text: "I founded Let the Music Speak! and organised the school’s first music festival, bringing together more than 75 performers across seven genres to celebrate musical talent and create opportunities for students to perform.",
   },
   {
-    id: "jumeirah-primary",
-    organisation: "Jumeirah Primary School",
-    role: "Mathematics sessions",
-    text: "As part of my role as Math Captain, I delivered mathematics sessions for younger students at Jumeirah Primary School.",
+    id: "math-captain",
+    organisation: "Jumeirah College Math Society",
+    role: "Math Captain and Curriculum Lead",
+    text: "As Math Captain and Curriculum Lead of the Jumeirah College Math Society, I promote competitive mathematics through enrichment and peer mentoring. I have tutored over 150 students preparing for competitions such as the BMO and AMC, spearheaded the Dubai Math Super League and JC Math Championship 2026, and established a peer-led mentoring programme through which I mentored five Year 12 interns to take over.",
+    points: ["Delivered mathematics sessions for younger students at Jumeirah Primary School"],
+    evidence: ["mathCaptain"],
   },
 ];
 
@@ -773,6 +791,7 @@ export const leadership: EntryCard[] = [
       "Spearheaded the Dubai Math Super League and JC Math Championship 2026",
       "Established a peer-led mentoring programme and mentored five Year 12 interns",
     ],
+    evidence: "mathCaptain",
   },
   {
     icon: "lightbulb",
@@ -993,6 +1012,34 @@ export const honourGroups: HonourGroup[] = [
   },
 ];
 
+/** Honours grouped by the page that shows them. */
+function pickHonours(titles: string[]): Honour[] {
+  const all = honourGroups.flatMap((group) => group.items);
+  return titles.map((title) => {
+    const honour = all.find((item) => item.title === title);
+    if (!honour) throw new Error(`Unknown honour: ${title}`);
+    return honour;
+  });
+}
+
+export const honoursByPage = {
+  education: pickHonours([
+    "British Mathematical Olympiad",
+    "British Physics Olympiad",
+    "International Psychology Olympiad",
+    "ChallengeME Mathematics Competition",
+    "Azeem Scholar Award",
+    "Sunny Varkey Merit Scholarship",
+    "John Locke Essay Competition",
+  ]),
+  experience: pickHonours([
+    "Global Innovation Challenge",
+    "Blue Ocean Student Entrepreneur Competition",
+  ]),
+  leadership: pickHonours(["Platinum Award", "Form Tutor Award"]),
+  music: pickHonours(["London College of Music", "International music competitions"]),
+};
+
 export interface MusicCard {
   title: string;
   meta: string;
@@ -1011,9 +1058,9 @@ export const musicCards: MusicCard[] = [
     text: "I have received Laureate and finalist honours across more than 10 international music competitions. At the Beethoven Award International Music Competition, I placed among the top 80 participants and received Laureate recognition.",
   },
   {
-    title: "Music",
-    meta: "Piano",
-    text: "Perfomer.",
+    title: "Pianist",
+    meta: "Piano Performer",
+    text: "I have performed at school winter and spring concerts, recitals and musical showcases, sharing my passion for piano through live performances and expressing my love for music with diverse audiences.",
   },
   {
     title: "Let the Music Speak!",
@@ -1068,6 +1115,24 @@ export const media: MediaItem[] = [
       alt: "Mehak answering the question: What inspired you to pursue STEM and advocacy?",
       caption: "Être Girls, Gen E",
     },
+  },
+  {
+    outlet: "The Tribune",
+    kind: "Article",
+    date: "6 October 2026",
+    title:
+      "Learning That Changes Lives: KCS Foundation, Bihar Honours 27 Young Changemakers at YES AWARDS 2026 in Dubai",
+    text: "Coverage of the YES AWARDS 2026 in Dubai, which honoured 27 young changemakers, including me for my work with DigiSakhi.",
+    href: "https://www.tribuneindia.com/news/business/learning-that-changes-lives-kcs-foundation-bihar-honours-27-young-changemakers-at-yes-awards-2026-in-dubai/amp",
+  },
+  {
+    outlet: "The Wire",
+    kind: "Article",
+    date: "6 October 2026",
+    title:
+      "Learning That Changes Lives: KCS Foundation, Bihar Honours 27 Young Changemakers at YES AWARDS 2026 in Dubai",
+    text: "The same report on the YES AWARDS 2026 ceremony in Dubai, published by The Wire.",
+    href: "https://thewire.in/ptiprnews/learning-that-changes-lives-kcs-foundation-bihar-honours-27-young-changemakers-at-yes-awards-2026-in-dubai",
   },
 ];
 
@@ -1156,24 +1221,14 @@ export const evidence = {
   ),
   bmoRound1: doc(
     {
-      title: "British Mathematical Olympiad Round 1",
+      title: "British Mathematical Olympiad",
       issuer: "UK Mathematics Trust",
-      date: "2025",
-      kind: "Certificate of Distinction",
-      description: "Certificate of Distinction in BMO Round 1, with the Best in Year award.",
-    },
-    ["bmo-round-1"],
-  ),
-  bmoRound2: doc(
-    {
-      title: "British Mathematical Olympiad Round 2",
-      issuer: "UK Mathematics Trust",
-      date: "2026",
-      kind: "Certificate",
+      date: "2025–2026",
+      kind: "Certificates",
       description:
-        "Certificate for taking part in BMO Round 2, for which I qualified through my Round 1 result.",
+        "Certificate of Distinction in BMO Round 1 with the Best in Year award, and the certificate for taking part in Round 2, for which I qualified through my Round 1 result.",
     },
-    ["bmo-round-2"],
+    ["bmo-round-1", "bmo-round-2"],
   ),
   bpho: doc(
     {
@@ -1345,7 +1400,7 @@ export const evidence = {
   ),
   letterCountryDelight: doc(
     {
-      title: "Letter of recommendation: Country Delight",
+      title: "Country Delight: letter of recommendation",
       issuer: "Nitin Kaushal, Co-Founder and CEO, Country Delight",
       kind: "Letter of recommendation",
       description:
@@ -1355,7 +1410,7 @@ export const evidence = {
   ),
   letterLearnovate: doc(
     {
-      title: "Letter of recommendation: Learnovate",
+      title: "Learnovate: letter of recommendation",
       issuer: "Sachin Kumar, Founder, Learnovate (True Cost Sourcing)",
       kind: "Letter of recommendation",
       description:
@@ -1365,7 +1420,7 @@ export const evidence = {
   ),
   letterFrontierMarkets: doc(
     {
-      title: "Letter of recommendation: Frontier Markets",
+      title: "Frontier Markets: letter of recommendation",
       issuer: "Sushmita Ganguly, Manager – HR & Administration, Frontier Markets",
       date: "August 2026",
       kind: "Letter of recommendation",
@@ -1376,7 +1431,7 @@ export const evidence = {
   ),
   letterTctf: doc(
     {
-      title: "Letter of recommendation: The Creative Thinkers Forum",
+      title: "The Creative Thinkers Forum: letter of recommendation",
       issuer: "President, The Creative Thinkers Forum (TCTF), New Delhi",
       date: "August 2025",
       kind: "Letter of recommendation",
@@ -1385,9 +1440,41 @@ export const evidence = {
     },
     ["letter-tctf-p1", "letter-tctf-p2"],
   ),
+  letterNandKumar: doc(
+    {
+      title: "Prof. Nand Kumar: letter of recommendation",
+      issuer: "Prof. Nand Kumar, Professor of Economics, Delhi Technological University",
+      date: "September 2026",
+      kind: "Letter of recommendation",
+      description:
+        "From my research mentor since October 2025, on my empirical study of the gender gap in financial inclusion, the fieldwork behind it, and how it informed DigiSakhi.",
+    },
+    ["letter-nand-kumar-p1", "letter-nand-kumar-p2"],
+  ),
+  letterMyWonder: doc(
+    {
+      title: "MyWonder: letter of recommendation",
+      issuer: "Venkata S M Potluri, Co-Founder, MyWonder",
+      date: "September 2025",
+      kind: "Letter of recommendation",
+      description:
+        "On my internship from 15 May to 15 July 2025: serverless Python functions using OpenAI’s GPT models, Supabase and AWS Lambda, with my code now in production.",
+    },
+    ["letter-mywonder-p1", "letter-mywonder-p2"],
+  ),
+  letterOpternix: doc(
+    {
+      title: "Opternix: letter of recommendation",
+      issuer: "Ankur Gupta, Founder, Opternix",
+      kind: "Letter of recommendation",
+      description:
+        "On DigiSakhi’s chapter-based model, about 10 student-led chapters across several Indian states, and Opternix’s pre-seed support valued at about ₹5 lakh.",
+    },
+    ["letter-opternix"],
+  ),
   letterNutanMarathi: doc(
     {
-      title: "Letter of support: Nutan Marathi Senior Secondary School",
+      title: "Nutan Marathi Senior Secondary School: letter of support",
       issuer: "Nutan Marathi Senior Secondary School, New Delhi",
       kind: "Letter of support",
       description:
@@ -1434,109 +1521,9 @@ export const evidence = {
       "final-round-ravel",
     ],
   ),
-  codingAi: doc(
-    {
-      title: "Artificial Intelligence with Python",
-      issuer: "Coding & More",
-      date: "2024–2025",
-      kind: "Certificates of completion",
-      description:
-        "Modules 2 (April 2025) and 1 (September 2024) of the Artificial Intelligence with Python enrichment programme.",
-    },
-    ["coding-and-more-ai-python", "coding-and-more-ai-python-p2"],
-  ),
-  codingPython: doc(
-    {
-      title: "Python: Data Structures and Core Python",
-      issuer: "CodingZen Academy",
-      date: "2023",
-      kind: "Certificates of achievement",
-      description: "Python: DSA Level I (November 2023) and Core Python Level I (October 2023).",
-    },
-    ["codingzen-python-dsa", "codingzen-core-python"],
-  ),
-  freeCodeCamp: doc(
-    {
-      title: "Responsive Web Design",
-      issuer: "freeCodeCamp",
-      date: "September 2021",
-      kind: "Developer certification",
-      description:
-        "The Responsive Web Design Developer Certification, about 300 hours of coursework.",
-    },
-    ["freecodecamp-web-design"],
-  ),
-  tennisNationals: doc(
-    {
-      title: "CISCE National Tennis Tournament",
-      issuer: "Council for the Indian School Certificate Examinations",
-      date: "September 2022",
-      kind: "Certificate of participation",
-      description:
-        "Under-14 Girls category at the CISCE National Sports & Games 2022, Bengal Tennis Association, Kolkata. Date of birth hidden.",
-    },
-    ["tennis-cisce-nationals-2022"],
-  ),
-  tennisTraining: doc(
-    {
-      title: "Tennis training, Al Nasr Leisureland",
-      issuer: "Al Nasr Leisureland, Dubai",
-      date: "July–October 2023",
-      kind: "Certificate of participation",
-      description:
-        "Tennis training from 1 July to 1 October 2023 with ITF-certified coach Manuel H. Gayon.",
-    },
-    ["tennis-al-nasr-training-2023"],
-  ),
 } satisfies Record<string, EvidenceDoc>;
 
 export type EvidenceId = keyof typeof evidence;
-
-/** The documents shown on each page, in display order. */
-export const evidenceSets = {
-  education: ["azeemScholar", "yygs", "mathCamps", "bmoAsiaCamp"],
-  research: [
-    "nhsjsPaper",
-    "crest",
-    "sigmaXiShowcase",
-    "gcrBestPresenter",
-    "mnluSeminar",
-    "gcrColloquium",
-    "iferp",
-    "ifore",
-  ],
-  experience: ["letterLearnovate", "technovation", "curtin", "yygs"],
-  community: [
-    "letterCountryDelight",
-    "letterFrontierMarkets",
-    "letterTctf",
-    "letterNutanMarathi",
-    "yesAward",
-    "cobis",
-  ],
-  leadership: ["mathCaptain"],
-  music: ["lcmGrade8", "finalRounds"],
-  coding: ["codingAi", "codingPython", "freeCodeCamp"],
-  tennis: ["tennisNationals", "tennisTraining"],
-  awards: [
-    "bmoRound1",
-    "bmoRound2",
-    "bpho",
-    "ipsyo",
-    "crest",
-    "azeemScholar",
-    "technovation",
-    "curtin",
-    "blueOcean",
-    "cobis",
-    "yesAward",
-    "gcrBestPresenter",
-    "lcmGrade8",
-    "finalRounds",
-    "mathCamps",
-    "bmoAsiaCamp",
-  ],
-} satisfies Record<string, EvidenceId[]>;
 
 export function pageHead(title: string, description: string) {
   const fullTitle = `${title} — ${profile.name}`;

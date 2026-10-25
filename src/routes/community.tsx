@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { EvidenceSection } from "@/components/evidence";
-import { PhotoGallery } from "@/components/gallery";
-import { MediaSection } from "@/components/media";
-import { Band, BandHead, BlueCard, CheckList, PageHeader } from "@/components/site-ui";
-import { community, evidenceSets, pageHead, photos } from "@/lib/portfolio-data";
+import { EvidenceStrip } from "@/components/evidence";
+import { BlueCard, CheckList, PageHeader } from "@/components/site-ui";
+import { Story } from "@/components/story";
+import { community, pageHead, photos, type Engagement, type Photo } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/community")({
   head: () =>
@@ -14,82 +13,67 @@ export const Route = createFileRoute("/community")({
   component: Community,
 });
 
+/** Photos for each initiative that has them; the rest are shown as cards. */
+const storyPhotos: Record<string, Photo[]> = {
+  digisakhi: [
+    photos.digisakhiSession,
+    photos.digisakhiGuiding,
+    photos.digisakhiPractice,
+    photos.digisakhiStudents,
+    photos.digisakhiTalk,
+    photos.digisakhiClassroom,
+    photos.digisakhiPlatformVideos,
+    photos.digisakhiPlatformBlogs,
+  ],
+  "kindling-connect": [
+    photos.kindlingLearnovate,
+    photos.kindlingFamily,
+    photos.kindlingOnline,
+    photos.kindlingConnectSupport,
+  ],
+  "inclusive-families": [photos.kindlingConnectSpecialNeeds],
+  "let-the-music-speak": [photos.festival],
+};
+
 function Community() {
+  const stories = community.filter((item) => storyPhotos[item.id]);
+  const others: Engagement[] = community.filter((item) => !storyPhotos[item.id]);
   return (
     <main id="main">
       <PageHeader title="Community & Social Impact">
         <p>
           Much of my work starts with a gap I noticed in everyday life: women with access to
           technology but not the confidence to use it, or families sharing a meal without truly
-          engaging with one another. These initiatives are my attempts to close those gaps, working
-          with the people they affect.
+          engaging with one another.
         </p>
       </PageHeader>
 
       <section className="section section--tight" aria-label="Initiatives">
-        <div className="container grid-2">
-          {community.map((item) => (
-            <BlueCard key={item.id} id={item.id} title={item.organisation} meta={item.role}>
-              <p className="blue-card-text">{item.text}</p>
-              {item.points && <CheckList items={item.points} className="check-list--light" />}
-            </BlueCard>
+        <div className="container story-list">
+          {stories.map((item) => (
+            <Story key={item.id} item={item} photos={storyPhotos[item.id] ?? []} />
           ))}
         </div>
       </section>
 
-      <Band labelledBy="community-photos-heading">
-        <BandHead id="community-photos-heading" title="In the Community">
-          Select a photo to see it in full.
-        </BandHead>
-        <div className="band-block">
-          <h3 className="band-subtitle">DigiSakhi</h3>
-          <PhotoGallery
-            large
-            label="DigiSakhi photos"
-            photos={[
-              photos.digisakhiSession,
-              photos.digisakhiGuiding,
-              photos.digisakhiStudents,
-              photos.digisakhiTalk,
-              photos.digisakhiClassroom,
-              photos.digisakhiPractice,
-            ]}
-          />
+      <section className="section section--white" aria-labelledby="more-heading">
+        <div className="container">
+          <h2 className="subsection-title subsection-title--first" id="more-heading">
+            In school and the workplace
+          </h2>
+          <div className="grid-2">
+            {others.map((item) => (
+              <BlueCard key={item.id} id={item.id} title={item.organisation} meta={item.role}>
+                <p className="blue-card-text">{item.text}</p>
+                {item.points && <CheckList items={item.points} className="check-list--light" />}
+                {item.evidence && (
+                  <EvidenceStrip ids={item.evidence} className="evidence-strip--light" />
+                )}
+              </BlueCard>
+            ))}
+          </div>
         </div>
-        <div className="band-block">
-          <h3 className="band-subtitle">The DigiSakhi platform</h3>
-          <PhotoGallery
-            wide
-            label="DigiSakhi platform screenshots"
-            photos={[photos.digisakhiPlatformVideos, photos.digisakhiPlatformBlogs]}
-          />
-        </div>
-        <div className="band-block">
-          <h3 className="band-subtitle">Kindling Connect</h3>
-          <PhotoGallery
-            large
-            label="Kindling Connect photos"
-            photos={[
-              photos.kindlingLearnovate,
-              photos.kindlingFamily,
-              photos.kindlingOnline,
-              photos.kindlingConnectSpecialNeeds,
-              photos.kindlingConnectSupport,
-            ]}
-          />
-        </div>
-      </Band>
-
-      <MediaSection white />
-
-      <EvidenceSection
-        id="community-evidence"
-        title="Letters and Recognition"
-        ids={evidenceSets.community}
-      >
-        Letters from the organisations I have worked with, and the awards for DigiSakhi and
-        Kindling.
-      </EvidenceSection>
+      </section>
     </main>
   );
 }

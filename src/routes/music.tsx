@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Music2 } from "lucide-react";
-import { EvidenceSection } from "@/components/evidence";
+import { ArrowRight, Music2, Play } from "lucide-react";
+import { HonoursSection } from "@/components/evidence";
 import { PhotoGallery } from "@/components/gallery";
 import { Band, BandHead, BlueCard, PageHeader } from "@/components/site-ui";
 import {
-  evidenceSets,
+  honoursByPage,
   musicCards,
   musicCompetitions,
   pageHead,
@@ -14,14 +14,16 @@ import {
 export const Route = createFileRoute("/music")({
   head: () =>
     pageHead(
-      "Music",
+      "Music & Performance",
       "Mehak Dhawan’s life in music: more than 11 years of piano, a Grade 8 Distinction, international competition honours and the Let the Music Speak! initiative.",
     ),
   component: Music,
 });
 
+const performanceVideo = "https://www.youtube.com/watch?v=YnMyD8ITARs";
+
 function Music() {
-  const festival = photos.festival;
+  const lead = photos.pianoGrand;
   return (
     <main id="main">
       <PageHeader title="Music & Performance">
@@ -36,18 +38,18 @@ function Music() {
         <div className="container media-split">
           <figure className="photo-frame photo-frame--wide">
             <img
-              src={festival.src}
-              alt={festival.alt}
-              width={festival.width}
-              height={festival.height}
+              src={lead.src}
+              alt={lead.alt}
+              width={lead.width}
+              height={lead.height}
               loading="lazy"
               decoding="async"
             />
-            <figcaption>Speaking at Let the Music Speak!, the initiative I founded.</figcaption>
+            <figcaption>{lead.caption}</figcaption>
           </figure>
           <div className="about-copy">
             <h2 className="about-title" id="pianist-heading">
-              Pianist, Music Ambassador and Founder
+              Pianist and Founder
             </h2>
             <p>
               I attained a Grade 8 Distinction from the London College of Music and have received
@@ -58,7 +60,15 @@ function Music() {
               first music festival.
             </p>
             <div className="button-row">
-              <Link to="/research" hash="tonal-stability" className="btn btn--primary">
+              <a
+                className="btn btn--primary"
+                href={performanceVideo}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Play aria-hidden="true" /> Watch my performance
+              </a>
+              <Link to="/research" hash="tonal-stability" className="btn btn--neu">
                 Music meets mathematics <ArrowRight aria-hidden="true" />
               </Link>
             </div>
@@ -78,7 +88,7 @@ function Music() {
 
       <Band labelledBy="competitions-heading">
         <BandHead id="competitions-heading" title="International Competitions">
-          Laureate honours across 10 international competitions, including:
+          Laureate honours across multiple international competitions, including:
         </BandHead>
         <ul className="competition-list">
           {musicCompetitions.map((competition) => (
@@ -89,19 +99,18 @@ function Music() {
           ))}
         </ul>
         <div className="band-block">
-          <h3 className="band-subtitle">At Let the Music Speak!</h3>
+          <h3 className="band-subtitle">At the piano and on stage</h3>
           <PhotoGallery
             large
-            label="Let the Music Speak! photos"
-            photos={[photos.festivalPerformer]}
+            label="Music photos"
+            photos={[photos.pianoGrand, photos.pianoUpright, photos.festival]}
           />
         </div>
       </Band>
 
-      <EvidenceSection id="music-evidence" title="Music Certificates" ids={evidenceSets.music}>
-        My Grade 8 piano certificate from the London College of Music, and final-round selections in
-        international competitions.
-      </EvidenceSection>
+      <HonoursSection id="music-honours" items={honoursByPage.music} white>
+        My Grade 8 certificate and the final-round invitations from international competitions.
+      </HonoursSection>
     </main>
   );
 }

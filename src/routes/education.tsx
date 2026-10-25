@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Band, BandHead, BandStats, CheckList, NeuCard, PageHeader } from "@/components/site-ui";
-import { EvidenceSection } from "@/components/evidence";
-import { education, evidenceSets, pageHead, scores } from "@/lib/portfolio-data";
+import { EvidenceButton, HonoursSection } from "@/components/evidence";
+import { education, honoursByPage, pageHead, scores } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/education")({
   head: () =>
@@ -30,6 +30,7 @@ function Education() {
             <NeuCard key={item.title} icon={item.icon} title={item.title} meta={item.meta}>
               <p className="card-text">{item.text}</p>
               {item.points && <CheckList items={item.points} />}
+              {item.evidence && <EvidenceButton id={item.evidence} />}
             </NeuCard>
           ))}
         </div>
@@ -42,13 +43,9 @@ function Education() {
         <BandStats items={scores} label="Examination results" />
       </Band>
 
-      <EvidenceSection
-        id="education-evidence"
-        title="Certificates and Results"
-        ids={evidenceSets.education}
-      >
-        Select a document to view it in full.
-      </EvidenceSection>
+      <HonoursSection id="education-honours" items={honoursByPage.education} white>
+        Olympiads, academic distinctions and scholarships.
+      </HonoursSection>
     </main>
   );
 }

@@ -13,8 +13,8 @@ const navigation = [
   { to: "/experience", label: "Experience" },
   { to: "/community", label: "Community" },
   { to: "/leadership", label: "Leadership" },
-  { to: "/awards", label: "Awards" },
-  { to: "/music", label: "Music" },
+  { to: "/music", label: "Music & Performance" },
+  { to: "/media", label: "Media" },
 ] as const;
 
 function Logo() {

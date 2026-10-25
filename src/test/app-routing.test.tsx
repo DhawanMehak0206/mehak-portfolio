@@ -16,6 +16,7 @@ describe("App routing", () => {
     "/community",
     "/leadership",
     "/awards",
+    "/media",
     "/music",
     "/contact",
     "/work",

@@ -10,14 +10,8 @@ import {
   NeuCard,
   PageHeader,
 } from "@/components/site-ui";
-import { EvidenceSection } from "@/components/evidence";
-import {
-  evidenceSets,
-  featuredResearch,
-  pageHead,
-  research,
-  researchThreads,
-} from "@/lib/portfolio-data";
+import { EvidenceStrip } from "@/components/evidence";
+import { featuredResearch, pageHead, research, researchThreads } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/research")({
   head: () =>
@@ -67,6 +61,9 @@ function Research() {
             </li>
           ))}
         </ul>
+        <div className="container-narrow">
+          <EvidenceStrip ids={featuredResearch.evidence} title="The paper and its recognition" />
+        </div>
         <div className="band-actions">
           <a
             className="btn btn--primary"
@@ -95,6 +92,7 @@ function Research() {
               <p className="card-text">{entry.text}</p>
               <ChipList items={entry.methods} label="Methods" />
               <CheckList items={entry.outcomes} />
+              {entry.evidence && <EvidenceStrip ids={entry.evidence} />}
               {entry.link && (
                 <a className="text-link" href={entry.link.href} target="_blank" rel="noreferrer">
                   {entry.link.label} <ArrowUpRight aria-hidden="true" />
@@ -123,14 +121,6 @@ function Research() {
           ))}
         </div>
       </Band>
-
-      <EvidenceSection
-        id="research-evidence"
-        title="Publication and Recognition"
-        ids={evidenceSets.research}
-      >
-        The published paper, acceptances and certificates behind this research.
-      </EvidenceSection>
     </main>
   );
 }

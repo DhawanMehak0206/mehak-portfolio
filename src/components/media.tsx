@@ -1,5 +1,4 @@
 import { ArrowUpRight, Newspaper, Play } from "lucide-react";
-import { SectionHead } from "@/components/site-ui";
 import { media, type MediaItem } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
@@ -41,17 +40,12 @@ function MediaCard({ item }: { item: MediaItem }) {
 }
 
 /** Press and video coverage, linking out to the original. */
-export function MediaSection({ white = false }: { white?: boolean }) {
+export function MediaGrid() {
   return (
-    <section className={cn("section", white && "section--white")} aria-labelledby="media-heading">
-      <div className="container">
-        <SectionHead id="media-heading" title="In the Media" />
-        <div className="media-grid">
-          {media.map((item) => (
-            <MediaCard key={item.href} item={item} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="media-grid">
+      {media.map((item) => (
+        <MediaCard key={item.href} item={item} />
+      ))}
+    </div>
   );
 }
