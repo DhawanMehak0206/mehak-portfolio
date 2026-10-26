@@ -2817,3 +2817,52 @@ main {
     scroll-behavior: auto !important;
   }
 }
+
+/* Media page: three equal cards in a row, image on top. */
+.media-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.media-card {
+  flex-direction: column;
+}
+
+.media-visual {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+
+.media-visual.is-video img {
+  object-position: 50% 25%;
+}
+
+.media-body {
+  flex: 1;
+  padding: 4px 6px 6px;
+}
+
+@media (max-width: 900px) {
+  .media-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Show each media image whole; portrait images sit on a blurred copy of themselves. */
+.media-visual {
+  isolation: isolate;
+}
+
+.media-visual img {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+}
+
+.media-visual .media-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  object-fit: cover;
+  filter: blur(18px) brightness(0.9);
+  transform: scale(1.15);
+}

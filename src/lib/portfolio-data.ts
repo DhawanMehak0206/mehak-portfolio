@@ -1094,6 +1094,13 @@ export const media: MediaItem[] = [
       "Dubai Grade 12 student uses technology to expand family learning, digital skills for women",
     text: "A feature on how Kindling and DigiSakhi are changing family communication and women’s digital education.",
     href: "https://education.economictimes.indiatimes.com/news/skills/dubai-grade-12-student-uses-technology-to-expand-family-learning-digital-skills-for-women/134555471",
+    image: {
+      ...asset("photos", "media-eteducation"),
+      width: 466,
+      height: 627,
+      alt: "Mehak at a laptop surrounded by students, from the ETEducation article",
+      caption: "ETEducation",
+    },
   },
   {
     outlet: "Être Girls",
@@ -1118,6 +1125,13 @@ export const media: MediaItem[] = [
       "Learning That Changes Lives: KCS Foundation, Bihar Honours 27 Young Changemakers at YES AWARDS 2026 in Dubai",
     text: "Coverage of the YES AWARDS 2026 in Dubai, which honoured 27 young changemakers, including me for my work with DigiSakhi.",
     href: "https://www.tribuneindia.com/news/business/learning-that-changes-lives-kcs-foundation-bihar-honours-27-young-changemakers-at-yes-awards-2026-in-dubai/amp",
+    image: {
+      ...asset("photos", "media-tribune"),
+      width: 1200,
+      height: 675,
+      alt: "The YES AWARDS 2026 honourees on stage holding their certificates",
+      caption: "The Tribune",
+    },
   },
 ];
 

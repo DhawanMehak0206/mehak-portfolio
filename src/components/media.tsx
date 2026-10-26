@@ -6,9 +6,10 @@ function MediaCard({ item }: { item: MediaItem }) {
   const action = item.kind === "Video" ? "Watch on YouTube" : "Read the article";
   return (
     <a className="media-card" href={item.href} target="_blank" rel="noreferrer">
-      <span className={cn("media-visual", item.image ? "is-video" : "is-article")}>
+      <span className={cn("media-visual", item.kind === "Video" ? "is-video" : "is-article")}>
         {item.image ? (
           <>
+            <img className="media-backdrop" src={item.image.thumb} alt="" aria-hidden="true" />
             <img
               src={item.image.thumb}
               alt={item.image.alt}
@@ -17,9 +18,11 @@ function MediaCard({ item }: { item: MediaItem }) {
               loading="lazy"
               decoding="async"
             />
-            <span className="media-play" aria-hidden="true">
-              <Play />
-            </span>
+            {item.kind === "Video" && (
+              <span className="media-play" aria-hidden="true">
+                <Play />
+              </span>
+            )}
           </>
         ) : (
           <Newspaper aria-hidden="true" />
