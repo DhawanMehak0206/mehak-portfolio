@@ -7,7 +7,7 @@ export const Route = createFileRoute("/media")({
   head: () =>
     pageHead(
       "Media",
-      "Press and video coverage of Mehak Dhawan’s work, including ETEducation, Être Girls, The Tribune and The Wire.",
+      "Press and video coverage of Mehak Dhawan’s work, including ETEducation, Être Girls and The Tribune.",
     ),
   component: Media,
 });

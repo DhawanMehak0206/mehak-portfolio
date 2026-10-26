@@ -702,6 +702,7 @@ export const experience: Engagement[] = [
     organisation: "TEDx",
     role: "Speaker",
     text: "In my talk, From Technoference to Togetherness: Kindle Something Real, I drew on families sharing meals without truly engaging with one another. I argued that excessive screen use is not simply a distraction problem but a design problem, and that the principles that make technology so good at capturing attention can help us reconnect.",
+    link: { href: "https://www.youtube.com/watch?v=FQsXxvLWIQs", label: "Watch my TEDx talk" },
   },
   {
     id: "yygs",
@@ -756,13 +757,6 @@ export const community: Engagement[] = [
       "Two core proposals formally adopted into the company’s updated HR policy",
       "₹18 lakh in pre-seed funding committed to Kindling",
     ],
-    evidence: ["letterCountryDelight"],
-  },
-  {
-    id: "let-the-music-speak",
-    organisation: "Let the Music Speak!",
-    role: "Founder · GEMS Modern Academy",
-    text: "I founded Let the Music Speak! and organised the school’s first music festival, bringing together more than 75 performers across seven genres to celebrate musical talent and create opportunities for students to perform.",
   },
   {
     id: "math-captain",
@@ -1125,15 +1119,6 @@ export const media: MediaItem[] = [
     text: "Coverage of the YES AWARDS 2026 in Dubai, which honoured 27 young changemakers, including me for my work with DigiSakhi.",
     href: "https://www.tribuneindia.com/news/business/learning-that-changes-lives-kcs-foundation-bihar-honours-27-young-changemakers-at-yes-awards-2026-in-dubai/amp",
   },
-  {
-    outlet: "The Wire",
-    kind: "Article",
-    date: "6 October 2026",
-    title:
-      "Learning That Changes Lives: KCS Foundation, Bihar Honours 27 Young Changemakers at YES AWARDS 2026 in Dubai",
-    text: "The same report on the YES AWARDS 2026 ceremony in Dubai, published by The Wire.",
-    href: "https://thewire.in/ptiprnews/learning-that-changes-lives-kcs-foundation-bihar-honours-27-young-changemakers-at-yes-awards-2026-in-dubai",
-  },
 ];
 
 export interface EvidenceDoc {
@@ -1397,16 +1382,6 @@ export const evidence = {
       description: "Abstract accepted for the IFoRE Student Research Awards Competition.",
     },
     ["sigma-xi-ifore-acceptance"],
-  ),
-  letterCountryDelight: doc(
-    {
-      title: "Country Delight: letter of recommendation",
-      issuer: "Nitin Kaushal, Co-Founder and CEO, Country Delight",
-      kind: "Letter of recommendation",
-      description:
-        "On the Kindling Connect workshops with the company’s workforce community, the two policy proposals it adopted and its ₹18 lakh pre-seed commitment.",
-    },
-    ["letter-country-delight-p1", "letter-country-delight-p2"],
   ),
   letterLearnovate: doc(
     {

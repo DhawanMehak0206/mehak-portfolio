@@ -8,7 +8,7 @@ export const Route = createFileRoute("/community")({
   head: () =>
     pageHead(
       "Community",
-      "DigiSakhi, the Kindling Connect Initiative, family-friendly workplace policy and Let the Music Speak!: Mehak Dhawan’s community and social impact work.",
+      "DigiSakhi, the Kindling Connect Initiative, and family-friendly workplace policy: Mehak Dhawan’s community and social impact work.",
     ),
   component: Community,
 });
@@ -32,7 +32,6 @@ const storyPhotos: Record<string, Photo[]> = {
     photos.kindlingConnectSupport,
   ],
   "inclusive-families": [photos.kindlingConnectSpecialNeeds],
-  "let-the-music-speak": [photos.festival],
 };
 
 function Community() {
