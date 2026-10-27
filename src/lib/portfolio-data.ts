@@ -444,10 +444,7 @@ export const education: EntryCard[] = [
     title: "Jumeirah College, Dubai",
     meta: "A Levels",
     text: "I study Mathematics, Further Mathematics, Physics and Economics. Each gives me a different way to approach problems, question assumptions and connect theoretical ideas with real-world applications.",
-    points: [
-      "A* predicted in Mathematics, Further Mathematics, Physics and Economics",
-      "Extended Project Qualification: A* achieved",
-    ],
+    points: ["Extended Project Qualification: A* achieved"],
   },
   {
     icon: "graduation",

@@ -25,13 +25,12 @@ const storyPhotos: Record<string, Photo[]> = {
     photos.digisakhiPlatformVideos,
     photos.digisakhiPlatformBlogs,
   ],
-  "kindling-connect": [
-    photos.kindlingLearnovate,
-    photos.kindlingFamily,
+  "kindling-connect": [photos.kindlingLearnovate, photos.kindlingFamily],
+  "inclusive-families": [
+    photos.kindlingConnectSpecialNeeds,
     photos.kindlingOnline,
     photos.kindlingConnectSupport,
   ],
-  "inclusive-families": [photos.kindlingConnectSpecialNeeds],
 };
 
 function Community() {
