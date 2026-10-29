@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, ArrowUpRight, Menu } from "lucide-react";
+import { ArrowUp, Menu } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { profile } from "@/lib/portfolio-data";
-import { cn } from "@/lib/utils";
 
 const navigation = [
   { to: "/", label: "Home" },
@@ -70,33 +69,11 @@ export function SiteHeader() {
                   Contact me
                 </Link>
               </SheetClose>
-              <ResumeLink variant="neu" />
             </div>
           </SheetContent>
         </Sheet>
       </div>
     </header>
-  );
-}
-
-/** Opens the resume in a new tab; renders nothing until `profile.resumeUrl` is set. */
-export function ResumeLink({
-  variant = "neu",
-  className,
-}: {
-  variant?: "primary" | "neu" | "light" | "ghost";
-  className?: string;
-}) {
-  if (!profile.resumeUrl) return null;
-  return (
-    <a
-      className={cn("btn", `btn--${variant}`, className)}
-      href={profile.resumeUrl}
-      target="_blank"
-      rel="noreferrer"
-    >
-      Resume <ArrowUpRight aria-hidden="true" />
-    </a>
   );
 }
 
@@ -119,9 +96,6 @@ export function SiteFooter() {
           ))}
           <Link to="/contact">Contact</Link>
         </nav>
-        <div className="footer-cta">
-          <ResumeLink />
-        </div>
       </div>
       <div className="container footer-bottom">
         <span>

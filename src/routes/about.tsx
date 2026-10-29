@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { ResumeLink } from "@/components/portfolio-shell";
 import { ChipList, NeuCard, SectionHead } from "@/components/site-ui";
 import { facts, pageHead, photos, skillGroups } from "@/lib/portfolio-data";
 
@@ -71,7 +70,6 @@ function About() {
               <Link to="/research" className="btn btn--primary">
                 See my research <ArrowRight aria-hidden="true" />
               </Link>
-              <ResumeLink />
             </div>
           </div>
         </div>

@@ -1937,10 +1937,34 @@ main {
   color: var(--text);
 }
 
+.story-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+}
+
 .story-note {
   margin-top: 16px;
   font-size: 14px;
   color: var(--muted-foreground);
+}
+
+.lightbox-video {
+  display: block;
+  width: 100%;
+  max-height: 75dvh;
+  object-fit: contain;
+  background: var(--overlay);
+}
+
+.mosaic-all.workshop-video-trigger {
+  display: flex;
+  max-width: 100%;
+  text-align: left;
+}
+
+.workshop-video-trigger svg {
+  flex-shrink: 0;
 }
 
 .mosaic {
@@ -2382,7 +2406,7 @@ main {
 
 .footer-top {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.4fr) auto;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.4fr);
   align-items: start;
   gap: 56px;
   padding-block: 64px 48px;
@@ -2541,10 +2565,6 @@ main {
 
   .footer-top {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-
-  .footer-cta {
-    grid-column: 1 / -1;
   }
 }
 

@@ -1,3 +1,5 @@
+import countryDelightVideo from "@/assets/videos/country-delight-workshop.mp4";
+
 // Photos and evidence images are bundled from src/assets; each has a small thumbnail for grids.
 const imageFiles = import.meta.glob<string>(
   ["../assets/photos/*.jpg", "../assets/evidence/*.jpg"],
@@ -33,8 +35,6 @@ export const profile = {
   city: "Dubai",
   location: "Dubai, United Arab Emirates",
   tagline: "Exploring the intersection of cognitive science, computer science, economics and music",
-  // Resume link for the Resume buttons; they stay hidden while this is empty.
-  resumeUrl: "",
   // Contact details appear on the contact page once they are filled in.
   email: "mehak.dhawan0206@gmail.com",
   linkedin: "",
@@ -97,6 +97,15 @@ export interface Photo {
   focus?: "top" | "upper";
   /** Show the whole image in its tile instead of cropping it (for slides). */
   fit?: "contain";
+}
+
+export interface VideoClip {
+  src: string;
+  poster: Photo;
+  title: string;
+  caption: string;
+  width: number;
+  height: number;
 }
 
 export const photos = {
@@ -288,6 +297,46 @@ export const photos = {
     caption: "Presenting SolarSoil",
     focus: "upper",
   },
+  countryDelightPresentation: {
+    ...asset("photos", "country-delight-presentation"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak presenting Kindling with a microphone to employees at Country Delight",
+    caption: "Presenting Kindling at Country Delight",
+    focus: "upper",
+  },
+  countryDelightDiscussion: {
+    ...asset("photos", "country-delight-discussion"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak discussing Kindling with employees at their desks during a Country Delight workshop",
+    caption: "A discussion during the workplace workshop",
+    focus: "upper",
+  },
+  countryDelightConversation: {
+    ...asset("photos", "country-delight-conversation"),
+    width: 1050,
+    height: 1400,
+    alt: "Mehak sharing workshop materials with a small group at Country Delight",
+    caption: "Sharing workshop materials with employees",
+    focus: "upper",
+  },
+  countryDelightAudience: {
+    ...asset("photos", "country-delight-audience"),
+    width: 1050,
+    height: 1400,
+    alt: "Country Delight employees taking part in the workshop with Kindling materials",
+    caption: "Participants at the Country Delight workshop",
+    focus: "upper",
+  },
+  technovationAnnouncement: {
+    ...asset("evidence", "technovation-announcement"),
+    width: 1131,
+    height: 1391,
+    alt: "Technovation’s announcement celebrating Kindling as the 2026 Break the Scroll Prize winner",
+    caption: "Technovation’s public announcement of the Break the Scroll Prize",
+    fit: "contain",
+  },
   pianoGrand: {
     ...asset("photos", "piano-grand"),
     width: 768,
@@ -309,6 +358,11 @@ export interface ExternalLink {
   href: string;
   label: string;
 }
+
+export const technovationArticle: ExternalLink = {
+  href: "https://www.technovation.org/blogs/break-the-scroll-prize-2026-winner-kindling",
+  label: "Read Technovation’s feature",
+};
 
 export interface Stat {
   value: string;
@@ -632,9 +686,11 @@ export interface Engagement {
   text: string;
   points?: string[];
   link?: ExternalLink;
+  links?: ExternalLink[];
   /** Certificates and letters shown with this entry. */
   evidence?: EvidenceId[];
   photo?: Photo;
+  video?: VideoClip;
 }
 
 export const experience: Engagement[] = [
@@ -650,6 +706,16 @@ export const experience: Engagement[] = [
       "₹18 lakh pre-seed funding committed by Country Delight",
     ],
     evidence: ["letterLearnovate", "technovation"],
+    links: [
+      {
+        href: "https://play.google.com/store/apps/details?id=com.harshitaforever.Kindling&pcampaignid=web_share",
+        label: "Get Kindling on Google Play",
+      },
+      {
+        href: "https://apps.apple.com/ae/app/kindling-parent-app/id6766782971",
+        label: "Download Kindling on the App Store",
+      },
+    ],
   },
   {
     id: "mywonder",
@@ -715,6 +781,7 @@ export const community: Engagement[] = [
     id: "digisakhi",
     organisation: "DigiSakhi",
     role: "Founder · Digital and financial empowerment",
+    link: { href: "https://www.digi-sakhi.com", label: "Visit DigiSakhi" },
     text: "I founded DigiSakhi after noticing a gap in digital inclusion: many women have access to technology, yet lack the confidence, practical knowledge or support to use it independently. I began on the ground with 25 women across eight sessions over two months, then developed DigiSakhi into a vernacular learning platform of bite-sized videos and blogs, expanding through student-led chapters and community partnerships.",
     points: [
       "More than 15,000 women reached across four Indian states",
@@ -754,6 +821,15 @@ export const community: Engagement[] = [
       "Two core proposals formally adopted into the company’s updated HR policy",
       "₹18 lakh in pre-seed funding committed to Kindling",
     ],
+    video: {
+      src: countryDelightVideo,
+      poster: photos.countryDelightPresentation,
+      title: "Watch the Country Delight workshop · 20 seconds",
+      caption:
+        "Mehak presenting Kindling to Country Delight employees. Attendees’ faces are blurred.",
+      width: 576,
+      height: 1024,
+    },
   },
   {
     id: "math-captain",
@@ -1084,6 +1160,15 @@ export interface MediaItem {
 
 export const media: MediaItem[] = [
   {
+    outlet: "Technovation",
+    kind: "Article",
+    date: "2026",
+    title: "Meet Kindling, the 2026 Break the Scroll Prize Winner",
+    text: "Technovation’s feature on Kindling’s Break the Scroll Prize and its approach to helping parents and teens reconnect through conversations and shared activities.",
+    href: technovationArticle.href,
+    image: photos.technovationAnnouncement,
+  },
+  {
     outlet: "ETEducation, The Economic Times",
     kind: "Article",
     date: "29 September 2026",
@@ -1262,12 +1347,14 @@ export const evidence = {
     {
       title: "Technovation Break the Scroll Prize",
       issuer: "Technovation",
-      date: "July 2026",
-      kind: "Award email",
+      date: "2026",
+      kind: "Award announcement",
       description:
-        "Team Kindling selected as winner of the 2025–2026 Break the Scroll Prize, with $500 for each student team member.",
+        "Award email and Technovation’s public announcement celebrating Team Kindling as winner of the 2025–2026 Break the Scroll Prize, with $500 for each student team member.",
     },
-    ["technovation-break-the-scroll"],
+    ["technovation-break-the-scroll", "technovation-announcement"],
+    undefined,
+    technovationArticle,
   ),
   curtin: doc(
     {

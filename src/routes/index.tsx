@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { ResumeLink } from "@/components/portfolio-shell";
 import { Icon, SectionHead } from "@/components/site-ui";
 import { pageHead, photos, principles, profile } from "@/lib/portfolio-data";
 
@@ -38,7 +37,6 @@ function Index() {
               <Link to="/experience" className="btn btn--neu">
                 See my work
               </Link>
-              <ResumeLink />
             </div>
           </div>
           <div className="hero-portrait reveal">

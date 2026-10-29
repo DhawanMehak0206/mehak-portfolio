@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { ResumeLink } from "@/components/portfolio-shell";
-import { Band, BandHead, NeuCard, PageHeader } from "@/components/site-ui";
+import { NeuCard, PageHeader } from "@/components/site-ui";
 import { pageHead, profile } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/contact")({
@@ -66,17 +65,6 @@ function Contact() {
           </NeuCard>
         </div>
       </section>
-
-      {profile.resumeUrl && (
-        <Band labelledBy="resume-heading">
-          <BandHead id="resume-heading" title="Resume">
-            My education, research, projects and recognition on one page.
-          </BandHead>
-          <div className="band-actions">
-            <ResumeLink variant="light" />
-          </div>
-        </Band>
-      )}
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { EvidenceStrip } from "@/components/evidence";
 import { PhotoMosaic } from "@/components/gallery";
 import { CheckList } from "@/components/site-ui";
+import { WorkshopVideo } from "@/components/workshop-video";
 import type { Engagement, Photo } from "@/lib/portfolio-data";
 
 /**
@@ -18,6 +19,7 @@ export function Story({
   photos: Photo[];
   children?: ReactNode;
 }) {
+  const links = [...(item.link ? [item.link] : []), ...(item.links ?? [])];
   return (
     <article className="story" id={item.id}>
       <div className="story-copy">
@@ -25,16 +27,27 @@ export function Story({
         <h2 className="story-title">{item.organisation}</h2>
         <p className="story-text">{item.text}</p>
         {item.points && <CheckList items={item.points} />}
-        {item.link && (
-          <a className="text-link" href={item.link.href} target="_blank" rel="noreferrer">
-            {item.link.label} <ArrowUpRight aria-hidden="true" />
-          </a>
+        {links.length > 0 && (
+          <div className="story-links">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                className="text-link"
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label} <ArrowUpRight aria-hidden="true" />
+              </a>
+            ))}
+          </div>
         )}
         {item.evidence && <EvidenceStrip ids={item.evidence} />}
         {children}
       </div>
       <div className="story-media">
         <PhotoMosaic photos={photos} label={`${item.organisation} photos`} />
+        {item.video && <WorkshopVideo video={item.video} />}
       </div>
     </article>
   );

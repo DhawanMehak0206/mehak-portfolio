@@ -31,6 +31,12 @@ const storyPhotos: Record<string, Photo[]> = {
     photos.kindlingOnline,
     photos.kindlingConnectSupport,
   ],
+  "country-delight": [
+    photos.countryDelightPresentation,
+    photos.countryDelightDiscussion,
+    photos.countryDelightConversation,
+    photos.countryDelightAudience,
+  ],
 };
 
 function Community() {
@@ -57,7 +63,7 @@ function Community() {
       <section className="section section--white" aria-labelledby="more-heading">
         <div className="container">
           <h2 className="subsection-title subsection-title--first" id="more-heading">
-            In school and the workplace
+            In school
           </h2>
           <div className="grid-2">
             {others.map((item) => (
