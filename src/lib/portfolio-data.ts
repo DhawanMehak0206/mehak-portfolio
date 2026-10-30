@@ -611,7 +611,6 @@ export const research: ResearchEntry[] = [
       label: "Read the paper on IJSSRR",
     },
     evidence: [
-      "letterNandKumar",
       "gcrBestPresenter",
       "mnluSeminar",
       "gcrColloquium",
@@ -751,7 +750,6 @@ export const experience: Engagement[] = [
     organisation: "Delhi Technological University",
     role: "Research Intern, Economics",
     text: "With Dr. Nand Kumar, I investigated the determinants of foreign direct investment into India between 1993 and 2022 using OLS regression, ARDL bounds testing and Granger-causality analysis. Dr. Kumar also mentored my research on women’s financial inclusion.",
-    evidence: ["letterNandKumar"],
   },
   {
     id: "curtin",
@@ -1512,17 +1510,6 @@ export const evidence = {
         "On the technology bootcamp for young women that I designed and led during summer 2025.",
     },
     ["letter-tctf-p1", "letter-tctf-p2"],
-  ),
-  letterNandKumar: doc(
-    {
-      title: "Prof. Nand Kumar: letter of recommendation",
-      issuer: "Prof. Nand Kumar, Professor of Economics, Delhi Technological University",
-      date: "September 2026",
-      kind: "Letter of recommendation",
-      description:
-        "From my research mentor since October 2025, on my empirical study of the gender gap in financial inclusion, the fieldwork behind it, and how it informed DigiSakhi.",
-    },
-    ["letter-nand-kumar-p1", "letter-nand-kumar-p2"],
   ),
   letterMyWonder: doc(
     {
