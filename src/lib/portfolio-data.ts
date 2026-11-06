@@ -699,7 +699,7 @@ export const experience: Engagement[] = [
     role: "Founder",
     text: "Kindling is a context-aware, emotionally intelligent app designed to strengthen parent–adolescent relationships. Developed in consultation with professional psychologists, it offers an AI-powered chatbot, conversation starters, activity suggestions, smart reminders and parenting tips tailored to each family. I didn’t want to build another app competing for a family’s attention; Kindling is designed to help people put their phones down and reconnect.",
     points: [
-      "Piloted with Learnovate across 8 schools in the KIIT JEE network, engaging about 2,500–3,000 families",
+      "Piloted with Learnovate across 8 schools in the KIIT JEE network, eventually engaging more than 15,000 families",
       "Technovation Girls semifinalist, the only UAE-based project to advance",
       "Winner of the 2025–2026 Technovation Break the Scroll Prize",
       "₹18 lakh pre-seed funding committed by Country Delight",
