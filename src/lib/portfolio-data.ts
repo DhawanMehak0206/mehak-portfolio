@@ -371,7 +371,7 @@ export interface Stat {
 }
 
 export const highlights: Stat[] = [
-  { value: "15,000+", label: "Women reached through DigiSakhi" },
+  { value: "16,000+", label: "Women reached through DigiSakhi" },
   { value: "2", label: "Published research papers" },
   { value: "₹18 lakh", label: "Pre-seed funding committed to Kindling" },
   { value: "150+", label: "Students tutored in competition mathematics" },
@@ -405,7 +405,7 @@ export const roles: Feature[] = [
   {
     icon: "rocket",
     title: "Founder",
-    text: "I founded DigiSakhi, which has reached more than 15,000 women across four Indian states, and Kindling, an app designed to help parents and teenagers reconnect.",
+    text: "I founded DigiSakhi, which has reached more than 16,000 women across four Indian states, and Kindling, an app designed to help parents and teenagers reconnect.",
   },
   {
     icon: "flask",
@@ -782,7 +782,7 @@ export const community: Engagement[] = [
     link: { href: "https://www.digi-sakhi.com", label: "Visit DigiSakhi" },
     text: "I founded DigiSakhi after noticing a gap in digital inclusion: many women have access to technology, yet lack the confidence, practical knowledge or support to use it independently. I began on the ground with 25 women across eight sessions over two months, then developed DigiSakhi into a vernacular learning platform of bite-sized videos and blogs, expanding through student-led chapters and community partnerships.",
     points: [
-      "More than 15,000 women reached across four Indian states",
+      "More than 16,000 women reached across four Indian states",
       "Supported by more than 10 student chapters",
       "Learning content integrated into Frontier Markets’ Meri Saheli network, alongside 20+ workshops and community sessions",
       "Pre-seed support from Opternix, valued at about ₹5 lakh",
@@ -815,7 +815,7 @@ export const community: Engagement[] = [
     role: "Family-friendly workplace policy",
     text: "Following workshops with Country Delight, I presented its executive team with a five-point family-wellness policy framework covering childcare assistance, caregiving support and structured family leave.",
     points: [
-      "Designed and led over 30 workshops, reaching nearly 11,000 members of the company’s workforce community",
+      "Designed and led over 30 workshops, reaching nearly 13,000 members of 5+ organizations’ workforce communities",
       "Two core proposals formally adopted into the company’s updated HR policy",
       "₹18 lakh in pre-seed funding committed to Kindling",
     ],
