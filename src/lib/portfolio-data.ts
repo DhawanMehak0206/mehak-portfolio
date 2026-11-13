@@ -1530,7 +1530,7 @@ export const evidence = {
       description:
         "On DigiSakhi’s chapter-based model, about 10 student-led chapters across several Indian states, and Opternix’s pre-seed support valued at about ₹5 lakh.",
     },
-    ["letter-opternix"],
+    ["letter-opternix-p1", "letter-opternix-p2"],
   ),
   letterNutanMarathi: doc(
     {
