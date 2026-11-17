@@ -1335,11 +1335,11 @@ export const evidence = {
       title: "CREST Gold Award",
       issuer: "British Science Association",
       date: "June 2026",
-      kind: "Award email",
+      kind: "Certificate and award email",
       description:
-        "Assessment result for “Quantifying Tonal Stability and Key Ambiguity Across Musical Genres”, awarded CREST Gold.",
+        "CREST Gold certificate and assessment result for “Quantifying Tonal Stability and Key Ambiguity Across Musical Genres”.",
     },
-    ["crest-gold"],
+    ["crest-gold-certificate", "crest-gold"],
   ),
   technovation: doc(
     {
