@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Band, BandHead, BandStats, CheckList, NeuCard, PageHeader } from "@/components/site-ui";
-import { EvidenceButton, HonoursSection } from "@/components/evidence";
+import { EvidenceButton, EvidenceStrip, HonoursSection } from "@/components/evidence";
 import { education, honoursByPage, pageHead, scores } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/education")({
@@ -41,6 +41,7 @@ function Education() {
           Standardised tests, Advanced Placement examinations and language certifications.
         </BandHead>
         <BandStats items={scores} label="Examination results" />
+        <EvidenceStrip ids={["delfB2"]} title="Language certification" />
       </Band>
 
       <HonoursSection id="education-honours" items={honoursByPage.education} white>

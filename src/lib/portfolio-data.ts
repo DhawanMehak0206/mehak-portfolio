@@ -1330,6 +1330,17 @@ export const evidence = {
     },
     ["ipsyo-highest-distinction", "ipsyo-regional-top-six"],
   ),
+  delfB2: doc(
+    {
+      title: "DELF B2 diploma",
+      issuer: "France Éducation international",
+      date: "February 2026",
+      kind: "Diploma",
+      description:
+        "Diplôme d’études en langue française at level B2 of the Common European Framework of Reference for Languages.",
+    },
+    ["delf-b2"],
+  ),
   crest: doc(
     {
       title: "CREST Gold Award",
